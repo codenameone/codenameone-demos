@@ -63,6 +63,7 @@
 
     <target name="build-for-ios-device" depends="clean,jar">
         <codeNameOne 
+            url="http://localhost:8888"
             jarFile="${dist.jar}"
             displayName="${codename1.displayName}"
             packageName = "${codename1.packageName}"
@@ -73,9 +74,30 @@
             subtitle="${codename1.secondaryTitle}"
             
             targetType="iphone"
-            certificate="${codename1.ios.certificate}"
-            certPassword="${codename1.ios.certificatePassword}"
-            provisioningProfile="${codename1.ios.provision}"
+            certificate="${codename1.ios.debug.certificate}"
+            certPassword="${codename1.ios.debug.certificatePassword}"
+            provisioningProfile="${codename1.ios.debug.provision}"
+            appid="${codename1.ios.appid}"
+            />
+    </target>
+
+    <target name="build-for-ios-device-release" depends="clean,jar">
+        <codeNameOne 
+            url="http://localhost:8888"
+            jarFile="${dist.jar}"
+            displayName="${codename1.displayName}"
+            packageName = "${codename1.packageName}"
+            mainClassName = "${codename1.mainName}"
+            version="${codename1.version}"
+            icon="${codename1.icon}"
+            vendor="${codename1.vendor}"
+            subtitle="${codename1.secondaryTitle}"
+            
+            targetType="iphone"
+            certificate="${codename1.ios.release.certificate}"
+            certPassword="${codename1.ios.release.certificatePassword}"
+            provisioningProfile="${codename1.ios.release.provision}"
+            appid="${codename1.ios.appid}"
             />
     </target>
 
