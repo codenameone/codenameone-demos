@@ -63,7 +63,6 @@
 
     <target name="build-for-ios-device" depends="clean,jar">
         <codeNameOne 
-            url="http://localhost:8888"
             jarFile="${dist.jar}"
             displayName="${codename1.displayName}"
             packageName = "${codename1.packageName}"
@@ -83,7 +82,6 @@
 
     <target name="build-for-ios-device-release" depends="clean,jar">
         <codeNameOne 
-            url="http://localhost:8888"
             jarFile="${dist.jar}"
             displayName="${codename1.displayName}"
             packageName = "${codename1.packageName}"
