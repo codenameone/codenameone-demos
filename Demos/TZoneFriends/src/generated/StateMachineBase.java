@@ -36,7 +36,7 @@ public abstract class StateMachineBase extends UIBuilder {
         if(loadTheme) {
             if(res == null) {
                 try {
-                    res = Resources.open(resPath);
+                    res = Resources.openLayered(resPath);
                 } catch(java.io.IOException err) { err.printStackTrace(); }
             }
             initTheme(res);
@@ -67,7 +67,7 @@ public abstract class StateMachineBase extends UIBuilder {
         if(loadTheme) {
             if(res == null) {
                 try {
-                    res = Resources.open(resPath);
+                    res = Resources.openLayered(resPath);
                 } catch(java.io.IOException err) { err.printStackTrace(); }
             }
             initTheme(res);
@@ -181,36 +181,36 @@ public abstract class StateMachineBase extends UIBuilder {
         return (com.codename1.ui.List)findByName("timeSlider", root);
     }
 
-    public com.codename1.ui.Label findDayOrNight(Container root) {
-        return (com.codename1.ui.Label)findByName("dayOrNight", root);
-    }
-
     public com.codename1.ui.Container findRenderer(Container root) {
         return (com.codename1.ui.Container)findByName("Renderer", root);
+    }
+
+    public com.codename1.ui.Label findDayOrNight(Container root) {
+        return (com.codename1.ui.Label)findByName("dayOrNight", root);
     }
 
     public com.codename1.ui.Button findButton(Container root) {
         return (com.codename1.ui.Button)findByName("Button", root);
     }
 
-    public com.codename1.ui.Label findTitle(Container root) {
-        return (com.codename1.ui.Label)findByName("title", root);
-    }
-
     public com.codename1.ui.CheckBox findSelected(Container root) {
         return (com.codename1.ui.CheckBox)findByName("selected", root);
+    }
+
+    public com.codename1.ui.Label findTitle(Container root) {
+        return (com.codename1.ui.Label)findByName("title", root);
     }
 
     public com.codename1.ui.Dialog findAddZone(Container root) {
         return (com.codename1.ui.Dialog)findByName("AddZone", root);
     }
 
-    public com.codename1.ui.Container findZoneRenderer(Container root) {
-        return (com.codename1.ui.Container)findByName("ZoneRenderer", root);
-    }
-
     public com.codename1.ui.Label findLabel1(Container root) {
         return (com.codename1.ui.Label)findByName("Label1", root);
+    }
+
+    public com.codename1.ui.Container findZoneRenderer(Container root) {
+        return (com.codename1.ui.Container)findByName("ZoneRenderer", root);
     }
 
     public com.codename1.ui.Label findDescription(Container root) {
@@ -355,13 +355,13 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
     protected void exitForm(Form f) {
-        if("ZoneRenderer".equals(f.getName())) {
-            exitZoneRenderer(f);
+        if("Friend".equals(f.getName())) {
+            exitFriend(f);
             return;
         }
 
-        if("Friend".equals(f.getName())) {
-            exitFriend(f);
+        if("ZoneRenderer".equals(f.getName())) {
+            exitZoneRenderer(f);
             return;
         }
 
@@ -393,11 +393,11 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void exitZoneRenderer(Form f) {
+    protected void exitFriend(Form f) {
     }
 
 
-    protected void exitFriend(Form f) {
+    protected void exitZoneRenderer(Form f) {
     }
 
 
@@ -421,13 +421,13 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
     protected void beforeShow(Form f) {
-        if("ZoneRenderer".equals(f.getName())) {
-            beforeZoneRenderer(f);
+        if("Friend".equals(f.getName())) {
+            beforeFriend(f);
             return;
         }
 
-        if("Friend".equals(f.getName())) {
-            beforeFriend(f);
+        if("ZoneRenderer".equals(f.getName())) {
+            beforeZoneRenderer(f);
             return;
         }
 
@@ -459,11 +459,11 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void beforeZoneRenderer(Form f) {
+    protected void beforeFriend(Form f) {
     }
 
 
-    protected void beforeFriend(Form f) {
+    protected void beforeZoneRenderer(Form f) {
     }
 
 
@@ -487,13 +487,13 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
     protected void beforeShowContainer(Container c) {
-        if("ZoneRenderer".equals(c.getName())) {
-            beforeContainerZoneRenderer(c);
+        if("Friend".equals(c.getName())) {
+            beforeContainerFriend(c);
             return;
         }
 
-        if("Friend".equals(c.getName())) {
-            beforeContainerFriend(c);
+        if("ZoneRenderer".equals(c.getName())) {
+            beforeContainerZoneRenderer(c);
             return;
         }
 
@@ -525,11 +525,11 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void beforeContainerZoneRenderer(Container c) {
+    protected void beforeContainerFriend(Container c) {
     }
 
 
-    protected void beforeContainerFriend(Container c) {
+    protected void beforeContainerZoneRenderer(Container c) {
     }
 
 
@@ -553,13 +553,13 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
     protected void postShow(Form f) {
-        if("ZoneRenderer".equals(f.getName())) {
-            postZoneRenderer(f);
+        if("Friend".equals(f.getName())) {
+            postFriend(f);
             return;
         }
 
-        if("Friend".equals(f.getName())) {
-            postFriend(f);
+        if("ZoneRenderer".equals(f.getName())) {
+            postZoneRenderer(f);
             return;
         }
 
@@ -591,11 +591,11 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void postZoneRenderer(Form f) {
+    protected void postFriend(Form f) {
     }
 
 
-    protected void postFriend(Form f) {
+    protected void postZoneRenderer(Form f) {
     }
 
 
@@ -619,13 +619,13 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
     protected void postShowContainer(Container c) {
-        if("ZoneRenderer".equals(c.getName())) {
-            postContainerZoneRenderer(c);
+        if("Friend".equals(c.getName())) {
+            postContainerFriend(c);
             return;
         }
 
-        if("Friend".equals(c.getName())) {
-            postContainerFriend(c);
+        if("ZoneRenderer".equals(c.getName())) {
+            postContainerZoneRenderer(c);
             return;
         }
 
@@ -657,11 +657,11 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void postContainerZoneRenderer(Container c) {
+    protected void postContainerFriend(Container c) {
     }
 
 
-    protected void postContainerFriend(Container c) {
+    protected void postContainerZoneRenderer(Container c) {
     }
 
 
@@ -685,13 +685,13 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
     protected void onCreateRoot(String rootName) {
-        if("ZoneRenderer".equals(rootName)) {
-            onCreateZoneRenderer();
+        if("Friend".equals(rootName)) {
+            onCreateFriend();
             return;
         }
 
-        if("Friend".equals(rootName)) {
-            onCreateFriend();
+        if("ZoneRenderer".equals(rootName)) {
+            onCreateZoneRenderer();
             return;
         }
 
@@ -723,11 +723,11 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void onCreateZoneRenderer() {
+    protected void onCreateFriend() {
     }
 
 
-    protected void onCreateFriend() {
+    protected void onCreateZoneRenderer() {
     }
 
 
@@ -774,15 +774,15 @@ public abstract class StateMachineBase extends UIBuilder {
         if(rootContainerAncestor == null) return;
         String rootContainerName = rootContainerAncestor.getName();
         if(rootContainerName == null) return;
-        if(rootContainerName.equals("ZoneRenderer")) {
-            if("selected".equals(c.getName())) {
-                onZoneRenderer_SelectedAction(c, event);
-                return;
-            }
-        }
         if(rootContainerName.equals("Friend")) {
             if("removeFriend".equals(c.getName())) {
                 onFriend_RemoveFriendAction(c, event);
+                return;
+            }
+        }
+        if(rootContainerName.equals("ZoneRenderer")) {
+            if("selected".equals(c.getName())) {
+                onZoneRenderer_SelectedAction(c, event);
                 return;
             }
         }
@@ -842,10 +842,10 @@ public abstract class StateMachineBase extends UIBuilder {
         }
     }
 
-      protected void onZoneRenderer_SelectedAction(Component c, ActionEvent event) {
+      protected void onFriend_RemoveFriendAction(Component c, ActionEvent event) {
       }
 
-      protected void onFriend_RemoveFriendAction(Component c, ActionEvent event) {
+      protected void onZoneRenderer_SelectedAction(Component c, ActionEvent event) {
       }
 
       protected void onMainUI_TimeSliderAction(Component c, ActionEvent event) {

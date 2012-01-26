@@ -43,7 +43,7 @@ public class Main {
      * Invoked to start or resume the application
      */
     public void start() {
-        new StateMachine("/timeline.res");
+        new StateMachine("/timeline");
     }
     
     /**
