@@ -109,6 +109,9 @@
             <fileset dir="override" includes="**/*_phone.ovr"/>
             <fileset dir="override" includes="**/*_tablet.ovr"/>
         </copy>
+        <copy todir="${build.classes.dir}">
+            <fileset dir="native/android" includes="**/*"/>
+        </copy>
     </target>
     
     <target name="copy-ios-override">
@@ -121,6 +124,9 @@
             <fileset dir="override" includes="**/*_phone.ovr"/>
             <fileset dir="override" includes="**/*_tablet.ovr"/>
         </copy>
+        <copy todir="${build.classes.dir}">
+            <fileset dir="native/ios" includes="**/*"/>
+        </copy>
     </target>
         
     <target name="copy-rim-override">
@@ -129,6 +135,9 @@
         <copy todir="${build.classes.dir}">
             <fileset dir="override" includes="**/*_rim.ovr"/>
             <fileset dir="override" includes="**/*_phone.ovr"/>
+        </copy>
+        <copy todir="${build.classes.dir}">
+            <fileset dir="native/rim" includes="**/*"/>
         </copy>
     </target>
 
@@ -139,11 +148,17 @@
             <fileset dir="override" includes="**/*_me.ovr"/>
             <fileset dir="override" includes="**/*_phone.ovr"/>
         </copy>
+        <copy todir="${build.classes.dir}">
+            <fileset dir="native/j2me" includes="**/*"/>
+        </copy>
     </target>
 
     <target name="clean-override">
         <delete>
             <fileset dir="build/classes" includes="**/*.ovr"/>
+            <fileset dir="build/classes" includes="**/*.java"/>
+            <fileset dir="build/classes" includes="**/*.m"/>
+            <fileset dir="build/classes" includes="**/*.h"/>
         </delete>
     </target>
     
