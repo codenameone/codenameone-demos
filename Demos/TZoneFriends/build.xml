@@ -92,6 +92,7 @@
             vendor="${codename1.vendor}"
             subtitle="${codename1.secondaryTitle}"
             
+            appStoreBuild="true"
             targetType="iphone"
             certificate="${codename1.ios.release.certificate}"
             certPassword="${codename1.ios.release.certificatePassword}"
