@@ -25,6 +25,7 @@ package com.codename1;
 
 import com.codename1.capture.Capture;
 import com.codename1.ui.Button;
+import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -59,7 +60,7 @@ public class CameraDemo {
         final Form f = new Form("Camera");
         f.setLayout(new BorderLayout());
         f.setScrollable(false);
-        Button b = new Button("take pic");
+        Button b = new Button("Take A Picture");
         final Label l = new Label();
         f.addComponent(BorderLayout.CENTER, l);
 
@@ -81,7 +82,7 @@ public class CameraDemo {
                             System.out.println("path " + path);
                             is = com.codename1.io.FileSystemStorage.getInstance().openInputStream(path);
                             Image i = Image.createImage(is);
-                            l.setIcon(i.scaledWidth(100));
+                            l.setIcon(i.scaledWidth(300));
                             f.revalidate();
                         } catch (Exception ex) {
                             ex.printStackTrace();
@@ -97,7 +98,9 @@ public class CameraDemo {
 
             }
         });
-        f.addComponent(BorderLayout.SOUTH, b);
+        ComponentGroup g = new ComponentGroup();
+        g.addComponent(b);
+        f.addComponent(BorderLayout.SOUTH, g);
         f.show();
     }
 
