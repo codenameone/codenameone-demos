@@ -73,7 +73,7 @@
             icon="${codename1.icon}"
             vendor="${codename1.vendor}"
             subtitle="${codename1.secondaryTitle}"
-            
+            includeSource="true"
             targetType="iphone"
             certificate="${codename1.ios.debug.certificate}"
             certPassword="${codename1.ios.debug.certificatePassword}"

@@ -22,6 +22,7 @@
  */
 package com.codename1.demos.kitchen;
 
+import com.codename1.ui.CheckBox;
 import com.codename1.ui.Container;
 import com.codename1.ui.Image;
 import com.codename1.ui.Tabs;
@@ -41,7 +42,7 @@ public class Components  extends Demo {
     }
 
     public Image getDemoIcon() {
-        return getResources().getImage("chest.png");
+        return getResources().getImage("applications-engineering.png");
     }
 
     private Container createSpinnerDemo() {

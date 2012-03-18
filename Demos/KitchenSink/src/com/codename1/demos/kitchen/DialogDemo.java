@@ -22,41 +22,61 @@
  */
 package com.codename1.demos.kitchen;
 
-import com.codename1.components.MediaPlayer;
+import com.codename1.capture.Capture;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Container;
-import com.codename1.ui.Display;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Image;
+import com.codename1.ui.Label;
+import com.codename1.ui.TextArea;
+import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  *
  * @author Shai Almog
  */
-public class Video  extends Demo {
+public class DialogDemo extends Demo {
 
     public String getDisplayName() {
-        return "Video";
+        return "Dialogs";
     }
 
     public Image getDemoIcon() {
-        return getResources().getImage("avidemux.png");
+        return getResources().getImage("gtk-dialog-question.png");
     }
 
     public Container createDemo() {
-        Container player = new Container(new BorderLayout());
-        final MediaPlayer mp = new MediaPlayer();
-        try {
-            mp.setDataSource(Display.getInstance().getResourceAsStream(getClass(), "/video.mp4"), "video/mp4", null);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        player.addComponent(BorderLayout.CENTER, mp);
-        return player;
+        final ComponentGroup cnt = new ComponentGroup();
+        final Button show = new Button("Show Dialog");
+        final Button showPopup = new Button("Show Popup");
+        cnt.addComponent(show);
+        cnt.addComponent(showPopup);
+        show.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                Dialog.show("Dialog Title", "This is the dialog body, it can contain anything...", "OK", "Cancel");
+            }
+        });
+        showPopup.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                Dialog d = new Dialog("Popup Title");
+                TextArea popupBody = new TextArea("This is the body of the popup", 3, 10);
+                popupBody.setUIID("Label");
+                popupBody.setEditable(false);
+                d.setLayout(new BorderLayout());
+                d.addComponent(BorderLayout.CENTER, popupBody);
+                d.setTransitionInAnimator(CommonTransitions.createEmpty());
+                d.setTransitionOutAnimator(CommonTransitions.createFade(300));
+                d.showPopupDialog(showPopup);
+            }
+        });
+        return cnt;
     }
     
 }

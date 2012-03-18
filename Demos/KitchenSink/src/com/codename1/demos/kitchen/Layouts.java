@@ -45,7 +45,7 @@ public class Layouts  extends Demo {
     }
 
     public Image getDemoIcon() {
-        return getResources().getImage("clipboard.png");
+        return getResources().getImage("view-left-right.png");
     }
 
     public Container createDemo() {
@@ -76,6 +76,8 @@ public class Layouts  extends Demo {
                 layouts.removeComponent(flowLayout);
                 layouts.removeComponent(flowCenterLayout);
                 layouts.removeComponent(gridLayout);
+                borderLayout.setVisible(false);
+                tableLayout.setVisible(false);
                 layouts.addComponent(BorderLayout.CENTER, boxYLayout);
                 layouts.addComponent(BorderLayout.EAST, boxXLayout);
                 layouts.addComponent(BorderLayout.WEST, flowLayout);
@@ -88,6 +90,8 @@ public class Layouts  extends Demo {
         });
         boxYLayout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                borderLayout.setVisible(true);
+                tableLayout.setVisible(true);
                 layouts.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
                 layouts.setShouldCalcPreferredSize(true);
                 layouts.animateLayout(800);
@@ -95,6 +99,8 @@ public class Layouts  extends Demo {
         });
         boxXLayout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                borderLayout.setVisible(true);
+                tableLayout.setVisible(true);
                 layouts.setLayout(new BoxLayout(BoxLayout.X_AXIS));
                 layouts.setShouldCalcPreferredSize(true);
                 layouts.animateLayout(800);
@@ -102,6 +108,8 @@ public class Layouts  extends Demo {
         });
         flowLayout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                borderLayout.setVisible(true);
+                tableLayout.setVisible(true);
                 layouts.setLayout(new FlowLayout());
                 layouts.setShouldCalcPreferredSize(true);
                 layouts.animateLayout(800);
@@ -109,6 +117,8 @@ public class Layouts  extends Demo {
         });
         flowCenterLayout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                borderLayout.setVisible(true);
+                tableLayout.setVisible(true);
                 layouts.setLayout(new FlowLayout(Component.CENTER));
                 layouts.setShouldCalcPreferredSize(true);
                 layouts.animateLayout(800);
@@ -116,6 +126,8 @@ public class Layouts  extends Demo {
         });
         gridLayout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                borderLayout.setVisible(true);
+                tableLayout.setVisible(true);
                 GridLayout g = new GridLayout(1, 1);
                 g.setAutoFit(true);
                 layouts.setLayout(g);
@@ -125,6 +137,8 @@ public class Layouts  extends Demo {
         });
         tableLayout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                borderLayout.setVisible(true);
+                tableLayout.setVisible(true);
                 layouts.setLayout(new TableLayout(3, 3));
 
                 // need to re-add the components since the layout requires a contraint

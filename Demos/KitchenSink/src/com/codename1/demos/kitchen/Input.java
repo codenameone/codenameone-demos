@@ -39,7 +39,7 @@ public class Input  extends Demo {
     }
 
     public Image getDemoIcon() {
-        return getResources().getImage("pen-01.png");
+        return getResources().getImage("abiword.png"); 
     }
 
     public Container createDemo() {

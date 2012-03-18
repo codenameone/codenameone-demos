@@ -47,12 +47,13 @@ public class Themes  extends Demo {
     }
 
     public Image getDemoIcon() {
-        return getResources().getImage("paint-01.png");
+        return getResources().getImage("preferences-desktop-theme.png");
     }
 
     public Container createDemo() {
         return null;
     }
+    
     public Container createDemo(final Form parentForm) {
         Container themes = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         ComponentGroup gp = new ComponentGroup();
@@ -103,6 +104,7 @@ public class Themes  extends Demo {
         Form c = Display.getInstance().getCurrent();
         c.refreshTheme();
         parentForm.refreshTheme();
+        parentForm.revalidate();
     }
 }
 

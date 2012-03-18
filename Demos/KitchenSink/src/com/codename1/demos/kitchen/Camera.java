@@ -45,7 +45,7 @@ public class Camera extends Demo {
     }
 
     public Image getDemoIcon() {
-        return getResources().getImage("camera.png");
+        return getResources().getImage("f-spot.png");
     }
 
     public Container createDemo() {

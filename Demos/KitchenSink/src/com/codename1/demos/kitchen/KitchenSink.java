@@ -29,6 +29,7 @@ import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
+import com.codename1.ui.Graphics;
 import com.codename1.ui.Label;
 import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
@@ -39,9 +40,12 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
+import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.codename1.ui.util.UITimer;
 import java.io.IOException;
+import java.util.Vector;
 
 public class KitchenSink {
     private Resources res;
@@ -57,8 +61,17 @@ public class KitchenSink {
     private Button createDemo(Demo d) {
         Button btn = new Button(d.getDisplayName(), d.getDemoIcon());
         btn.setUIID("DemoButton");
+        initDemoButtonMargin(btn.getUnselectedStyle());
+        initDemoButtonMargin(btn.getSelectedStyle());
+        initDemoButtonMargin(btn.getPressedStyle());
+        initDemoButtonMargin(btn.getDisabledStyle());
         btn.setTextPosition(Button.TOP);
         return btn;
+    }
+    
+    private void initDemoButtonMargin(Style s) {
+        s.setMargin(4, 0, 2, 2);
+        s.setMarginUnit(new byte[] {Style.UNIT_TYPE_DIPS, Style.UNIT_TYPE_DIPS, Style.UNIT_TYPE_DIPS, Style.UNIT_TYPE_DIPS});
     }
     
     /**
@@ -81,51 +94,113 @@ public class KitchenSink {
         return layered;
     }
     
+    private void showSplashAnimation() {
+        Form splash = new Form();
+        splash.setUIID("Splash");
+        splash.getContentPane().setUIID("Container");
+        splash.getTitleArea().setUIID("Container");
+        BorderLayout border = new BorderLayout();
+        border.setCenterBehavior(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE);
+        splash.setLayout(border);
+        splash.setScrollable(false);
+        Label title = new Label("Kitchen Sink Demo");
+        title.setUIID("SplashTitle");
+        Label subtitle = new Label("By Codename One");
+        subtitle.setUIID("SplashSubTitle");
+        splash.addComponent(BorderLayout.NORTH, title);
+        splash.addComponent(BorderLayout.SOUTH, subtitle);
+        Label beaker = new Label(res.getImage("beaker.png"));
+        Label beakerLogo = new Label(res.getImage("beaker_logo.png"));
+        Container layeredLayout = new Container(new LayeredLayout());
+        splash.addComponent(BorderLayout.CENTER, layeredLayout);
+        layeredLayout.addComponent(beaker);
+        Container logoParent = new Container(new BorderLayout());
+        layeredLayout.addComponent(logoParent);
+        logoParent.addComponent(BorderLayout.CENTER, beakerLogo);
+        splash.revalidate();
+        
+        beakerLogo.setX(0);
+        beakerLogo.setY(0);
+        beakerLogo.setWidth(3);
+        beakerLogo.setHeight(3);
+        logoParent.setShouldCalcPreferredSize(true);
+        logoParent.animateLayoutFade(2000, 0);
+        
+        splash.show();
+        splash.setTransitionOutAnimator(CommonTransitions.createFastSlide(CommonTransitions.SLIDE_VERTICAL, true, 300));
+        new UITimer(new Runnable() {
+            public void run() {
+                showMainUI();
+            }
+        }).schedule(2500, false, splash);
+    }
+    
     public void start(){
+        showSplashAnimation();
+    }
+
+    private void showMainUI() {
         final Form f = new Form("Kitchen Sink");
         Demo[] demos = new Demo[] {
-            new Camera(), new Input(),
-            new Layouts(), new Mail(),
-            new Themes(), new Video(),
-            new Web(), new Components()
+            new Effects(), new Layouts(), 
+            new DialogDemo(), new Contacts(), 
+            new Mail(), new Themes(), 
+            new Web(), new Components(),
+            new Video(), new Camera(), 
+            new WebServices(),new Input(),
         };
         for(int iter = 0 ; iter < demos.length ; iter++) {
             demos[iter].init(res);
         }
+        int componentsPerRow = 3;
         f.setLayout(new BorderLayout());
+        Container boxContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        boxContainer.setScrollableY(true);
+        Container currentRow = null;
         f.setScrollable(false);
-        if(!Display.getInstance().isTablet()) {
-            Container boxContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-            boxContainer.setScrollableY(true);
-            Container currentRow = null;
+        final Container runBox = new Container(new BorderLayout());
+        if(Display.getInstance().isTablet()) {
+            f.addComponent(BorderLayout.NORTH, wrapInShelves(boxContainer));
+            f.addComponent(BorderLayout.CENTER, wrapInShelves(runBox));
+            runBox.addComponent(BorderLayout.CENTER, demos[0].createDemo(f));
+            componentsPerRow = demos.length / 2 + demos.length % 2;
+        } else {
             f.addComponent(BorderLayout.CENTER, wrapInShelves(boxContainer));
-            
-            for(int iter = 0 ; iter < demos.length ; iter++) {
-                final Demo currentDemo = demos[iter];
-                Button b = createDemo(currentDemo);
-                
-                if(currentRow == null || currentRow.getComponentCount() > 2) {
-                    currentRow = new Container(new FlowLayout(Component.CENTER));
-                    
-                    Container layers = new Container(new LayeredLayout());
-                    Container shelfContainer = new Container(new BorderLayout());
-                    layers.addComponent(shelfContainer);
-                    layers.addComponent(currentRow);
-                    boxContainer.addComponent(layers);                    
-                    Label shelf = new Label(" ");
-                    shelf.setUIID("Shelf");
-                    
-                    // used to space the shelf down
-                    Label dl = new Label(" ");
-                    dl.setPreferredSize(b.getPreferredSize());
-                    shelfContainer.addComponent(BorderLayout.CENTER, dl);
-                    shelfContainer.addComponent(BorderLayout.SOUTH, shelf);
-                }
-                currentRow.addComponent(b);
-                
-                b.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        Container n = currentDemo.createDemo(f);
+        }
+
+        Vector shelves = new Vector();
+        Vector demoComponents = new Vector();
+        for(int iter = 0 ; iter < demos.length ; iter++) {
+            final Demo currentDemo = demos[iter];
+            Button b = createDemo(currentDemo);
+
+            if(currentRow == null || currentRow.getComponentCount() == componentsPerRow) {
+                currentRow = new Container(new FlowLayout(Component.CENTER));
+
+                Container layers = new Container(new LayeredLayout());
+                Container shelfContainer = new Container(new BorderLayout());
+                layers.addComponent(shelfContainer);
+                layers.addComponent(currentRow);
+                boxContainer.addComponent(layers);                    
+                Label shelf = new Label(" ");
+                shelf.setUIID("Shelf");
+                shelves.addElement(shelf);
+
+                // used to space the shelf down
+                Label dl = new Label(" ");
+                dl.setPreferredSize(b.getPreferredSize());
+                shelfContainer.addComponent(BorderLayout.CENTER, dl);
+                shelfContainer.addComponent(BorderLayout.SOUTH, shelf);
+            }
+            currentRow.addComponent(b);
+            demoComponents.addElement(b);
+
+            b.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    Container n = currentDemo.createDemo(f);
+                    if(Display.getInstance().isTablet()) {
+                        runBox.replace(runBox.getComponentAt(0), n, CommonTransitions.createSlide(CommonTransitions.SLIDE_HORIZONTAL, true, 300));
+                    } else {
                         Form demoForm = new Form(currentDemo.getDisplayName());
                         demoForm.setScrollable(false);
                         demoForm.setLayout(new BorderLayout());
@@ -143,30 +218,34 @@ public class KitchenSink {
                         demoForm.setBackCommand(backCommand);
                         demoForm.show();
                     }
-                });
-            }
-        } else {
-            final Container demoBox = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-            demoBox.setScrollableY(true);
-            f.addComponent(BorderLayout.WEST, demoBox);
-            Container runBox = new Container(new BorderLayout());
-            f.addComponent(BorderLayout.CENTER, runBox);
-            for(int iter = 0 ; iter < demos.length ; iter++) {
-                final Demo currentDemo = demos[iter];
-                Button b = createDemo(currentDemo);
-                b.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        Container n = currentDemo.createDemo();
-                        demoBox.replace(demoBox.getComponentAt(0), n, CommonTransitions.createFastSlide(CommonTransitions.SLIDE_HORIZONTAL, true, 200));
-                    }
-                });
-                demoBox.addComponent(b);
-            }
-            runBox.addComponent(BorderLayout.CENTER, demos[0].createDemo());
+                }
+            });
         }
-        f.show();
-    }
+        f.revalidate();
 
+        // Loop Over All the components and move them so we can animate everything into place
+        int dw = Display.getInstance().getDisplayWidth();
+        for(int iter = 0 ; iter < shelves.size() ; iter++) {
+            Component cmp = (Component)shelves.elementAt(iter);
+            cmp.setY(-40 - cmp.getAbsoluteY());
+        }
+        for(int iter = 0 ; iter < demoComponents.size() ; iter++) {
+            Component cmp = (Component)demoComponents.elementAt(iter);
+            if(iter < componentsPerRow) {
+                cmp.setX(-cmp.getWidth());
+            } else {
+                if(iter < componentsPerRow * 2) {
+                    cmp.setX(dw);
+                } else {
+                    cmp.setX(-cmp.getWidth());
+                }
+            }
+        }
+        boxContainer.setShouldCalcPreferredSize(true);
+        boxContainer.animateHierarchyFade(3000, 30);
+        f.show();        
+    }
+    
     public void stop(){
     }
     

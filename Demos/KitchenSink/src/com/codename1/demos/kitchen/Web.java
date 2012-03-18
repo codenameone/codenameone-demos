@@ -37,12 +37,12 @@ public class Web extends Demo {
     }
 
     public Image getDemoIcon() {
-        return getResources().getImage("archives.png");
+        return getResources().getImage("applications-internet.png");
     }
 
     public Container createDemo() {
         WebBrowser wb = new WebBrowser();
-        wb.setURL("jar://Page.html");
+        wb.setURL("jar:///Page.html");
         return wb;
     }
     
