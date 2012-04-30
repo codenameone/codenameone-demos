@@ -139,6 +139,9 @@ public class MapsDemo {
                         System.out.println("make sure to obtain a key from "
                                 + "https://developers.google.com/maps/documentation/places/");
                         progress.dispose();
+                        Dialog.show("Info", "make sure to obtain an application key from "
+                                + "google places api's"
+                                , "Ok", null);
                         return;
                     }
                         
