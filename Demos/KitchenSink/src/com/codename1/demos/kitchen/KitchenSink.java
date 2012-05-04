@@ -23,10 +23,12 @@
 package com.codename1.demos.kitchen;
 
 
+import com.codename1.push.PushCallback;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
@@ -47,8 +49,11 @@ import com.codename1.ui.util.UITimer;
 import java.io.IOException;
 import java.util.Vector;
 
-public class KitchenSink {
+public class KitchenSink implements PushCallback {
     private Resources res;
+    private static boolean launched;
+    private String pushText;
+    
     public void init(Object context){
         try{
             res = Resources.openLayered("/theme");
@@ -148,6 +153,7 @@ public class KitchenSink {
             new Web(), new Components(),
             new Video(), new Camera(), 
             new WebServices(),new Input(),
+            new Share()//, new Push()
         };
         for(int iter = 0 ; iter < demos.length ; iter++) {
             demos[iter].init(res);
@@ -244,11 +250,37 @@ public class KitchenSink {
         boxContainer.setShouldCalcPreferredSize(true);
         boxContainer.animateHierarchyFade(3000, 30);
         f.show();        
+        launched = true;
+        if(pushText != null) {
+            UITimer ut = new UITimer(new Runnable() {
+                public void run() {
+                    Dialog.show("Push!", pushText, "OK", null);
+                    pushText = null;
+                }
+            });
+            ut.schedule(800, false, f);
+        }
     }
     
     public void stop(){
     }
     
     public void destroy(){
+    }
+    
+    public void push(String value) {
+        if(launched) {
+            Dialog.show("Push!", value, "OK", null);
+        } else {
+            pushText = value;
+        }
+    }
+
+    public void registeredForPush(String deviceId) {
+        Dialog.show("Registered", "Id: " + deviceId, "OK", null);
+    }
+
+    public void pushRegistrationError(String error, int errorCode) {
+        Dialog.show("Error: " + errorCode, error, "OK", null);
     }
 }
