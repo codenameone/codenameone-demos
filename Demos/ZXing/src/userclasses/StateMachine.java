@@ -34,6 +34,7 @@ public class StateMachine extends StateMachineBase {
         System.out.println("onGUI1_ScanAction");
         final ZXingNativeCalls zx = (ZXingNativeCalls)NativeLookup.create(ZXingNativeCalls.class);
         if(zx != null && zx.isSupported()) {
+            final Form f = Display.getInstance().getCurrent();
             System.out.println("zx is running");
             new Thread() {
                 public void run() {
@@ -46,7 +47,6 @@ public class StateMachine extends StateMachineBase {
                             ex.printStackTrace();
                         }
                     }
-                    Form f = Display.getInstance().getCurrent();
                     if(zx.getStatus() == ZXingNativeCalls.ERROR) {
                         f.addComponent(new Label("Got error from zxing"));
                     } else {
