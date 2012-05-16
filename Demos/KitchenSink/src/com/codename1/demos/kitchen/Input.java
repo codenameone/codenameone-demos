@@ -41,7 +41,7 @@ public class Input  extends Demo {
     public Image getDemoIcon() {
         return getResources().getImage("abiword.png"); 
     }
-
+    
     public Container createDemo() {
         Container input = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         input.addComponent(new Label("Text Field"));

@@ -22,6 +22,7 @@
  */
 package com.codename1.demos.kitchen;
 
+import com.codename1.components.ShareButton;
 import com.codename1.facebook.ui.LikeButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
@@ -59,6 +60,10 @@ public class Share  extends Demo {
         Container social = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         LikeButton b = new LikeButton();
         social.addComponent(b);
+        ShareButton s = new ShareButton();
+        s.setText("Share");
+        s.setTextToShare("Codename One is so COOL!!!");
+        social.addComponent(s);
         b.setUIID("Button");
         return social;
     }
