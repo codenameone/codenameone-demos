@@ -41,6 +41,10 @@ public class DBDemo {
         try {
             boolean created = Database.exists("MyDB.db");
             db = Database.openOrCreate("MyDB.db");
+            if(db == null){
+                System.out.println("SQLite is not supported on this platform");
+                return;
+            }
             if (!created) {
                 db.execute("create table temp (id INTEGER PRIMARY KEY,name text,num double);");
                 for (int i = 0; i < users.length; i++) {
