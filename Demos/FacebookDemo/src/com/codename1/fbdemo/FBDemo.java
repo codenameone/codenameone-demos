@@ -1,16 +1,19 @@
 package com.codename1.fbdemo;
 
+import com.codename1.components.FileTree;
 import com.codename1.components.ShareButton;
 import com.codename1.facebook.FaceBookAccess;
 import com.codename1.facebook.User;
 import com.codename1.io.ConnectionRequest;
-import com.codename1.io.NetworkEvent;
+import com.codename1.io.FileSystemStorage;
+import com.codename1.io.MultipartRequest;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
@@ -26,8 +29,8 @@ import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Enumeration;
-import java.util.Vector;
 
 public class FBDemo {
 
@@ -53,8 +56,6 @@ public class FBDemo {
 
     public void start() {
         System.out.println("started");
-
-
         main = new Form("Facebook Demo");
         main.setLayout(new GridLayout(3, 2));
         Button me = new Button(new Command("My Profile") {
@@ -89,6 +90,14 @@ public class FBDemo {
         });
         main.addComponent(news);
         
+        Button upload = new Button(new Command("Upload photo") {
+
+            public void actionPerformed(ActionEvent evt) {
+                uploadPhoto();
+            }
+        });
+        main.addComponent(upload);
+        
         Button share = new Button(new Command("Share") {
 
             public void actionPerformed(ActionEvent evt) {
@@ -96,6 +105,13 @@ public class FBDemo {
             }
         });
         main.addComponent(share);
+        main.addCommand(new Command("Exit"){
+
+            public void actionPerformed(ActionEvent evt) {
+                Display.getInstance().exitApplication();
+            }
+            
+        });
         main.show();
         Login.login(main);
 
@@ -108,6 +124,36 @@ public class FBDemo {
     public void destroy() {
         System.out.println("destroyed");
 
+    }
+    
+    private void uploadPhoto(){
+        final String endpoint = "https://graph.facebook.com/me/photos?access_token="+Login.TOKEN;
+        Form f = new Form("Choose a file");
+        f.setScrollable(false);
+        f.setLayout(new BorderLayout());
+        FileTree ft = new FileTree();
+        ft.addLeafListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                String filename = (String)evt.getSource();
+                if (Dialog.show("Send file?", filename, "OK", "Cancel")) {
+                    MultipartRequest req = new MultipartRequest();
+                    req.setUrl(endpoint);
+                    req.addArgument("message", "test");
+                    InputStream is = null;
+                    try {
+                        is = FileSystemStorage.getInstance().openInputStream(filename);
+                        req.addData("source", is, FileSystemStorage.getInstance().getLength(filename), "image/jpeg");
+                        NetworkManager.getInstance().addToQueue(req);
+                    } catch (IOException ioe) {
+                        ioe.printStackTrace();
+                    }
+                }
+            }
+        });
+        f.addComponent(BorderLayout.CENTER, ft);
+        f.addCommand(back);
+        f.setBackCommand(back);
+        f.show();
     }
 
     private void showMyProfile() {

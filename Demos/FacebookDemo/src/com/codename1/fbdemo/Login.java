@@ -23,6 +23,7 @@
 package com.codename1.fbdemo;
 
 import com.codename1.facebook.FaceBookAccess;
+import com.codename1.io.NetworkEvent;
 import com.codename1.io.Oauth2;
 import com.codename1.io.Storage;
 import com.codename1.ui.Button;
@@ -40,6 +41,7 @@ import com.codename1.ui.layouts.LayeredLayout;
 public class Login extends Form {
     
     private Form main;
+    public static String TOKEN;
     
     public Login(Form f) {
         super("Login Form");
@@ -47,31 +49,34 @@ public class Login extends Form {
         setLayout(new LayeredLayout());
         Button login = new Button(FBDemo.getTheme().getImage("SignInFacebook.png_veryHigh.png"));
         login.addActionListener(new ActionListener() {
-
+            
             public void actionPerformed(ActionEvent evt) {
                 signIn(main);
             }
         });
         login.setUIID("CenterLabel");
         addComponent(login);
-
+        
     }
-
+    
     private static void signIn(final Form main) {
         FaceBookAccess.setClientId("132970916828080");
         FaceBookAccess.setClientSecret("6aaf4c8ea791f08ea15735eb647becfe");
         FaceBookAccess.setRedirectURI("http://www.codenameone.com/");
         FaceBookAccess.setPermissions(new String[]{"user_location", "user_photos", "friends_photos", "publish_stream", "read_stream", "user_relationships", "user_birthday",
                     "friends_birthday", "friends_relationships", "read_mailbox", "user_events", "friends_events", "user_about_me"});
+        
         FaceBookAccess.getInstance().showAuthentication(new ActionListener() {
-
+            
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource() instanceof String) {
                     String token = (String) evt.getSource();
                     String expires = Oauth2.getExpires();
+                    TOKEN = token;
                     System.out.println("recived a token " + token + " which expires on " + expires);
-                    Storage.getInstance().writeObject("autheniticated", "true");
-                    if(main != null){
+                    //store token for future queries.
+                    Storage.getInstance().writeObject("token", token);
+                    if (main != null) {
                         main.showBack();
                     }
                 } else {
@@ -82,18 +87,31 @@ public class Login extends Form {
             }
         });
     }
-        
-    private static boolean firstLogin(){
-        return Storage.getInstance().readObject("autheniticated") == null;
+    
+    private static boolean firstLogin() {
+        return Storage.getInstance().readObject("token") == null;
     }
     
-    public static void login(Form form){
-        if(firstLogin()){
+    public static void login(final Form form) {
+        if (firstLogin()) {
             Login logForm = new Login(form);
             logForm.show();
-        }else{
-            signIn(null);
+        } else {
+            //token exists no need to authenticate
+            TOKEN = (String) Storage.getInstance().readObject("token");
+            FaceBookAccess.setToken(TOKEN);
+            //in case token has expired re-authenticate
+            FaceBookAccess.getInstance().addResponseCodeListener(new ActionListener() {
+                
+                public void actionPerformed(ActionEvent evt) {
+                    NetworkEvent ne = (NetworkEvent) evt;
+                    int code = ne.getResponseCode();
+                    //token has expired
+                    if (code == 400) {
+                        signIn(form);
+                    }                    
+                }
+            });
         }
     }
-    
 }
