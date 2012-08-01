@@ -58,8 +58,12 @@ public class Camera extends Demo {
                 Capture.capturePhoto(new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         try {
-                            String path = (String) evt.getSource();
+                            if(evt == null){
+                                System.out.println("user cancelled");
+                                return;
+                            }
                             
+                            String path = (String) evt.getSource();                            
                             // we are opening the image with the file handle since the image
                             // is large this method can scale it down dynamically to a manageable
                             // size that doesn't exceed the heap
