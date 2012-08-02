@@ -51,6 +51,40 @@ public class Camera extends Demo {
 
     public Container createDemo() {
         final ComponentGroup cnt = new ComponentGroup();
+        final Button gallery = new Button("Pick From Gallery");
+        cnt.addComponent(gallery);
+        gallery.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                
+                Display.getInstance().openImageGallery(new ActionListener() {
+
+                    public void actionPerformed(ActionEvent evt) {
+                        try {
+                            if(evt == null){
+                                System.out.println("user cancelled");
+                                return;
+                            }
+                            
+                            String path = (String) evt.getSource();                            
+                            // we are opening the image with the file handle since the image
+                            // is large this method can scale it down dynamically to a manageable
+                            // size that doesn't exceed the heap
+                            Image i = Image.createImage(path);
+                            Label image = new Label(i.scaledWidth(Display.getInstance().getDisplayWidth() / 2));
+                            if(cnt.getComponentCount() > 2) {
+                                cnt.removeComponent(cnt.getComponentAt(2));
+                            }
+                            cnt.addComponent(image);
+                            cnt.getComponentForm().revalidate();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }                        
+                    }
+                });                
+            }
+        });
+        
+        
         final Button capture = new Button("Capture");
         cnt.addComponent(capture);
         capture.addActionListener(new ActionListener() {
@@ -69,8 +103,8 @@ public class Camera extends Demo {
                             // size that doesn't exceed the heap
                             Image i = Image.createImage(path);
                             Label image = new Label(i.scaledWidth(Display.getInstance().getDisplayWidth() / 2));
-                            if(cnt.getComponentCount() > 1) {
-                                cnt.removeComponent(cnt.getComponentAt(1));
+                            if(cnt.getComponentCount() > 2) {
+                                cnt.removeComponent(cnt.getComponentAt(2));
                             }
                             cnt.addComponent(image);
                             cnt.getComponentForm().revalidate();
@@ -81,6 +115,8 @@ public class Camera extends Demo {
                 });
             }
         });
+        
+        
         return cnt;
     }
     
