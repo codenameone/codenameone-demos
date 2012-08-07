@@ -23,7 +23,9 @@
 package com.codename1.demos.kitchen;
 
 
+import com.codename1.io.Log;
 import com.codename1.push.PushCallback;
+import com.codename1.system.DefaultCrashReporter;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
@@ -31,16 +33,13 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
-import com.codename1.ui.Graphics;
 import com.codename1.ui.Label;
 import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
-import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
@@ -55,11 +54,14 @@ public class KitchenSink implements PushCallback {
     private String pushText;
     
     public void init(Object context){
+        Log.setReportingLevel(Log.REPORTING_PRODUCTION);
+        DefaultCrashReporter.init(true, 2);
+        Log.p("Init");
         try{
             res = Resources.openLayered("/theme");
             UIManager.getInstance().setThemeProps(res.getTheme(res.getThemeResourceNames()[0]));
         } catch(IOException e){
-            e.printStackTrace();
+            Log.e(e);
         }
     }
     
@@ -141,10 +143,12 @@ public class KitchenSink implements PushCallback {
     }
     
     public void start(){
+        Log.p("Start");
         showSplashAnimation();
     }
 
     private void showMainUI() {
+        Log.p("Show Main UI");
         final Form f = new Form("Kitchen Sink");
         Demo[] demos = new Demo[] {
             new Effects(), new Layouts(), 
@@ -263,9 +267,11 @@ public class KitchenSink implements PushCallback {
     }
     
     public void stop(){
+        Log.p("Stop");
     }
     
     public void destroy(){
+        Log.p("Destroy");
     }
     
     public void push(String value) {

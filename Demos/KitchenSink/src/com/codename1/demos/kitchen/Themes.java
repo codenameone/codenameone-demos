@@ -61,11 +61,13 @@ public class Themes  extends Demo {
         
         Button books = new Button("Books");
         Button nativeTheme = new Button("Native");
+        Button leather = new Button("Leather");
         Button tzone = new Button("TZone");
         gp.addComponent(books);
         if(Display.getInstance().hasNativeTheme()) {
             gp.addComponent(nativeTheme);
         }
+        gp.addComponent(leather);
         gp.addComponent(tzone);
         
         books.addActionListener(new ActionListener() {
@@ -82,6 +84,17 @@ public class Themes  extends Demo {
         nativeTheme.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Display.getInstance().installNativeTheme();
+                refreshTheme(parentForm);
+            }
+        });
+        leather.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                try{
+                    Resources res = Resources.openLayered("/leather");
+                    UIManager.getInstance().setThemeProps(res.getTheme(res.getThemeResourceNames()[0]));
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
                 refreshTheme(parentForm);
             }
         });

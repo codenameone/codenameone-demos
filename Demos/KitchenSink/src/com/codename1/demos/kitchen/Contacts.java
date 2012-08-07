@@ -23,10 +23,12 @@
 package com.codename1.demos.kitchen;
 
 import com.codename1.components.MultiButton;
+import com.codename1.contacts.ContactsModel;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Container;
+import com.codename1.ui.Display;
 import com.codename1.ui.Image;
 import com.codename1.ui.List;
 import com.codename1.ui.animations.CommonTransitions;
@@ -84,7 +86,7 @@ public class Contacts extends Demo {
         final Container contactsDemo = new Container(new BorderLayout());
         final Image defaultIcon = getResources().getImage("stock_new-meeting.png");
         
-        ListModel m = new Model(defaultIcon);
+        ListModel m = new Model(defaultIcon);//new ContactsModel(Display.getInstance().getAllContacts(true));
         final List contactsList = new List(m);
         GridLayout grd = new GridLayout(1, 1);
         grd.setAutoFit(true);
