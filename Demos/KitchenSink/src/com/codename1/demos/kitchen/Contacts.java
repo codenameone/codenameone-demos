@@ -86,9 +86,10 @@ public class Contacts extends Demo {
         final Container contactsDemo = new Container(new BorderLayout());
         final Image defaultIcon = getResources().getImage("stock_new-meeting.png");
         
-        ListModel m = new Model(defaultIcon);//new ContactsModel(Display.getInstance().getAllContacts(true));
+        ContactsModel m = new ContactsModel(Display.getInstance().getAllContacts(true));
+        m.setPlaceHolderImage(defaultIcon);
         final List contactsList = new List(m);
-        GridLayout grd = new GridLayout(1, 1);
+        GridLayout grd = new GridLayout(3, 3);
         grd.setAutoFit(true);
         final ContainerList grid = new ContainerList(m);
         grid.setLayout(grd);
