@@ -62,12 +62,14 @@ public class Themes  extends Demo {
         Button books = new Button("Books");
         Button nativeTheme = new Button("Native");
         Button leather = new Button("Leather");
+        Button chrome = new Button("Chrome");
         Button tzone = new Button("TZone");
         gp.addComponent(books);
         if(Display.getInstance().hasNativeTheme()) {
             gp.addComponent(nativeTheme);
         }
         gp.addComponent(leather);
+        gp.addComponent(chrome);
         gp.addComponent(tzone);
         
         books.addActionListener(new ActionListener() {
@@ -91,6 +93,17 @@ public class Themes  extends Demo {
             public void actionPerformed(ActionEvent evt) {
                 try{
                     Resources res = Resources.openLayered("/leather");
+                    UIManager.getInstance().setThemeProps(res.getTheme(res.getThemeResourceNames()[0]));
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
+                refreshTheme(parentForm);
+            }
+        });
+        chrome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                try{
+                    Resources res = Resources.openLayered("/chrome");
                     UIManager.getInstance().setThemeProps(res.getTheme(res.getThemeResourceNames()[0]));
                 } catch(IOException e){
                     e.printStackTrace();
