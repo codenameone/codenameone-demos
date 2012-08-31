@@ -182,7 +182,7 @@
             />
     </target>
 
-    <target name="build-for-rim-device" depends="clean,copy-rim-override,compileJ2ME_RIM,jar,clean-override">
+    <target name="build-for-rim-device" depends="clean,copy-rim-override,jar,clean-override">
         <codeNameOne 
             jarFile="${dist.jar}"
             displayName="${codename1.displayName}"
@@ -203,7 +203,7 @@
         </delete>
     </target>
 
-     <target name="build-for-j2me-device" depends="clean,j2me-native-theme-init,copy-j2me-native,copy-j2me-override,compileJ2ME_RIM,jar,clean-j2me-native,clean-override">
+     <target name="build-for-j2me-device" depends="clean,j2me-native-theme-init,copy-j2me-native,copy-j2me-override,jar,clean-j2me-native,clean-override">
         <codeNameOne
             jarFile="${dist.jar}"
             displayName="${codename1.displayName}"
@@ -235,16 +235,5 @@
     <target name="-pre-init">
         <property name="application.args" value="${codename1.packageName}.${codename1.mainName}"/>
     </target>
-    
-     <target name="compileJ2ME_RIM">
-        <mkdir dir="${build.classes.dir}" />
-        <javac destdir="${build.classes.dir}"
-            source="1.1"
-            target="1.1"
-            bootclasspath="lib/CLDC11.jar"
-            classpath="${javac.classpath}:${build.classes.dir}">
-            <src path="${src.dir}"/>
-        </javac>        
-    </target>
-    
+        
 </project>
