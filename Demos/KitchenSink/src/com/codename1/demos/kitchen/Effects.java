@@ -73,7 +73,7 @@ public class Effects extends Demo {
 
     private void arrangeForConcentrate(Container c) {
         int w = Display.getInstance().getDisplayWidth();
-        int h = Display.getInstance().getDisplayWidth();
+        int h = Display.getInstance().getDisplayHeight();
         int[] positionX = {-100, w / 2,  w + 100, w + 100, w + 100, w / 2, -100, -100};
         int[] positionY = {-100, -100, -100, h / 2, h + 100, h + 100, h + 100, h / 2};
         for(int iter = 0 ; iter < c.getComponentCount() ; iter++) {
