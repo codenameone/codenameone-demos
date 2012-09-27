@@ -182,6 +182,37 @@
             />
     </target>
 
+    <target name="copy-windows-override">
+        <mkdir dir="${build.classes.dir}" />
+        <mkdir dir="override" />
+        <copy todir="${build.classes.dir}">
+            <fileset dir="override" includes="**/*_win.ovr"/>
+            <fileset dir="override" includes="**/*_win-phone.ovr"/>
+            <fileset dir="override" includes="**/*_win-tab.ovr"/>
+            <fileset dir="override" includes="**/*_phone.ovr"/>
+            <fileset dir="override" includes="**/*_tablet.ovr"/>
+        </copy>
+        <mkdir dir="native/win" />
+        <copy todir="${build.classes.dir}">
+            <fileset dir="native/win" includes="**/*"/>
+        </copy>
+    </target>
+
+    <target name="build-for-windows-device" depends="clean,copy-windows-override,jar,clean-override">
+        <codeNameOne 
+            jarFile="${dist.jar}"
+            displayName="${codename1.displayName}"
+            packageName = "${codename1.packageName}"
+            mainClassName = "${codename1.mainName}"
+            version="${codename1.version}"
+            icon="${codename1.icon}"
+            vendor="${codename1.vendor}"
+            subtitle="${codename1.secondaryTitle}"
+            
+            targetType="win"
+            />
+    </target>
+
     <target name="build-for-rim-device" depends="clean,copy-rim-override,jar,clean-override">
         <codeNameOne 
             jarFile="${dist.jar}"
