@@ -55,8 +55,8 @@
         code size and wider device support</echo>
         <mkdir dir="build/tmp"/>
         <javac destdir="build/tmp"
-            source="1.1"
-            target="1.1"
+            source="1.5"
+            target="1.5"
             bootclasspath="CLDC11.jar"
             classpath="${javac.classpath}:${build.classes.dir}">
             <src path="${src.dir}"/>
@@ -208,7 +208,7 @@
             icon="${codename1.icon}"
             vendor="${codename1.vendor}"
             subtitle="${codename1.secondaryTitle}"
-            
+            includeSource="true"
             targetType="win"
             />
     </target>
@@ -231,8 +231,16 @@
             />
     </target>
 
+    <target name="optimizeJ2ME" depends="init,compile,-pre-jar">
+        <copy file="low_res_version.res" tofile="build/classes/theme.res" />
+        <copy file="src/tzone_theme.res" tofile="build/classes/nativeJ2METheme.res" />
+        <delete file="build/classes/tzone_theme.res" />
+        <delete file="build/classes/leather.res" />
+        <delete file="build/classes/chrome.res" />
+        <delete file="build/classes/video.mp4" />
+    </target>
 
-    <target name="build-for-j2me-device" depends="clean,copy-j2me-override,jar,clean-override">
+    <target name="build-for-j2me-device" depends="clean,copy-j2me-override,optimizeJ2ME,-do-jar-with-manifest,-do-jar-without-manifest,-do-jar-with-mainclass,-do-jar-with-libraries,-post-jar,clean-override">
         <codeNameOne
             jarFile="${dist.jar}"
             displayName="${codename1.displayName}"
