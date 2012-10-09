@@ -34,6 +34,7 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+import com.codename1.ui.List;
 import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -54,8 +55,8 @@ public class KitchenSink implements PushCallback {
     private String pushText;
     
     public void init(Object context){
-        Log.setReportingLevel(Log.REPORTING_PRODUCTION);
-        DefaultCrashReporter.init(true, 2);
+        //Log.setReportingLevel(Log.REPORTING_PRODUCTION);
+        //DefaultCrashReporter.init(true, 2);
         Log.p("Init");
         try{
             res = Resources.openLayered("/theme");
@@ -157,7 +158,7 @@ public class KitchenSink implements PushCallback {
             new Web(), new Components(),
             new Video(), new Camera(), 
             new WebServices(),new Input(),
-            new Share()//, new Push()
+            new Share()//, new RSS()
         };
         for(int iter = 0 ; iter < demos.length ; iter++) {
             demos[iter].init(res);

@@ -22,48 +22,48 @@
  */
 package com.codename1.demos.kitchen;
 
-import com.codename1.components.MediaPlayer;
+import com.codename1.components.RSSReader;
+import com.codename1.components.ShareButton;
+import com.codename1.facebook.ui.LikeButton;
 import com.codename1.ui.Button;
+import com.codename1.ui.Command;
 import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
+import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  *
  * @author Shai Almog
  */
-public class Video  extends Demo {
+public class RSS  extends Demo {
 
     public String getDisplayName() {
-        return "Video";
+        return "RSS";
     }
 
     public Image getDemoIcon() {
-        return getResources().getImage("avidemux.png");
+        return getResources().getImage("share-icon.png");
     }
 
     public Container createDemo() {
-        Container player = new Container(new BorderLayout());
-        final MediaPlayer mp = new MediaPlayer();
-        try {
-            
-            InputStream is = Display.getInstance().getResourceAsStream(getClass(), "/video.mp4");
-            if(is != null) {
-                mp.setDataSource(is, "video/mp4", null);
-            } else {
-                mp.setDataSource("https://dl.dropbox.com/u/57067724/cn1/video.mp4");
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        player.addComponent(BorderLayout.CENTER, mp);
-        return player;
+        return null;
     }
     
+    public Container createDemo(final Form parentForm) {
+        Container rss = new Container(new BorderLayout());
+        RSSReader rr = new RSSReader();
+        rr.setURL("http://codenameone.blogspot.com/feeds/posts/default?alt=rss");
+        rss.addComponent(BorderLayout.CENTER, rr);
+        return rss;
+    }
 }
+

@@ -68,9 +68,13 @@ public class Themes  extends Demo {
         if(Display.getInstance().hasNativeTheme()) {
             gp.addComponent(nativeTheme);
         }
-        gp.addComponent(leather);
-        gp.addComponent(chrome);
-        gp.addComponent(tzone);
+        
+        // low end devices won't have all the themes installed
+        if(Display.getInstance().getResourceAsStream(getClass(), "/leather.res") != null) {
+            gp.addComponent(leather);
+            gp.addComponent(chrome);
+            gp.addComponent(tzone);
+        }
         
         books.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
