@@ -198,7 +198,7 @@
         </copy>
     </target>
 
-    <target name="build-for-windows-device" depends="clean,copy-windows-override,jar,clean-override">
+    <target name="build-for-win-device" depends="clean,copy-windows-override,jar,clean-override">
         <codeNameOne 
             jarFile="${dist.jar}"
             displayName="${codename1.displayName}"
