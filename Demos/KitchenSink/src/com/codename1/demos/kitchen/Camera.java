@@ -23,6 +23,8 @@
 package com.codename1.demos.kitchen;
 
 import com.codename1.capture.Capture;
+import com.codename1.codescan.CodeScanner;
+import com.codename1.codescan.ScanResult;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Container;
@@ -116,6 +118,42 @@ public class Camera extends Demo {
             }
         });
         
+        if(CodeScanner.getInstance() != null) {
+            final Button qrCode = new Button("Scan QR");
+            cnt.addComponent(qrCode);
+            qrCode.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    CodeScanner.getInstance().scanQRCode(new ScanResult() {
+                        public void scanCompleted(String contents, String formatName, byte[] rawBytes) {
+                            qrCode.setText("QR: " + contents);
+                        }
+
+                        public void scanCanceled() {
+                        }
+
+                        public void scanError(int errorCode, String message) {
+                        }
+                    });
+                }
+            });
+            final Button barCode = new Button("Scan Barcode");
+            cnt.addComponent(barCode);
+            barCode.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    CodeScanner.getInstance().scanBarCode(new ScanResult() {
+                        public void scanCompleted(String contents, String formatName, byte[] rawBytes) {
+                            barCode.setText("Bar: " + contents);
+                        }
+
+                        public void scanCanceled() {
+                        }
+
+                        public void scanError(int errorCode, String message) {
+                        }
+                    });
+                }
+            });
+        }
         
         return cnt;
     }

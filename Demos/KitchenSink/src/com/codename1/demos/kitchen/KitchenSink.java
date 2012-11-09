@@ -158,7 +158,7 @@ public class KitchenSink implements PushCallback {
             new Web(), new Components(),
             new Video(), new Camera(), 
             new WebServices(),new Input(),
-            new Share()//, new RSS()
+            new Share(), new CloudDB()//, new RSS()
         };
         for(int iter = 0 ; iter < demos.length ; iter++) {
             demos[iter].init(res);

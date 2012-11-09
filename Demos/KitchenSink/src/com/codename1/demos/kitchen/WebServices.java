@@ -26,6 +26,7 @@ import com.codename1.components.InfiniteProgress;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkManager;
+import com.codename1.io.Util;
 import com.codename1.ui.Button;
 import com.codename1.ui.CheckBox;
 import com.codename1.ui.ComponentGroup;
@@ -34,6 +35,7 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Image;
 import com.codename1.ui.Tabs;
+import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -42,6 +44,7 @@ import com.codename1.ui.tree.Tree;
 import com.codename1.ui.tree.TreeModel;
 import com.codename1.xml.Element;
 import com.codename1.xml.XMLParser;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -94,6 +97,8 @@ public class WebServices extends Demo {
     
     public Container createDemo() {
         Tabs webservices = new Tabs();
+        final TextArea responseText = new TextArea(20, 80);
+        responseText.setEditable(false);
         final Tree responseTree = new Tree() {
             protected String childToDisplayLabel(Object child) {
                 if(child instanceof Element) {
@@ -110,7 +115,7 @@ public class WebServices extends Demo {
             }
         };
         
-        requestElement = new WebServiceRequest(responseTree, webservices);
+        requestElement = new WebServiceRequest(responseTree, webservices, responseText);
         
         final Container arguments = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         final Container request = new Container(new BoxLayout(BoxLayout.Y_AXIS));
@@ -169,6 +174,7 @@ public class WebServices extends Demo {
         request.addComponent(arguments);
         webservices.addTab("Request", request);
         webservices.addTab("Response", responseTree);
+        webservices.addTab("Raw", responseText);
         
         return webservices;
     }
@@ -178,13 +184,18 @@ public class WebServices extends Demo {
         boolean json = true;
         private Tree t;
         private Tabs tab;
-        public WebServiceRequest(Tree t, Tabs tab) {
+        private TextArea responseText;
+        public WebServiceRequest(Tree t, Tabs tab, TextArea responseText) {
             this.t = t;
             this.tab = tab;
+            this.responseText = responseText;
             setDuplicateSupported(true);
         }
         
         protected void readResponse(InputStream input) throws IOException  {
+            byte[] bi = Util.readInputStream(input);
+            responseText.setText(new String(bi));
+            input = new ByteArrayInputStream(bi);
             if(json) {
                 JSONParser jp = new JSONParser();
                 Hashtable h = jp.parse(new InputStreamReader(input));
