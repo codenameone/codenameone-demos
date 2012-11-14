@@ -156,6 +156,23 @@ public abstract class StateMachineBase extends UIBuilder {
         return (com.codename1.ui.Container)findByName("Container", Display.getInstance().getCurrent());
     }
 
+    public static final int COMMAND_MainExit = 1;
+
+    protected boolean onMainExit() {
+        return false;
+    }
+
+    protected void processCommand(ActionEvent ev, Command cmd) {
+        switch(cmd.getId()) {
+            case COMMAND_MainExit:
+                if(onMainExit()) {
+                    ev.consume();
+                }
+                return;
+
+        }
+    }
+
     protected void exitForm(Form f) {
         if("Main".equals(f.getName())) {
             exitMain(f);

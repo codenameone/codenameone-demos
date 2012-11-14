@@ -41,7 +41,8 @@ public class StateMachine extends StateMachineBase {
 
                 public void scanCompleted(String contents, String formatName, byte[] rawBytes) {
                     //barCode.setText("Bar: " + contents);
-                    cnt.addComponent(new Label(contents + " " + formatName + " " + new String(rawBytes)));
+                    cnt.addComponent(new Label(contents));
+                    cnt.revalidate();
                 }
 
                 public void scanCanceled() {
@@ -57,7 +58,8 @@ public class StateMachine extends StateMachineBase {
 
                 public void scanCompleted(String contents, String formatName, byte[] rawBytes) {
                     //barCode.setText("Bar: " + contents);
-                    cnt.addComponent(new Label(contents + " " + formatName + " " + new String(rawBytes)));
+                    cnt.addComponent(new Label(contents));
+                    cnt.revalidate();
                 }
 
                 public void scanCanceled() {
@@ -71,5 +73,12 @@ public class StateMachine extends StateMachineBase {
         }
 
 
+    }
+
+    protected boolean onMainExit() {
+        // If the resource file changes the names of components this call will break notifying you that you should fix the code
+        boolean val = super.onMainExit();
+        
+        return val;
     }
 }
