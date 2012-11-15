@@ -28,10 +28,12 @@ import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.Image;
+import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.util.UITimer;
 
 /**
  *
@@ -48,7 +50,7 @@ public class Mail  extends Demo {
     }
 
     public Container createDemo() {
-        Container message = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        Container message = new Container(new BoxLayout(BoxLayout.Y_AXIS));        
         ComponentGroup gp = new ComponentGroup();
         message.addComponent(gp);
         
