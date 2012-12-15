@@ -53,6 +53,7 @@ public class CloudDB extends Demo {
 
     public Container createDemo() {
         Container cloudDb = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        cloudDb.setScrollableY(true);
         
         InfiniteProgress progress = new InfiniteProgress();
         Dialog dlg = progress.showInifiniteBlocking();
