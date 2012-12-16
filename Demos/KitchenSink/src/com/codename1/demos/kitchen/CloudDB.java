@@ -52,6 +52,7 @@ public class CloudDB extends Demo {
     }
 
     public Container createDemo() {
+        CloudStorage.getInstance().rollback();
         Container cloudDb = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         cloudDb.setScrollableY(true);
         
