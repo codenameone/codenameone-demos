@@ -31,6 +31,7 @@ import com.codename1.ui.Display;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
+import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
@@ -85,13 +86,16 @@ public class Effects extends Demo {
     
     public Container createDemo() {
         final Container effects = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        
+        effects.setScrollableY(true);
         Button interlace = new Button("Interlace");
         Button fall = new Button("Fall");
         Button concentrate = new Button("Concentrate");
         final Button grow = new Button("Grow");
         final Button morph = new Button("Morph");
         Button dragAndDrop = new Button("Drag & Drop");
+        final Button replace = new Button("Replace Slide");
+        final Button replaceFade = new Button("Replace Fade");
+        final Button replaceCover = new Button("Replace Cover");
         //Button shake = new Button("Shake");
         
         interlace.addActionListener(new ActionListener() {
@@ -144,14 +148,47 @@ public class Effects extends Demo {
             }
         });
         
+        replace.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                TextArea ta = new TextArea("Replaced Text Area");
+                Container c = replace.getParent();
+                ta.setPreferredSize(replace.getPreferredSize());
+                c.replaceAndWait(replace, ta, CommonTransitions.createSlide(CommonTransitions.SLIDE_VERTICAL, true, 500));
+                c.replaceAndWait(ta, replace, CommonTransitions.createSlide(CommonTransitions.SLIDE_VERTICAL, false, 500));
+            }
+        });
+
+        replaceFade.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                TextArea ta = new TextArea("Replaced Text Area");
+                Container c = replaceFade.getParent();
+                ta.setPreferredSize(replaceFade.getPreferredSize());
+                c.replaceAndWait(replaceFade, ta, CommonTransitions.createFade(500));
+                c.replaceAndWait(ta, replaceFade, CommonTransitions.createFade(500));
+            }
+        });
+
+        replaceCover.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                TextArea ta = new TextArea("Replaced Text Area");
+                Container c = replaceCover.getParent();
+                ta.setPreferredSize(replaceCover.getPreferredSize());
+                c.replaceAndWait(replaceCover, ta, CommonTransitions.createCover(CommonTransitions.SLIDE_VERTICAL, true, 500));
+                c.replaceAndWait(ta, replaceCover, CommonTransitions.createCover(CommonTransitions.SLIDE_VERTICAL, false, 500));
+            }
+        });
+        
         dragAndDrop.setDraggable(true);
         effects.setDropTarget(true);
         
         effects.addComponent(interlace);
         effects.addComponent(fall);
-        effects.addComponent(concentrate);
         effects.addComponent(grow);
         effects.addComponent(morph);
+        effects.addComponent(replace);
+        effects.addComponent(replaceFade);
+        effects.addComponent(replaceCover);
+        effects.addComponent(concentrate);
         effects.addComponent(dragAndDrop);
         //effects.addComponent(shake);
         
