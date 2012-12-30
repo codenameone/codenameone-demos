@@ -25,9 +25,13 @@ package com.codename1.demos.kitchen;
 import com.codename1.capture.Capture;
 import com.codename1.codescan.CodeScanner;
 import com.codename1.codescan.ScanResult;
+import com.codename1.io.Log;
+import com.codename1.media.Media;
+import com.codename1.media.MediaManager;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -36,8 +40,11 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
+ * Demo of the camera related functionality including QR code etc.
  *
  * @author Shai Almog
  */
@@ -91,32 +98,49 @@ public class Camera extends Demo {
         cnt.addComponent(capture);
         capture.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                Capture.capturePhoto(new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        try {
-                            if(evt == null){
-                                System.out.println("user cancelled");
-                                return;
-                            }
-                            
-                            String path = (String) evt.getSource();                            
-                            // we are opening the image with the file handle since the image
-                            // is large this method can scale it down dynamically to a manageable
-                            // size that doesn't exceed the heap
-                            Image i = Image.createImage(path);
-                            Label image = new Label(i.scaledWidth(Display.getInstance().getDisplayWidth() / 2));
-                            if(cnt.getComponentCount() > 2) {
-                                cnt.removeComponent(cnt.getComponentAt(2));
-                            }
-                            cnt.addComponent(image);
-                            cnt.getComponentForm().revalidate();
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }                        
+                try {
+                    String value = Capture.capturePhoto(Display.getInstance().getDisplayWidth() / 2, -1);
+                    if(value != null) {
+                        Label image = new Label(Image.createImage(value));
+                        if(cnt.getComponentCount() > 2) {
+                            cnt.removeComponent(cnt.getComponentAt(2));
+                        }
+                        cnt.addComponent(image);
+                        cnt.getComponentForm().revalidate();
+
                     }
-                });
+                } catch (Exception ex) {
+                    Log.e(ex);
+                    Dialog.show("Error", "" + ex, "OK", null);
+                }                        
             }
         });
+
+        final Button captureAudio = new Button("Capture Audio");
+        cnt.addComponent(captureAudio);
+        captureAudio.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                final String value = Capture.captureAudio();
+                if(value != null) {
+                    Button playCapturedAudio = new Button("Play Captured Audio");
+                    cnt.addComponent(playCapturedAudio);
+                    cnt.getComponentForm().revalidate();
+                    playCapturedAudio.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            try {
+                                Media m = MediaManager.createMedia(value, false);
+                                m.play();
+                            } catch (IOException ex) {
+                                Log.e(ex);
+                                Dialog.show("Error", "" + ex, "OK", null);
+                            }
+                        }
+                    });
+                    
+                }
+            }
+        });
+        
         
         if(CodeScanner.getInstance() != null) {
             final Button qrCode = new Button("Scan QR");
