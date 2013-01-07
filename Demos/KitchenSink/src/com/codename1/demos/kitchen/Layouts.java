@@ -139,7 +139,8 @@ public class Layouts  extends Demo {
             public void actionPerformed(ActionEvent evt) {
                 borderLayout.setVisible(true);
                 tableLayout.setVisible(true);
-                layouts.setLayout(new TableLayout(3, 3));
+                TableLayout tl = new TableLayout(2, 4);
+                layouts.setLayout(tl);
 
                 // need to re-add the components since the layout requires a contraint
                 layouts.removeAll();
@@ -147,7 +148,10 @@ public class Layouts  extends Demo {
                 layouts.addComponent(boxYLayout);
                 layouts.addComponent(boxXLayout);
                 layouts.addComponent(flowLayout);
-                layouts.addComponent(flowCenterLayout);
+                
+                TableLayout.Constraint c = tl.createConstraint();
+                c.setHorizontalSpan(2);
+                layouts.addComponent(c, flowCenterLayout);
                 layouts.addComponent(gridLayout);
                 layouts.addComponent(tableLayout);
                 
