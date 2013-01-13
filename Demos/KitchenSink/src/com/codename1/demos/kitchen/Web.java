@@ -23,8 +23,17 @@
 package com.codename1.demos.kitchen;
 
 import com.codename1.components.WebBrowser;
+import com.codename1.ui.BrowserComponent;
+import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.Image;
+import com.codename1.ui.TextField;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.events.BrowserNavigationCallback;
+import com.codename1.ui.layouts.BorderLayout;
 
 /**
  *
@@ -41,9 +50,40 @@ public class Web extends Demo {
     }
 
     public Container createDemo() {
-        WebBrowser wb = new WebBrowser();
+        Container cnt = new Container(new BorderLayout());
+        final WebBrowser wb = new WebBrowser();
+        if(wb.getInternal() instanceof BrowserComponent) {
+            Button btn = new Button("Add");
+            final TextField content = new TextField();
+            Container north = new Container(new BorderLayout());
+            north.addComponent(BorderLayout.CENTER, content);
+            north.addComponent(BorderLayout.EAST, btn);
+            cnt.addComponent(BorderLayout.NORTH, north);
+            content.setHint("Add to web document");
+            btn.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    ((BrowserComponent)wb.getInternal()).execute("fnc('" + content.getText() + "');");
+                }
+            });
+            ((BrowserComponent)wb.getInternal()).setBrowserNavigationCallback(new BrowserNavigationCallback() {
+                public boolean shouldNavigate(String url) {
+                    if(url.startsWith("http://sayhello")) {
+                        // warning!!! This is not on the EDT and this method MUST return immediately!
+                        Display.getInstance().callSerially(new Runnable() {
+                            public void run() {
+                                Dialog.show("Java Code", "This is Java Code executed from the browser!", "OK", null);
+                            }
+                        });
+                        return false;
+                    }
+                    return true;
+                }
+            });
+        }
+        
+        cnt.addComponent(BorderLayout.CENTER, wb);
         wb.setURL("jar:///Page.html");
-        return wb;
+        return cnt;
     }
     
 }
