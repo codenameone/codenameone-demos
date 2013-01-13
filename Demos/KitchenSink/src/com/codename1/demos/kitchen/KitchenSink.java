@@ -24,6 +24,7 @@ package com.codename1.demos.kitchen;
 
 
 import com.codename1.io.Log;
+import com.codename1.payment.PurchaseCallback;
 import com.codename1.push.PushCallback;
 import com.codename1.system.DefaultCrashReporter;
 import com.codename1.ui.Button;
@@ -49,7 +50,7 @@ import com.codename1.ui.util.UITimer;
 import java.io.IOException;
 import java.util.Vector;
 
-public class KitchenSink implements PushCallback {
+public class KitchenSink implements PushCallback, PurchaseCallback {
     private Resources res;
     private static boolean launched;
     private String pushText;
@@ -158,7 +159,7 @@ public class KitchenSink implements PushCallback {
             new Web(), new Components(),
             new Video(), new Camera(), 
             new WebServices(),new Input(),
-            new Share(), new CloudDB()//, new RSS()
+            new Share(), new CloudDB()//, new Pay()//, new RSS()
         };
         for(int iter = 0 ; iter < demos.length ; iter++) {
             demos[iter].init(res);
@@ -289,5 +290,33 @@ public class KitchenSink implements PushCallback {
 
     public void pushRegistrationError(String error, int errorCode) {
         Dialog.show("Error: " + errorCode, error, "OK", null);
+    }
+
+    public void itemPurchased(String sku) {
+        Dialog.show("Event Received", "itemPurchased event for SKU: " + sku, "OK", null);
+    }
+
+    public void itemPurchaseError(String sku, String errorMessage) {
+        Dialog.show("Event Received", "itemPurchaseError: " + errorMessage, "OK", null);
+    }
+
+    public void itemRefunded(String sku) {
+        Dialog.show("Event Received", "itemRefunded for SKU: " + sku, "OK", null);
+    }
+
+    public void subscriptionStarted(String sku) {
+        Dialog.show("Event Received", "subscriptionStarted for SKU: " + sku, "OK", null);
+    }
+
+    public void subscriptionCanceled(String sku) {
+        Dialog.show("Event Received", "subscriptionCanceled for SKU: " + sku, "OK", null);
+    }
+
+    public void paymentFailed(String paymentCode, String failureReason) {
+        Dialog.show("Event Received", "paymentFailed: " + failureReason, "OK", null);
+    }
+
+    public void paymentSucceeded(String paymentCode, double amount, String currency) {
+        Dialog.show("Event Received", "paymentSucceeded amount: " + amount, "OK", null);
     }
 }
