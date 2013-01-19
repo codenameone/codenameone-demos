@@ -71,7 +71,7 @@ public class Web extends Demo {
                         // warning!!! This is not on the EDT and this method MUST return immediately!
                         Display.getInstance().callSerially(new Runnable() {
                             public void run() {
-                                Dialog.show("Java Code", "This is Java Code executed from the browser!", "OK", null);
+                                ((BrowserComponent)wb.getInternal()).execute("fnc('this was written by Java code!');");
                             }
                         });
                         return false;
