@@ -26,10 +26,9 @@ import com.codename1.components.WebBrowser;
 import com.codename1.ui.BrowserComponent;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
-import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Image;
-import com.codename1.ui.TextField;
+import com.codename1.ui.TextArea;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.BrowserNavigationCallback;
@@ -54,7 +53,7 @@ public class Web extends Demo {
         final WebBrowser wb = new WebBrowser();
         if(wb.getInternal() instanceof BrowserComponent) {
             Button btn = new Button("Add");
-            final TextField content = new TextField();
+            final TextArea content = new TextArea();
             Container north = new Container(new BorderLayout());
             north.addComponent(BorderLayout.CENTER, content);
             north.addComponent(BorderLayout.EAST, btn);
