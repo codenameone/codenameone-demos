@@ -32,6 +32,7 @@ import com.codename1.ui.table.Table;
 import com.codename1.ui.tree.Tree;
 
 /**
+ * Small gallery of Codename One components
  *
  * @author Shai Almog
  */
