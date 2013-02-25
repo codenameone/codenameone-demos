@@ -24,11 +24,7 @@ package com.codename1.fbdemo;
 
 import com.codename1.facebook.FaceBookAccess;
 import com.codename1.io.services.ImageDownloadService;
-import com.codename1.ui.Component;
-import com.codename1.ui.Container;
-import com.codename1.ui.Image;
-import com.codename1.ui.Label;
-import com.codename1.ui.List;
+import com.codename1.ui.*;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.list.CellRenderer;
@@ -43,9 +39,9 @@ import java.util.Hashtable;
  */
 public class WallRenderer extends Container implements ListCellRenderer{
 
-    private Dimension userIconSize = new Dimension(50, 50);
+    private Dimension userIconSize = new Dimension(Display.getInstance().getDisplayHeight()/10, Display.getInstance().getDisplayHeight()/10);
     
-    private Dimension postIconSize = new Dimension(30, 30);
+    private Dimension postIconSize = new Dimension(Display.getInstance().getDisplayHeight()/15, Display.getInstance().getDisplayHeight()/15);
     
     private Label userIcon = new Label();
     

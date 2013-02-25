@@ -1,6 +1,7 @@
 package com.codename1.fbdemo;
 
 import com.codename1.components.FileTree;
+import com.codename1.components.InfiniteProgress;
 import com.codename1.components.ShareButton;
 import com.codename1.facebook.FaceBookAccess;
 import com.codename1.facebook.User;
@@ -8,18 +9,7 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.FileSystemStorage;
 import com.codename1.io.MultipartRequest;
 import com.codename1.io.NetworkManager;
-import com.codename1.ui.Button;
-import com.codename1.ui.Command;
-import com.codename1.ui.Component;
-import com.codename1.ui.ComponentGroup;
-import com.codename1.ui.Container;
-import com.codename1.ui.Dialog;
-import com.codename1.ui.Display;
-import com.codename1.ui.Form;
-import com.codename1.ui.Image;
-import com.codename1.ui.Label;
-import com.codename1.ui.List;
-import com.codename1.ui.TextArea;
+import com.codename1.ui.*;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
@@ -57,60 +47,91 @@ public class FBDemo {
     public void start() {
         System.out.println("started");
         main = new Form("Facebook Demo");
-        main.setLayout(new GridLayout(3, 2));
-        Button me = new Button(new Command("My Profile") {
-
-            public void actionPerformed(ActionEvent evt) {
-                showMyProfile();
-            }
-        });
-        main.addComponent(me);
-
-        Button friends = new Button(new Command("My Friends") {
-
-            public void actionPerformed(ActionEvent evt) {
-                showMyFriends();
-            }
-        });
-        main.addComponent(friends);
-
-        Button wall = new Button(new Command("Wall") {
-
-            public void actionPerformed(ActionEvent evt) {
-                showMyWall();
-            }
-        });
-        main.addComponent(wall);
-
-        Button news = new Button(new Command("News") {
-
-            public void actionPerformed(ActionEvent evt) {
-                showNews();
-            }
-        });
-        main.addComponent(news);
+        main.setScrollable(false);
+        main.setLayout(new BorderLayout());
         
-        Button upload = new Button(new Command("Upload photo") {
-
-            public void actionPerformed(ActionEvent evt) {
-                uploadPhoto();
-            }
-        });
-        main.addComponent(upload);
         
-        Button share = new Button(new Command("Share") {
+        main.addCommand(new Command("My Profile") {
 
             public void actionPerformed(ActionEvent evt) {
-                showShare();
+                main.getContentPane().removeAll();
+                main.addComponent(BorderLayout.CENTER, showMyProfile());
+                main.revalidate();
             }
         });
-        main.addComponent(share);
-        main.addCommand(new Command("Exit"){
+
+        Command c = new Command("FAVORITES");
+        Label l = new Label("FAVORITES") {
+
+            public void paint(Graphics g) {
+                super.paint(g);
+                g.drawLine(getX(), getY() + getHeight() - 1, getX() + getWidth(), getY() + getHeight() - 1);
+            }
+        };
+        l.setUIID("Separator");
+        c.putClientProperty("SideComponent", l);
+        main.addCommand(c);
+
+        main.addCommand(new Command("My Friends") {
+
+            public void actionPerformed(ActionEvent evt) {
+                main.getContentPane().removeAll();
+                main.addComponent(BorderLayout.CENTER, showMyFriends());
+                main.revalidate();
+            }
+        });
+
+        main.addCommand(new Command("News") {
+
+            public void actionPerformed(ActionEvent evt) {
+                main.getContentPane().removeAll();
+                main.addComponent(BorderLayout.CENTER, showNews());
+                main.revalidate();
+            }
+        });
+
+        main.addCommand(new Command("Upload photo") {
+
+            public void actionPerformed(ActionEvent evt) {
+                main.getContentPane().removeAll();
+                main.addComponent(BorderLayout.CENTER, uploadPhoto());
+                main.revalidate();
+            }
+        });
+
+        main.addCommand(new Command("Share") {
+
+            public void actionPerformed(ActionEvent evt) {
+                main.getContentPane().removeAll();
+                main.addComponent(BorderLayout.CENTER, showShare());
+                main.revalidate();
+            }
+        });
+
+        Command c1 = new Command("ACTIONS");
+        Label l1 = new Label("ACTIONS") {
+
+            public void paint(Graphics g) {
+                super.paint(g);
+                g.drawLine(getX(), getY() + getHeight() - 1, getX() + getWidth(), getY() + getHeight() - 1);
+            }
+        };
+        l1.setUIID("Separator");
+        c1.putClientProperty("SideComponent", l1);
+        main.addCommand(c1);
+
+        main.addCommand(new Command("Exit") {
 
             public void actionPerformed(ActionEvent evt) {
                 Display.getInstance().exitApplication();
             }
-            
+        });
+        main.addCommand(new Command("logout") {
+
+            public void actionPerformed(ActionEvent evt) {
+                FaceBookAccess.getInstance().logOut();
+                Login.login(main);
+            }
         });
         main.show();
         Login.login(main);
@@ -125,41 +146,53 @@ public class FBDemo {
         System.out.println("destroyed");
 
     }
-    
-    private void uploadPhoto(){
-        final String endpoint = "https://graph.facebook.com/me/photos?access_token="+Login.TOKEN;
-        Form f = new Form("Choose a file");
-        f.setScrollable(false);
-        f.setLayout(new BorderLayout());
-        FileTree ft = new FileTree();
-        ft.addLeafListener(new ActionListener() {
+
+    private Component uploadPhoto() {
+        BorderLayout bl = new BorderLayout();
+        bl.setCenterBehavior(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE);
+        final Container c = new Container(bl);
+        c.addComponent(BorderLayout.CENTER, new Button(new Command("Pick Photo") {
+
             public void actionPerformed(ActionEvent evt) {
-                String filename = (String)evt.getSource();
-                if (Dialog.show("Send file?", filename, "OK", "Cancel")) {
-                    MultipartRequest req = new MultipartRequest();
-                    req.setUrl(endpoint);
-                    req.addArgument("message", "test");
-                    InputStream is = null;
-                    try {
-                        is = FileSystemStorage.getInstance().openInputStream(filename);
-                        req.addData("source", is, FileSystemStorage.getInstance().getLength(filename), "image/jpeg");
-                        NetworkManager.getInstance().addToQueue(req);
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
+                Display.getInstance().openImageGallery(new ActionListener() {
+
+                    public void actionPerformed(ActionEvent evt) {
+                        if(evt == null){
+                            return;
+                        }
+                        String filename = (String) evt.getSource();
+                        if (Dialog.show("Send file?", filename, "OK", "Cancel")) {
+                            MultipartRequest req = new MultipartRequest();
+                            String endpoint = "https://graph.facebook.com/me/photos?access_token=" + Login.TOKEN;
+                            req.setUrl(endpoint);
+                            req.addArgument("message", "test");
+                            InputStream is = null;
+                            try {
+                                is = FileSystemStorage.getInstance().openInputStream(filename);
+                                req.addData("source", is, FileSystemStorage.getInstance().getLength(filename), "image/jpeg");
+                                NetworkManager.getInstance().addToQueue(req);
+                            } catch (IOException ioe) {
+                                ioe.printStackTrace();
+                            }
+                        }
+
                     }
-                }
+                });
+
             }
-        });
-        f.addComponent(BorderLayout.CENTER, ft);
-        f.addCommand(back);
-        f.setBackCommand(back);
-        f.show();
+        }));
+        return c;
     }
 
-    private void showMyProfile() {
-        final Form f = new Form("My Profile");
+    private Component showMyProfile() {
+        final Container c = new Container(new BorderLayout());
+        BorderLayout bl = new BorderLayout();
+        bl.setCenterBehavior(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE);
+        Container p = new Container(bl);
+        p.addComponent(BorderLayout.CENTER, new InfiniteProgress());
 
-        f.setLayout(new BorderLayout());
+        c.addComponent(BorderLayout.CENTER, p);
+
         final User me = new User();
         try {
             FaceBookAccess.getInstance().getUser("me", me, new ActionListener() {
@@ -171,16 +204,15 @@ public class FBDemo {
                     gr.addComponent(getPairContainer("Name", me.getName(), leftCol));
                     gr.addComponent(getPairContainer("Birthday", me.getBirthday(), leftCol));
                     gr.addComponent(getPairContainer("Status", me.getRelationship_status(), leftCol));
-                    f.addComponent(BorderLayout.CENTER, gr);
+                    c.removeAll();
+                    c.addComponent(BorderLayout.CENTER, gr);
 
                     Image i = getTheme().getImage("fbuser.jpg");
                     Container imageCnt = new Container(new BorderLayout());
                     Label myPic = new Label(i);
                     imageCnt.addComponent(BorderLayout.NORTH, myPic);
-                    f.addComponent(BorderLayout.EAST, imageCnt);
-                    
-                    
-                    f.revalidate();
+                    c.addComponent(BorderLayout.EAST, imageCnt);
+                    c.revalidate();
                     try {
                         FaceBookAccess.getInstance().getPicture(me.getId(), myPic, null, true);
                     } catch (IOException ex) {
@@ -191,75 +223,63 @@ public class FBDemo {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
-
-        f.addCommand(back);
-        f.setBackCommand(back);
-
-        f.show();
+        return c;
     }
 
-    private void showMyFriends() {
-        Form f = new Form("My Friends");
-        f.setScrollable(false);
-        f.setLayout(new BorderLayout());
-        List myFriends = new List();
-        try {
-            FaceBookAccess.getInstance().getUserFriends("me", (DefaultListModel) myFriends.getModel(), null);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    private Component showMyFriends() {
+        final Container c = new Container(new BorderLayout());
+        c.setScrollable(false);
+        BorderLayout bl = new BorderLayout();
+        bl.setCenterBehavior(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE);
+        Container p = new Container(bl);
+        p.addComponent(BorderLayout.CENTER, new InfiniteProgress());
+
+        c.addComponent(BorderLayout.CENTER, p);
+        final List myFriends = new List();
         myFriends.setRenderer(new FriendsRenderer());
-        f.addComponent(BorderLayout.CENTER, myFriends);
-        f.addCommand(back);
-        f.setBackCommand(back);
-
-        f.show();
-    }
-
-    private void showMyWall() {
-        Form f = new Form("My Wall");
-        f.setScrollable(false);
-        f.setLayout(new BorderLayout());
-        List wall = new List();
         try {
-            FaceBookAccess.getInstance().getWallFeed("me", (DefaultListModel) wall.getModel(), null);
+            FaceBookAccess.getInstance().getUserFriends("me", (DefaultListModel) myFriends.getModel(), new ActionListener() {
+
+                public void actionPerformed(ActionEvent evt) {
+                    c.removeAll();
+                    c.addComponent(BorderLayout.CENTER, myFriends);
+                    c.revalidate();
+                }
+            });
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        wall.setRenderer(new WallRenderer(true));
-        f.addComponent(BorderLayout.CENTER, wall);
-        
-        
-        f.addCommand(back);
-        f.setBackCommand(back);
-
-        f.show();
+        return c;
     }
 
-    private void showNews() {
-        Form f = new Form("News");
-        f.setScrollable(false);
-        f.setLayout(new BorderLayout());
-        List news = new List();
-        try {
-            FaceBookAccess.getInstance().getNewsFeed("me", (DefaultListModel) news.getModel(), null);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    private Component showNews() {
+        final Container c = new Container(new BorderLayout());
+        c.setScrollable(false);
+        BorderLayout bl = new BorderLayout();
+        bl.setCenterBehavior(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE);
+        Container p = new Container(bl);
+        p.addComponent(BorderLayout.CENTER, new InfiniteProgress());
+
+        c.addComponent(BorderLayout.CENTER, p);
+        final List news = new List();
         news.setRenderer(new WallRenderer(false));
-        f.addComponent(BorderLayout.CENTER, news);
-        
-        
-        f.addCommand(back);
-        f.setBackCommand(back);
+        try {
+            FaceBookAccess.getInstance().getNewsFeed("me", (DefaultListModel) news.getModel(), new ActionListener() {
 
-        f.show();
+                public void actionPerformed(ActionEvent evt) {
+                    c.removeAll();
+                    c.addComponent(BorderLayout.CENTER, news);
+                    c.revalidate();
+                }
+            });
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return c;
     }
-    
-    private void showShare() {
-        Form f = new Form("Share");
-        f.setLayout(new BorderLayout());
+
+    private Component showShare() {
+        final Container c = new Container(new BorderLayout());
         final ShareButton share = new ShareButton();
         final TextArea t = new TextArea("Sharing on Facebook with CodenameOne is a breeze.\n"
                 + "http://www.codenameone.com\n"
@@ -270,15 +290,12 @@ public class FBDemo {
                 share.setTextToShare(t.getText());
             }
         });
-        f.addComponent(BorderLayout.CENTER, t);
+        c.addComponent(BorderLayout.CENTER, t);
         share.setTextToShare(t.getText());
         Container cnt = new Container(new BorderLayout());
         cnt.addComponent(BorderLayout.SOUTH, share);
-        f.addComponent(BorderLayout.EAST, cnt);
-        f.addCommand(back);
-        f.setBackCommand(back);
-
-        f.show();
+        c.addComponent(BorderLayout.EAST, cnt);
+        return c;
     }
 
     static Resources getTheme() {

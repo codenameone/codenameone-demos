@@ -24,6 +24,7 @@ package com.codename1.fbdemo;
 
 import com.codename1.facebook.FaceBookAccess;
 import com.codename1.ui.Component;
+import com.codename1.ui.Display;
 import com.codename1.ui.Image;
 import com.codename1.ui.List;
 import com.codename1.ui.geom.Dimension;
@@ -38,7 +39,7 @@ import java.util.Hashtable;
 public class FriendsRenderer extends DefaultListCellRenderer{
 
     
-    private Dimension imageSize = new Dimension(50, 50);
+    private Dimension imageSize = new Dimension(Display.getInstance().getDisplayHeight()/10, Display.getInstance().getDisplayHeight()/10);
     
     public Component getCellRendererComponent(Component list, Object model, Object value, int index, boolean isSelected) {
         Hashtable v = (Hashtable) value;
