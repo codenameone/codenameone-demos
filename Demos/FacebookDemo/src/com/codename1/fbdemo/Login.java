@@ -88,7 +88,7 @@ public class Login extends Form {
         });
     }
     
-    private static boolean firstLogin() {
+    public static boolean firstLogin() {
         return Storage.getInstance().readObject("token") == null;
     }
     

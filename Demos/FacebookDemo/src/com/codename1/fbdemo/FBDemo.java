@@ -8,6 +8,7 @@ import com.codename1.facebook.User;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.FileSystemStorage;
 import com.codename1.io.MultipartRequest;
+import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.*;
 import com.codename1.ui.events.ActionEvent;
@@ -18,6 +19,7 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.codename1.ui.util.UITimer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
@@ -50,15 +52,16 @@ public class FBDemo {
         main.setScrollable(false);
         main.setLayout(new BorderLayout());
         
-        
-        main.addCommand(new Command("My Profile") {
+        final Command profileCommand = new Command("My Profile") {
 
             public void actionPerformed(ActionEvent evt) {
                 main.getContentPane().removeAll();
                 main.addComponent(BorderLayout.CENTER, showMyProfile());
                 main.revalidate();
             }
-        });
+        };
+                
+        main.addCommand(profileCommand);
 
         Command c = new Command("FAVORITES");
         Label l = new Label("FAVORITES") {
@@ -72,7 +75,7 @@ public class FBDemo {
         c.putClientProperty("SideComponent", l);
         main.addCommand(c);
 
-        main.addCommand(new Command("My Friends") {
+        main.addCommand(new Command("My Friends", theme.getImage("all friends.png")) {
 
             public void actionPerformed(ActionEvent evt) {
                 main.getContentPane().removeAll();
@@ -81,7 +84,7 @@ public class FBDemo {
             }
         });
 
-        main.addCommand(new Command("News") {
+        main.addCommand(new Command("News", theme.getImage("friend feeds.png")) {
 
             public void actionPerformed(ActionEvent evt) {
                 main.getContentPane().removeAll();
@@ -90,7 +93,7 @@ public class FBDemo {
             }
         });
 
-        main.addCommand(new Command("Upload photo") {
+        main.addCommand(new Command("Upload photo", theme.getImage("photos icon.png")) {
 
             public void actionPerformed(ActionEvent evt) {
                 main.getContentPane().removeAll();
@@ -99,7 +102,7 @@ public class FBDemo {
             }
         });
 
-        main.addCommand(new Command("Share") {
+        main.addCommand(new Command("Share", theme.getImage("wall post.png")) {
 
             public void actionPerformed(ActionEvent evt) {
                 main.getContentPane().removeAll();
@@ -126,7 +129,7 @@ public class FBDemo {
                 Display.getInstance().exitApplication();
             }
         });
-        main.addCommand(new Command("logout") {
+        main.addCommand(new Command("Logout") {
 
             public void actionPerformed(ActionEvent evt) {
                 FaceBookAccess.getInstance().logOut();
@@ -135,9 +138,61 @@ public class FBDemo {
         });
         main.show();
         Login.login(main);
-
+        updateLoginPhoto();
     }
 
+    public void updateLoginPhoto() {
+        if(Login.firstLogin()) {
+            new Thread() {
+                public void run() {
+                    while(Login.firstLogin()) {
+                        try {
+                            Thread.sleep(4000);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                    Display.getInstance().callSerially(new Runnable() {
+                        public void run() {
+                            updateLoginPhoto();
+                        }
+                    });
+                }
+            }.start();
+            return;
+        }
+        final User me = new User();
+        try {
+            FaceBookAccess.getInstance().getUser("me", me, new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    try {
+                        FaceBookAccess.getInstance().getPhotoThumbnail(me.getId(), new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                if(evt != null) {
+                                    Image src = (Image)((NetworkEvent)evt).getMetaData();
+                                    if(src != null) {
+                                        Command pc = new Command("", src) {
+                                            public void actionPerformed(ActionEvent evt) {
+                                                main.getContentPane().removeAll();
+                                                main.addComponent(BorderLayout.CENTER, showMyProfile());
+                                                main.revalidate();
+                                            }
+                                        };
+                                        main.addCommand(pc, main.getCommandCount());
+                                    }
+                                }
+                            }
+                        }, true);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     public void stop() {
         System.out.println("stopped");
     }
