@@ -317,6 +317,32 @@ public class FBDemo {
 
         c.addComponent(BorderLayout.CENTER, p);
         final List news = new List();
+        news.addPullToRefresh(new Runnable() {
+
+            public void run() {
+                final DefaultListModel update = new DefaultListModel();
+                final Object lock = new Object();
+                try {
+                    FaceBookAccess.getInstance().getNewsFeed("me", (DefaultListModel) update, new ActionListener() {
+
+                        public void actionPerformed(ActionEvent evt) {
+                            news.setModel(update);
+                            
+                            synchronized(lock) {
+                                lock.notifyAll();
+                            }
+                        }
+                    });
+                } catch (IOException ex) {
+                }
+                synchronized(lock) {
+                    try {
+                        lock.wait();                        
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        });
         news.setRenderer(new WallRenderer(false));
         try {
             FaceBookAccess.getInstance().getNewsFeed("me", (DefaultListModel) news.getModel(), new ActionListener() {
