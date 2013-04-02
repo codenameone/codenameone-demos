@@ -116,7 +116,6 @@ public class WebServices extends Demo {
         };
         
         requestElement = new WebServiceRequest(responseTree, webservices, responseText);
-        
         final Container arguments = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         final Container request = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         request.setScrollableY(true);
@@ -205,7 +204,10 @@ public class WebServices extends Demo {
                 Element response = xp.parse(new InputStreamReader(input));
                 t.setModel(new XMLTreeModel(response));
             }
-            tab.setSelectedIndex(1);
+        }
+        
+        protected void postResponse() {
+            tab.setSelectedIndex(1);            
         }
     }
     
