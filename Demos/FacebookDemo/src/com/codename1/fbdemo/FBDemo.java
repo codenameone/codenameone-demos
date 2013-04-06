@@ -51,7 +51,7 @@ public class FBDemo {
         main = new Form("Facebook Demo");
         main.setScrollable(false);
         main.setLayout(new BorderLayout());
-        
+
         final Command profileCommand = new Command("My Profile") {
 
             public void actionPerformed(ActionEvent evt) {
@@ -60,7 +60,7 @@ public class FBDemo {
                 main.revalidate();
             }
         };
-                
+
         main.addCommand(profileCommand);
 
         Command c = new Command("FAVORITES");
@@ -142,10 +142,11 @@ public class FBDemo {
     }
 
     public void updateLoginPhoto() {
-        if(Login.firstLogin()) {
+        if (Login.firstLogin()) {
             new Thread() {
+
                 public void run() {
-                    while(Login.firstLogin()) {
+                    while (Login.firstLogin()) {
                         try {
                             Thread.sleep(4000);
                         } catch (InterruptedException ex) {
@@ -153,6 +154,7 @@ public class FBDemo {
                         }
                     }
                     Display.getInstance().callSerially(new Runnable() {
+
                         public void run() {
                             updateLoginPhoto();
                         }
@@ -164,14 +166,17 @@ public class FBDemo {
         final User me = new User();
         try {
             FaceBookAccess.getInstance().getUser("me", me, new ActionListener() {
+
                 public void actionPerformed(ActionEvent evt) {
                     try {
                         FaceBookAccess.getInstance().getPhotoThumbnail(me.getId(), new ActionListener() {
+
                             public void actionPerformed(ActionEvent evt) {
-                                if(evt != null) {
-                                    Image src = (Image)((NetworkEvent)evt).getMetaData();
-                                    if(src != null) {
+                                if (evt != null) {
+                                    Image src = (Image) ((NetworkEvent) evt).getMetaData();
+                                    if (src != null) {
                                         Command pc = new Command("", src) {
+
                                             public void actionPerformed(ActionEvent evt) {
                                                 main.getContentPane().removeAll();
                                                 main.addComponent(BorderLayout.CENTER, showMyProfile());
@@ -192,7 +197,7 @@ public class FBDemo {
             ex.printStackTrace();
         }
     }
-    
+
     public void stop() {
         System.out.println("stopped");
     }
@@ -212,7 +217,7 @@ public class FBDemo {
                 Display.getInstance().openImageGallery(new ActionListener() {
 
                     public void actionPerformed(ActionEvent evt) {
-                        if(evt == null){
+                        if (evt == null) {
                             return;
                         }
                         String filename = (String) evt.getSource();
@@ -320,27 +325,36 @@ public class FBDemo {
         news.addPullToRefresh(new Runnable() {
 
             public void run() {
-                final DefaultListModel update = new DefaultListModel();
-                final Object lock = new Object();
-                try {
-                    FaceBookAccess.getInstance().getNewsFeed("me", (DefaultListModel) update, new ActionListener() {
 
-                        public void actionPerformed(ActionEvent evt) {
-                            news.setModel(update);
-                            
-                            synchronized(lock) {
-                                lock.notifyAll();
+                Display.getInstance().invokeAndBlock(new Runnable() {
+
+                    public void run() {
+                        final DefaultListModel update = new DefaultListModel();
+                        final Object lock = new Object();
+                        try {
+                            FaceBookAccess.getInstance().getNewsFeed("me", (DefaultListModel) update, new ActionListener() {
+
+                                public void actionPerformed(ActionEvent evt) {
+                                    news.setModel(update);
+
+                                    synchronized (lock) {
+                                        lock.notifyAll();
+                                    }
+                                }
+                            });
+                        } catch (IOException ex) {
+                        }
+                        synchronized (lock) {
+                            try {
+                                lock.wait();
+                            } catch (Exception e) {
                             }
                         }
-                    });
-                } catch (IOException ex) {
-                }
-                synchronized(lock) {
-                    try {
-                        lock.wait();                        
-                    } catch (Exception e) {
                     }
-                }
+                });
+
+
+
             }
         });
         news.setRenderer(new WallRenderer(false));
