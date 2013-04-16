@@ -22,34 +22,58 @@
  */
 package com.codename1.demos.kitchen;
 
-import com.codename1.facebook.ui.LikeButton;
 import com.codename1.ui.Button;
-import com.codename1.ui.Command;
 import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
+import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.plaf.UIManager;
-import com.codename1.ui.util.Resources;
-import java.io.IOException;
+import java.util.Hashtable;
 
 /**
+ * A sample for push notifications support in Codename One, <b>warning The values for the entries 
+ * here are only valid for this application and only when built with our certificates so
+ * they will not work for you!</b>
  *
  * @author Shai Almog
  */
 public class Push  extends Demo {
+    /**
+     * We get this key from the Google play API console by following the instructions here:
+     * http://developer.android.com/google/gcm/gs.html
+     */
+    private static final String GOOGLE_AUTH_KEY = "718167036973"; 
+
+    /**
+     * We get this key from the Google play API console by following the instructions here:
+     * http://developer.android.com/google/gcm/gs.html
+     */
+    private static final String GOOGLE_SERVER_KEY = "AIzaSyATSw_rGeKnzKWULMGEk7MDfEjRxJ1ybqo"; 
+
+    /**
+     * When pushing to an iOS device we need a special certificate (NOT THE SIGNING CERTIFICATE) which
+     * you get when you create the application in the provisioning portal. This is a special push certificate.
+     * This is the password for that certificate.
+     */
+    private static final String IOS_CERTIFICATE_PASSWORD = "password"; 
+    
+    /**
+     * When pushing to an iOS device we need a special certificate (NOT THE SIGNING CERTIFICATE) which
+     * you get when you create the application in the provisioning portal. This is a special push certificate.
+     * This is the URL where you are hosting that certificate so our server can fetch it for push
+     */
+    private static final String IOS_CERTIFICATE_URL = "https://dl.dropbox.com/u/57067724/cn1/kitchen_sink_push_certificate.p12"; 
 
     public String getDisplayName() {
         return "Push";
     }
 
     public Image getDemoIcon() {
-        return getResources().getImage("share-icon.png");
+        return getResources().getImage("go-top.png");
     }
 
     public Container createDemo() {
@@ -58,21 +82,36 @@ public class Push  extends Demo {
     
     public Container createDemo(final Form parentForm) {
         ComponentGroup grp = new ComponentGroup();
-        final TextField tf = new TextField("");
-        tf.setHint("ID/Email");
-        grp.addComponent(tf);
-        Button register = new Button("Register Push");
+        Button register = new Button("Register For Push");
         Button deregister = new Button("Deregister");
+        Button sendPush = new Button("Send Push");
+        final TextField destDevice = new TextField("");
+        destDevice.setHint("Dest ID, blank for all devices");
         grp.addComponent(register);
         grp.addComponent(deregister);
+        grp.addComponent(sendPush);
+        grp.addComponent(destDevice);
+        grp.addComponent(new Label("Id: " + com.codename1.push.Push.getDeviceKey()));
+        
         register.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                Display.getInstance().registerPush(tf.getText(), true);
+                Hashtable meta = new Hashtable();
+                meta.put(com.codename1.push.Push.GOOGLE_PUSH_KEY, GOOGLE_AUTH_KEY);
+                Display.getInstance().registerPush(meta, false);
             }
         });
         deregister.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Display.getInstance().deregisterPush();
+            }
+        });
+        sendPush.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                String devKey = null;
+                if(destDevice.getText().length() > 0) {
+                    devKey = destDevice.getText();
+                }
+                com.codename1.push.Push.sendPushMessage("Hi Kitchen Sink users!", devKey, false, GOOGLE_SERVER_KEY, IOS_CERTIFICATE_URL, IOS_CERTIFICATE_PASSWORD);
             }
         });
         
