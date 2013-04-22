@@ -59,7 +59,7 @@ public class CloudDB extends Demo {
         InfiniteProgress progress = new InfiniteProgress();
         Dialog dlg = progress.showInifiniteBlocking();
         try {
-            CloudObject[] objects = CloudStorage.getInstance().querySorted("MyObject", 1, true, 0, 10, CloudObject.ACCESS_PUBLIC_READ_ONLY);
+            CloudObject[] objects = CloudStorage.getInstance().querySorted("MyObject", 1, true, 0, 10, CloudObject.ACCESS_APPLICATION);
             if(objects != null && objects.length > 0) {
                 cloudDb.addComponent(new Label("My Cloud Objects"));
                 ComponentGroup entries = new ComponentGroup();
@@ -102,7 +102,7 @@ public class CloudDB extends Demo {
         Button addNew = new Button("Add");
         addNew.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                CloudObject obj = new CloudObject("MyObject", CloudObject.ACCESS_PUBLIC_READ_ONLY);
+                CloudObject obj = new CloudObject("MyObject", CloudObject.ACCESS_APPLICATION);
                 obj.setString("txt", title.getText());
                 obj.setIndexString(1, title.getText());
                 CloudStorage.getInstance().save(obj);
