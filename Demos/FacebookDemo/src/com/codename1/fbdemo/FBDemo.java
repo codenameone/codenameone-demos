@@ -10,6 +10,8 @@ import com.codename1.io.FileSystemStorage;
 import com.codename1.io.MultipartRequest;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.social.FacebookConnect;
+import com.codename1.social.LoginCallback;
 import com.codename1.ui.*;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -132,17 +134,33 @@ public class FBDemo {
         main.addCommand(new Command("Logout") {
 
             public void actionPerformed(ActionEvent evt) {
-                FaceBookAccess.getInstance().logOut();
-                Login.login(main);
+                if(FacebookConnect.getInstance().isFacebookSDKSupported()) {
+                    FacebookConnect.getInstance().logout();
+                } else {
+                    FaceBookAccess.getInstance().logOut();
+                    Login.login(main);
+                }
             }
         });
         main.show();
-        Login.login(main);
-        updateLoginPhoto();
+        
+        if(FacebookConnect.getInstance().isFacebookSDKSupported()) {
+            if(!FacebookConnect.getInstance().isLoggedIn()) {
+                FacebookConnect.getInstance().setCallback(new LoginCallback() {
+                    public void loginSuccessful() {
+                        updateLoginPhoto();
+                    }
+                });
+                FacebookConnect.getInstance().login();
+            }
+        } else {
+            Login.login(main);
+            updateLoginPhoto();
+        }
     }
 
     public void updateLoginPhoto() {
-        if (Login.firstLogin()) {
+        if (!FacebookConnect.getInstance().isFacebookSDKSupported() && Login.firstLogin()) {
             new Thread() {
 
                 public void run() {
@@ -223,7 +241,12 @@ public class FBDemo {
                         String filename = (String) evt.getSource();
                         if (Dialog.show("Send file?", filename, "OK", "Cancel")) {
                             MultipartRequest req = new MultipartRequest();
-                            String endpoint = "https://graph.facebook.com/me/photos?access_token=" + Login.TOKEN;
+                            String endpoint;
+                            if(FacebookConnect.getInstance().isFacebookSDKSupported()) {
+                                endpoint = "https://graph.facebook.com/me/photos?access_token=" + FacebookConnect.getInstance().getToken();
+                            } else {
+                                endpoint = "https://graph.facebook.com/me/photos?access_token=" + Login.TOKEN;
+                            }
                             req.setUrl(endpoint);
                             req.addArgument("message", "test");
                             InputStream is = null;
