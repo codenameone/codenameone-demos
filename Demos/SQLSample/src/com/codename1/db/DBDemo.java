@@ -19,14 +19,13 @@ import com.codename1.ui.util.Resources;
 import java.io.IOException;
 
 public class DBDemo {
-
+    private Form currentForm;
     private Database db;
     private String[] users = new String[]{"Chen Fishbein", "Shai Almog",
         "Bill gates", "Mark zuckerberg", "Larry Page"};
     private int[] ages = new int[]{36, 36, 56, 28, 39};
 
     public void init(Object context) {
-        System.out.println("init");
         try {
             Resources theme = Resources.openLayered("/theme");
             UIManager.getInstance().setThemeProps(theme.getTheme(theme.getThemeResourceNames()[0]));
@@ -37,7 +36,10 @@ public class DBDemo {
     }
 
     public void start() {
-        System.out.println("started");
+        if(currentForm != null) {
+            currentForm.show();
+            return;
+        }
         try {
             boolean created = Database.exists("MyDB.db");
             db = Database.openOrCreate("MyDB.db");
@@ -46,7 +48,7 @@ public class DBDemo {
                 return;
             }
             if (!created) {
-                db.execute("create table temp (id INTEGER PRIMARY KEY,name text,num double);");
+            db.execute("create table temp (id INTEGER PRIMARY KEY,name text,num double);");
                 for (int i = 0; i < users.length; i++) {
                     db.execute("insert into temp (name,num) values (?,?);", new String[]{users[i], "" + ages[i]});
                 }
@@ -126,7 +128,7 @@ public class DBDemo {
 
     private Container getItems() throws IOException {
         Cursor c = db.executeQuery("select * from temp");
-        
+
 
         final Container rows = new ComponentGroup();
         rows.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
@@ -145,10 +147,9 @@ public class DBDemo {
     }
 
     public void stop() {
-        System.out.println("stopped");
+        currentForm = Display.getInstance().getCurrent();
     }
 
     public void destroy() {
-        System.out.println("destroyed");
     }
 }
