@@ -26,7 +26,6 @@ package com.codename1.demos.kitchen;
 import com.codename1.io.Log;
 import com.codename1.payment.PurchaseCallback;
 import com.codename1.push.PushCallback;
-import com.codename1.system.DefaultCrashReporter;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
@@ -35,7 +34,6 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
-import com.codename1.ui.List;
 import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -54,6 +52,7 @@ public class KitchenSink implements PushCallback, PurchaseCallback {
     private Resources res;
     private static boolean launched;
     private String pushText;
+    private Form currentForm;
     
     public void init(Object context){
         //Log.setReportingLevel(Log.REPORTING_PRODUCTION);
@@ -119,21 +118,28 @@ public class KitchenSink implements PushCallback, PurchaseCallback {
         splash.addComponent(BorderLayout.NORTH, title);
         splash.addComponent(BorderLayout.SOUTH, subtitle);
         Label beaker = new Label(res.getImage("beaker.png"));
-        Label beakerLogo = new Label(res.getImage("beaker_logo.png"));
+        final Label beakerLogo = new Label(res.getImage("beaker_logo.png"));
+        beakerLogo.setVisible(false);
         Container layeredLayout = new Container(new LayeredLayout());
         splash.addComponent(BorderLayout.CENTER, layeredLayout);
         layeredLayout.addComponent(beaker);
-        Container logoParent = new Container(new BorderLayout());
+        final Container logoParent = new Container(new BorderLayout());
         layeredLayout.addComponent(logoParent);
         logoParent.addComponent(BorderLayout.CENTER, beakerLogo);
         splash.revalidate();
         
-        beakerLogo.setX(0);
-        beakerLogo.setY(0);
-        beakerLogo.setWidth(3);
-        beakerLogo.setHeight(3);
-        logoParent.setShouldCalcPreferredSize(true);
-        logoParent.animateLayoutFade(2000, 0);
+        Display.getInstance().callSerially(new Runnable() {
+            @Override
+            public void run() {
+                beakerLogo.setVisible(true);
+                beakerLogo.setX(0);
+                beakerLogo.setY(0);
+                beakerLogo.setWidth(3);
+                beakerLogo.setHeight(3);
+                logoParent.setShouldCalcPreferredSize(true);
+                logoParent.animateLayoutFade(2000, 0);
+            }
+        });
         
         splash.show();
         splash.setTransitionOutAnimator(CommonTransitions.createFastSlide(CommonTransitions.SLIDE_VERTICAL, true, 300));
@@ -146,6 +152,10 @@ public class KitchenSink implements PushCallback, PurchaseCallback {
     
     public void start(){
         Log.p("Start");
+        if(currentForm != null && !(currentForm instanceof Dialog)) {
+            currentForm.show();
+            return;
+        }
         showSplashAnimation();
     }
 
@@ -159,7 +169,8 @@ public class KitchenSink implements PushCallback, PurchaseCallback {
             new Web(), new Components(),
             new Video(), new Camera(), 
             new WebServices(),new Input(),
-            new Share(), new CloudDB(), new Pay()//, new RSS()
+            new Share(), new CloudDB(), new Pay(),
+            new Push()//, new RSS()
         };
         for(int iter = 0 ; iter < demos.length ; iter++) {
             demos[iter].init(res);
@@ -270,6 +281,7 @@ public class KitchenSink implements PushCallback, PurchaseCallback {
     
     public void stop(){
         Log.p("Stop");
+        currentForm = Display.getInstance().getCurrent();
     }
     
     public void destroy(){

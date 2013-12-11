@@ -130,13 +130,26 @@ public class Themes  extends Demo {
             }
         });
         
+        ComponentGroup fonts = new ComponentGroup();
+        final Button monospaceFont = new Button("Monospace Font");
+        final Button defaultFont = new Button("Default Font");
+        defaultFont.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                applyFont(Font.getDefaultFont(), Font.createSystemFont(Font.FACE_SYSTEM, Font.SIZE_LARGE, Font.STYLE_BOLD), parentForm);
+            }
+        });
+        monospaceFont.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                applyFont(Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_MEDIUM), 
+                        Font.createSystemFont(Font.FACE_MONOSPACE, Font.SIZE_LARGE, Font.STYLE_BOLD), parentForm);
+            }
+        });
+        
         if(Font.isTrueTypeFileSupported()) {
-            ComponentGroup fonts = new ComponentGroup();
             final Button handlee = new Button("Handlee Font");
             final Font handleeFont = Font.createTrueTypeFont("Handlee", "Handlee-Regular.ttf").
                             derive(Font.getDefaultFont().getHeight(), Font.STYLE_PLAIN);
             final Font handleeFontLarge = handleeFont.derive(handleeFont.getHeight() * 1.5f, Font.STYLE_PLAIN);
-            final Button defaultFont = new Button("Default Font");
             handlee.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     applyFont(handleeFont, handleeFontLarge, parentForm);
@@ -144,20 +157,22 @@ public class Themes  extends Demo {
                     defaultFont.repaint();
                 }
             });
-            defaultFont.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent evt) {
-                    applyFont(Font.getDefaultFont(), Font.createSystemFont(Font.FACE_SYSTEM, Font.SIZE_LARGE, Font.STYLE_BOLD), parentForm);
-                }
-            });
             fonts.addComponent(handlee);
+            fonts.addComponent(monospaceFont);
             fonts.addComponent(defaultFont);
 
             // the font is set here since otherwise the UIID change will break the settings
             handlee.getUnselectedStyle().setFont(handleeFont);
             handlee.getSelectedStyle().setFont(handleeFont);
             handlee.getPressedStyle().setFont(handleeFont);
-            themes.addComponent(fonts);
+        } else {
+            fonts.addComponent(monospaceFont);
+            fonts.addComponent(defaultFont);
         }
+        monospaceFont.getUnselectedStyle().setFont(Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+        monospaceFont.getSelectedStyle().setFont(Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+        monospaceFont.getPressedStyle().setFont(Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+        themes.addComponent(fonts);
 
         return themes;
     }
