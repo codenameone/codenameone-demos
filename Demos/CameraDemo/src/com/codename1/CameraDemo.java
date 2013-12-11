@@ -26,6 +26,7 @@ package com.codename1;
 import com.codename1.capture.Capture;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComponentGroup;
+import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -41,21 +42,22 @@ import java.io.InputStream;
  * This is a simple Demo that demonstrates how to the Camera API
  */
 public class CameraDemo {
-   
+    private Form currentForm;
     
     public void init(Object context){
-        System.out.println("init");        
         try{
             Resources theme = Resources.openLayered("/theme");
             UIManager.getInstance().setThemeProps(theme.getTheme(theme.getThemeResourceNames()[0]));
         }catch(IOException e){
             e.printStackTrace();
         }
-
     }
     
     public void start(){
-        System.out.println("started");
+        if(currentForm != null) {
+            currentForm.show();
+            return;
+        }
     
         final Form f = new Form("Camera");
         f.setLayout(new BorderLayout());
@@ -105,12 +107,10 @@ public class CameraDemo {
     }
 
     public void stop(){
-        System.out.println("stopped");
+        currentForm = Display.getInstance().getCurrent();
     }
     
     public void destroy(){
-        System.out.println("destroyed");
-    
     }
 
 }
