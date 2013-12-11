@@ -22,6 +22,8 @@
  */
 package com.codename1.demos.tzone;
 
+import com.codename1.ui.Display;
+import com.codename1.ui.Form;
 import userclasses.StateMachine;
 
 /**
@@ -31,6 +33,8 @@ import userclasses.StateMachine;
  * @author Shai Almog
  */
 public class Main {
+    private Form currentForm;
+    
     /**
      * Invoked to initialize the lifecycle
      * 
@@ -43,13 +47,18 @@ public class Main {
      * Invoked to start or resume the application
      */
     public void start() {
+        if(currentForm != null) {
+            currentForm.show();
+            return;
+        }
         new StateMachine("/timeline");
     }
-    
+        
     /**
      * Invoked when the application is exited or paused
      */
     public void stop() {
+        currentForm = Display.getInstance().getCurrent();
     }
     
     /**
