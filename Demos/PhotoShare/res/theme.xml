@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="6" useXmlUI="false">
+    <theme name="Theme">
+        <val key="@includeNativeBool" value="true" />
+        <val key="Toolbar.transparency" value="140" />
+        <val key="ToolbarLabel.align" value="4" />
+        <border key="ToolbarLabel.border" type="empty" />
+        <val key="ToolbarLabel.derive" value="Button" />
+        <font key="ToolbarLabel.font" type="ttf" face="0" style="0" size="0" name="cn1photos.ttf" family="cn1photos" sizeSettings="3" actualSize="4.0" />
+        <val key="ToolbarLabel.press#align" value="4" />
+        <border key="ToolbarLabel.press#border" type="empty" />
+        <val key="ToolbarLabel.press#derive" value="Button" />
+        <font key="ToolbarLabel.press#font" type="ttf" face="0" style="0" size="0" name="cn1photos.ttf" family="cn1photos" sizeSettings="3" actualSize="4.0" />
+        <val key="ToolbarLabel.sel#align" value="4" />
+        <border key="ToolbarLabel.sel#border" type="empty" />
+        <val key="ToolbarLabel.sel#derive" value="Button" />
+        <font key="ToolbarLabel.sel#font" type="ttf" face="0" style="0" size="0" name="cn1photos.ttf" family="cn1photos" sizeSettings="3" actualSize="4.0" />
+    </theme>
+    <image name="thumbnail.png" type="multi"  />
+</resource>
