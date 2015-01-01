@@ -20,6 +20,8 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.events.ScrollListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
@@ -90,9 +92,9 @@ public class Flickr {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 final Form cats = new Form("Cats");
-                cats.setLayout(new BorderLayout());
-                cats.setScrollable(false);
-                Toolbar bar = new Toolbar();
+                cats.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+                cats.setScrollableY(true);
+                final Toolbar bar = new Toolbar();
                 cats.setToolBar(bar);
                 addCommandsToToolbar(bar);
                 bar.addCommandToRightBar(new Command("", res.getImage("synch.png")) {
@@ -143,8 +145,8 @@ public class Flickr {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 final Form dogs = new Form("Dogs");
-                dogs.setLayout(new BorderLayout());
-                dogs.setScrollable(false);
+                dogs.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+                dogs.setScrollableY(true);
                 Toolbar bar = new Toolbar();
                 dogs.setToolBar(bar);
                 addCommandsToToolbar(bar);
@@ -197,8 +199,8 @@ public class Flickr {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 final Form search = new Form();
-                search.setLayout(new BorderLayout());
-                search.setScrollable(false);
+                search.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+                search.setScrollable(true);
                 Toolbar bar = new Toolbar();
                 search.setToolBar(bar);
                 addCommandsToToolbar(bar);
@@ -250,7 +252,7 @@ public class Flickr {
      * This method builds a UI Entry dynamically from a data Map object.
      */ 
     private static Component createEntry(Map data) {
-        Container cnt = new Container(new BorderLayout());
+        final Container cnt = new Container(new BorderLayout());
         cnt.setUIID("MultiButton");
         Label icon = new Label();
         //take the time and use it as the identifier of the image
@@ -321,15 +323,15 @@ public class Flickr {
                 Display.getInstance().callSerially(new Runnable() {
 
                     public void run() {
-                        Container cnt = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-                        cnt.setScrollableY(true);
+                        Container cnt = f.getContentPane();
                         for (int i = 0; i < entries.size(); i++) {
                             Map data = (Map) entries.get(i);
                             cnt.addComponent(createEntry(data));
                         }
-                        f.addComponent(BorderLayout.CENTER, cnt);
                         f.revalidate();
-
+                        Toolbar bar = f.getToolbar();
+                        //indicates the bar should scroll off the screen.
+                        bar.setScrollOffUponContentPane(true);                        
                         //remove the waiting progress from the Form
                         removeWaitingProgress(f);
                     }
