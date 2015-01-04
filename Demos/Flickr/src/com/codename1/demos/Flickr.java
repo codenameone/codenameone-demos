@@ -13,6 +13,7 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
@@ -94,7 +95,8 @@ public class Flickr {
                 final Form cats = new Form("Cats");
                 cats.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
                 cats.setScrollableY(true);
-                final Toolbar bar = new Toolbar();
+                final CustomToolbar bar = new CustomToolbar(true);
+                cats.getContentPane().addScrollListener(bar);
                 cats.setToolBar(bar);
                 addCommandsToToolbar(bar);
                 bar.addCommandToRightBar(new Command("", res.getImage("synch.png")) {
@@ -134,7 +136,19 @@ public class Flickr {
                     }
 
                 });
+
+                try {
+                    Image im = Image.createImage("/cat.jpg");
+                    im = im.scaledWidth(Display.getInstance().getDisplayWidth());
+                    Label bigCat = new Label(im);
+                    cats.addComponent(bigCat);
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
                 cats.show();
+
                 updateScreenFromNetwork(cats, "cat");
 
             }
@@ -148,6 +162,7 @@ public class Flickr {
                 dogs.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
                 dogs.setScrollableY(true);
                 Toolbar bar = new Toolbar();
+                bar.setScrollOffUponContentPane(true);
                 dogs.setToolBar(bar);
                 addCommandsToToolbar(bar);
                 bar.addCommandToRightBar(new Command("", res.getImage("synch.png")) {
@@ -200,7 +215,7 @@ public class Flickr {
             public void actionPerformed(ActionEvent evt) {
                 final Form search = new Form();
                 search.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
-                search.setScrollable(true);
+                search.setScrollableY(true);
                 Toolbar bar = new Toolbar();
                 search.setToolBar(bar);
                 addCommandsToToolbar(bar);
@@ -250,7 +265,7 @@ public class Flickr {
 
     /**
      * This method builds a UI Entry dynamically from a data Map object.
-     */ 
+     */
     private static Component createEntry(Map data) {
         final Container cnt = new Container(new BorderLayout());
         cnt.setUIID("MultiButton");
@@ -312,7 +327,7 @@ public class Flickr {
     private static void updateScreenFromNetwork(final Form f, final String tag) {
         //show a waiting progress on the Form
         addWaitingProgress(f);
-        
+
         //run the networking on a background thread
         Display.getInstance().scheduleBackgroundTask(new Runnable() {
 
@@ -329,9 +344,6 @@ public class Flickr {
                             cnt.addComponent(createEntry(data));
                         }
                         f.revalidate();
-                        Toolbar bar = f.getToolbar();
-                        //indicates the bar should scroll off the screen.
-                        bar.setScrollOffUponContentPane(true);                        
                         //remove the waiting progress from the Form
                         removeWaitingProgress(f);
                     }
