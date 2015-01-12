@@ -273,7 +273,7 @@
             vendor="${codename1.vendor}"
             subtitle="${codename1.secondaryTitle}"
             
-            targetType="debug_android_chen"
+            targetType="android"
             keystoreAlias="${codename1.android.keystoreAlias}"
             keystore="${codename1.android.keystore}"
             certPassword="${codename1.android.keystorePassword}"
