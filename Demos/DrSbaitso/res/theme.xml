@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="6" useXmlUI="false">
+    <image name="BubbleSbaitso.borderBottom_1.png" type="multi"  />
+    <image name="BubbleSbaitso.borderBottomL_1.png" type="multi"  />
+    <image name="BubbleSbaitso.borderBottomR_1.png" type="multi"  />
+    <image name="BubbleSbaitso.borderCenter_1.png" type="multi"  />
+    <image name="BubbleSbaitso.borderLeft_1.png" type="multi"  />
+    <image name="BubbleSbaitso.borderRight_1.png" type="multi"  />
+    <image name="BubbleSbaitso.borderTop_1.png" type="multi"  />
+    <image name="BubbleSbaitso.borderTopL_1.png" type="multi"  />
+    <image name="BubbleSbaitso.borderTopR_1.png" type="multi"  />
+    <image name="BubbleUser.borderBottom_1.png" type="multi"  />
+    <image name="BubbleUser.borderBottomL_1.png" type="multi"  />
+    <image name="BubbleUser.borderBottomR_1.png" type="multi"  />
+    <image name="BubbleUser.borderCenter_1.png" type="multi"  />
+    <image name="BubbleUser.borderLeft_1.png" type="multi"  />
+    <image name="BubbleUser.borderRight_1.png" type="multi"  />
+    <image name="BubbleUser.borderTop_1.png" type="multi"  />
+    <image name="BubbleUser.borderTopL_1.png" type="multi"  />
+    <image name="BubbleUser.borderTopR_1.png" type="multi"  />
+    <image name="duke_iphone.png" type="multi"  />
+    <theme name="Theme">
+        <val key="@includeNativeBool" value="true" />
+        <border key="BubbleSbaitso.border" type="image" i1="BubbleSbaitso.borderTop_1.png" i2="BubbleSbaitso.borderBottom_1.png" i3="BubbleSbaitso.borderLeft_1.png" i4="BubbleSbaitso.borderRight_1.png" i5="BubbleSbaitso.borderTopL_1.png" i6="BubbleSbaitso.borderTopR_1.png" i7="BubbleSbaitso.borderBottomL_1.png" i8="BubbleSbaitso.borderBottomR_1.png" i9="BubbleSbaitso.borderCenter_1.png" />
+        <val key="BubbleSbaitso.fgColor" value="000000" />
+        <val key="BubbleSbaitso.marUnit" value="2,2,2,2" />
+        <val key="BubbleSbaitso.margin" value="1,1,1,1" />
+        <val key="BubbleSbaitso.padUnit" value="2,2,2,2" />
+        <val key="BubbleSbaitso.padding" value="1,1,3,1" />
+        <val key="BubbleSbaitso.transparency" value="0" />
+        <border key="BubbleUser.border" type="image" i1="BubbleUser.borderTop_1.png" i2="BubbleUser.borderBottom_1.png" i3="BubbleUser.borderLeft_1.png" i4="BubbleUser.borderRight_1.png" i5="BubbleUser.borderTopL_1.png" i6="BubbleUser.borderTopR_1.png" i7="BubbleUser.borderBottomL_1.png" i8="BubbleUser.borderBottomR_1.png" i9="BubbleUser.borderCenter_1.png" />
+        <val key="BubbleUser.fgColor" value="ffffff" />
+        <val key="BubbleUser.marUnit" value="2,2,2,2" />
+        <val key="BubbleUser.margin" value="1,1,1,1" />
+        <val key="BubbleUser.padUnit" value="2,2,2,2" />
+        <val key="BubbleUser.padding" value="1,1,1,3" />
+        <val key="BubbleUser.transparency" value="0" />
+    </theme>
+</resource>
