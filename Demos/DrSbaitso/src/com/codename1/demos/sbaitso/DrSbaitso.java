@@ -26,6 +26,7 @@ package com.codename1.demos.sbaitso;
 import com.codename1.capture.Capture;
 import com.codename1.components.SpanLabel;
 import com.codename1.io.Log;
+import com.codename1.system.NativeLookup;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
@@ -56,12 +57,14 @@ public class DrSbaitso {
     private String userName;
     private Image userPicture;
     private Form current;
+    private TTS tts;
 
     public void init(Object context) {
         try {
             Resources theme = Resources.openLayered("/theme");
             UIManager.getInstance().setThemeProps(theme.getTheme(theme.getThemeResourceNames()[0]));
             userPicture = theme.getImage("duke_iphone.png");
+            tts = (TTS)NativeLookup.create(TTS.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,7 +95,6 @@ public class DrSbaitso {
         final TextField name = new TextField();
         name.setHint("What Is Your Name?");
         final Button btn = new Button("Take Photo");
-
         cg.addComponent(name);
         cg.addComponent(btn);
         btn.addActionListener(new ActionListener() {
@@ -114,40 +116,11 @@ public class DrSbaitso {
                 showSbaitso();
             }
         });
-
         hi.show();
     }
 
-    void showSbaitso() {
-        Form sb = new Form();
-        sb.setFormBottomPaddingEditingMode(true);
-        Toolbar t = new Toolbar();
-        sb.setToolBar(t);
-        final TextField searchField = new TextField();
-        searchField.setHint("Search For Answers...");
-        t.setTitleComponent(searchField);
-        sb.setLayout(new BorderLayout());
-        final TextField ask = new TextField();
-        ask.setHint("Ask The Dr.");
-        Container askContainer = new Container(new BorderLayout());
-        askContainer.addComponent(BorderLayout.CENTER, ask);
-        Button askButton = new Button("Ask");
-        askContainer.addComponent(BorderLayout.EAST, askButton);        
-        sb.addComponent(BorderLayout.SOUTH, askContainer);
-        final Container discussion = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        sb.addComponent(BorderLayout.CENTER, discussion);
-        discussion.setScrollableY(true);
-        sb.show();
-        Display.getInstance().callSerially(new Runnable() {
-            public void run() {
-                say(discussion, "HELLO " + userName +", MY NAME IS DOCTOR SBAITSO.\n\n" +
-                                            "I AM HERE TO HELP YOU.\n" +
-                                            "SAY WHATEVER IS IN YOUR MIND FREELY," +
-                                            "OUR CONVERSATION WILL BE KEPT IN STRICT CONFIDENCE.\n" +
-                                            "MEMORY CONTENTS WILL BE WIPED OFF AFTER YOU LEAVE.", false);
-            }
-        });
-        searchField.addDataChangeListener(new DataChangedListener() {
+    private DataChangedListener createSearchListener(final TextField searchField, final Container discussion, final Button ask) {
+        return new DataChangedListener() {
             private boolean animateLock;
             public void dataChanged(int type, int index) {
                 String t = searchField.getText();
@@ -183,7 +156,42 @@ public class DrSbaitso {
                     animateLock = false;
                 }
             }
+        };        
+    }
+    
+    void showSbaitso() {
+        Form sb = new Form();
+        sb.setFormBottomPaddingEditingMode(true);
+        Toolbar t = new Toolbar();
+        sb.setToolBar(t);
+        final TextField searchField = new TextField();
+        searchField.setHint("Search For Answers...");
+        t.setTitleComponent(searchField);
+        sb.setLayout(new BorderLayout());
+        final TextField ask = new TextField();
+        ask.setHint("Ask The Dr.");
+        Container askContainer = new Container(new BorderLayout());
+        askContainer.addComponent(BorderLayout.CENTER, ask);
+        Button askButton = new Button("Ask");
+        askContainer.addComponent(BorderLayout.EAST, askButton);        
+        sb.addComponent(BorderLayout.SOUTH, askContainer);
+        final Container discussion = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        sb.addComponent(BorderLayout.CENTER, discussion);
+        discussion.setScrollableY(true);
+        sb.show();
+        Display.getInstance().callSerially(new Runnable() {
+            public void run() {
+                String w = "HELLO " + userName +", MY NAME IS DOCTOR SBAITSO.\n\nI AM HERE TO HELP YOU.\n" +
+                                            "SAY WHATEVER IS IN YOUR MIND FREELY," +
+                                            "OUR CONVERSATION WILL BE KEPT IN STRICT CONFIDENCE.\n" +
+                                            "MEMORY CONTENTS WILL BE WIPED OFF AFTER YOU LEAVE.";
+                say(discussion, w, false);
+                if(tts != null && tts.isSupported()) {
+                    tts.say(w);
+                }
+            }
         });
+        searchField.addDataChangeListener(createSearchListener(searchField, discussion, askButton));
         ActionListener askEvent = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 String t = ask.getText();
@@ -199,7 +207,11 @@ public class DrSbaitso {
     }
     
     void answer(String question, Container dest) {
-        say(dest, AI.getResponse(question), false);
+        String resp = AI.getResponse(question);
+        say(dest, resp, false);
+        if(tts != null && tts.isSupported()) {
+            tts.say(resp);
+        }
     }
     
     void say(Container destination, String text, boolean question) {
@@ -239,6 +251,15 @@ public class DrSbaitso {
         try {
             int width = userPicture.getWidth();
             Image capturedImage = Image.createImage(Capture.capturePhoto(width, -1));
+            if(capturedImage.getHeight() != width) {
+                if(capturedImage.getWidth() < capturedImage.getHeight()) {
+                    capturedImage = capturedImage.subImage(0, capturedImage.getHeight() / 2 - width / 2, width, width, false);
+                } else {
+                    Image n = Image.createImage(width, width);
+                    n.getGraphics().drawImage(userPicture, 0, width / 2- capturedImage.getHeight() / 2);
+                    capturedImage = n;
+                }
+            }
             return roundImage(capturedImage);
         } catch (IOException err) {
             err.printStackTrace();
