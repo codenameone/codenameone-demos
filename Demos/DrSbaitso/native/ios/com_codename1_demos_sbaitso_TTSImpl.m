@@ -8,7 +8,7 @@
     AVSpeechSynthesisVoice *voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"];
     AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:param];
     AVSpeechSynthesizer *syn = [[[AVSpeechSynthesizer alloc] init]autorelease];
-    utterance.rate = AVSpeechUtteranceMinimumSpeechRate;
+    utterance.rate = 0;
     utterance.voice = voice;
     [syn speakUtterance:utterance];
     [pool release];
