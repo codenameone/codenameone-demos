@@ -12,7 +12,6 @@ public class TTSImpl {
                     new TextToSpeech.OnInitListener() {
                         @Override
                         public void onInit(int status) {
-                            System.out.println("Text to speech initialized with status: " + status);
                             if (status != TextToSpeech.ERROR) {
                                 ttobj.setLanguage(Locale.UK);
                                 ttobj.speak(param, TextToSpeech.QUEUE_FLUSH, null);
