@@ -250,7 +250,11 @@ public class DrSbaitso {
     private Image captureRoundImage() {
         try {
             int width = userPicture.getWidth();
-            Image capturedImage = Image.createImage(Capture.capturePhoto(width, -1));
+            String result = Capture.capturePhoto(width, -1);
+            if(result == null) {
+                return userPicture;
+            }
+            Image capturedImage = Image.createImage(result);
             if(capturedImage.getHeight() != width) {
                 if(capturedImage.getWidth() < capturedImage.getHeight()) {
                     capturedImage = capturedImage.subImage(0, capturedImage.getHeight() / 2 - width / 2, width, width, false);
