@@ -26,7 +26,7 @@ package com.codename1.demos.sbaitso;
 import com.codename1.system.NativeInterface;
 
 /**
- * Native inteface for text to speech
+ * Native interface for text to speech
  *
  * @author Shai Almog
  */
