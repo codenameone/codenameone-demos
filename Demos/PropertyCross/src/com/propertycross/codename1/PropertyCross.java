@@ -151,6 +151,7 @@ public class PropertyCross {
                 showFavs();
             }
         };
+        favs.putClientProperty("android:showAsAction", "withText");        
         hi.addCommand(favs);
         
         // we use border layout so the list will take up all the available space
@@ -458,7 +459,7 @@ public class PropertyCross {
         if(bedroom_number != null && bedroom_number instanceof Double) {
             struct = ((Double)bedroom_number).intValue() + " bedroom";
             if(bathroom_number != null && bathroom_number instanceof Double) {
-                struct = ", " + ((Double)bathroom_number).intValue() + " bathroom";
+                struct += ", " + ((Double)bathroom_number).intValue() + " bathroom";
             }
         } else {
             if(bathroom_number != null && bathroom_number instanceof Double) {
