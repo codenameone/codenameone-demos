@@ -58,8 +58,8 @@ public class PropertyCross {
      * Caches results from searches, Codename One also contains a persistent CacheMap class that might be more suitable for caching since 
      * it also clears old cache entries and persists the caches to storage
      */
-    private Map<String, Map<Integer, Map<String, Object>>> cachedSearches = new HashMap<String, Map<Integer, Map<String, Object>>>();
-    private Map<Location, Map<Integer, Map<String, Object>>> cachedLocationSearches = new HashMap<Location, Map<Integer, Map<String, Object>>>();
+    private final Map<String, Map<Integer, Map<String, Object>>> cachedSearches = new HashMap<String, Map<Integer, Map<String, Object>>>();
+    private final Map<Location, Map<Integer, Map<String, Object>>> cachedLocationSearches = new HashMap<Location, Map<Integer, Map<String, Object>>>();
     private Form current;
     
     /**
