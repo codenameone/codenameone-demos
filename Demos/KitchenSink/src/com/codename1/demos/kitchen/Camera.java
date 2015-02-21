@@ -25,18 +25,22 @@ package com.codename1.demos.kitchen;
 import com.codename1.capture.Capture;
 import com.codename1.codescan.CodeScanner;
 import com.codename1.codescan.ScanResult;
+import com.codename1.components.MediaPlayer;
 import com.codename1.io.Log;
 import com.codename1.media.Media;
 import com.codename1.media.MediaManager;
 import com.codename1.ui.Button;
+import com.codename1.ui.Command;
 import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
+import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,6 +62,7 @@ public class Camera extends Demo {
 
     public Container createDemo() {
         final ComponentGroup cnt = new ComponentGroup();
+
         final Button gallery = new Button("Pick From Gallery");
         cnt.addComponent(gallery);
         gallery.addActionListener(new ActionListener() {
@@ -106,6 +111,36 @@ public class Camera extends Demo {
                         cnt.addComponent(image);
                         cnt.getComponentForm().revalidate();
 
+                    }
+                } catch (Exception ex) {
+                    Log.e(ex);
+                    Dialog.show("Error", "" + ex, "OK", null);
+                }                        
+            }
+        });
+
+        final Button captureVideo = new Button("Capture Video");
+        cnt.addComponent(captureVideo);
+        captureVideo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                try {
+                    String value = Capture.captureVideo();
+                    if(value != null) {
+                        final Form previous = Display.getInstance().getCurrent();
+                        Form preview = new Form("Preview");
+                        preview.setLayout(new BorderLayout());
+                        MediaPlayer pl = new MediaPlayer();
+                        if(!value.startsWith("file:/")) {
+                            value = "file:/" + value;
+                        }
+                        pl.setDataSource(value);
+                        preview.addComponent(BorderLayout.CENTER, pl);
+                        preview.setBackCommand(new Command("Back") {
+                            public void actionPerformed(ActionEvent evt) {
+                                previous.showBack();
+                            }
+                        });
+                        preview.show();
                     }
                 } catch (Exception ex) {
                     Log.e(ex);
