@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group/>
+        <group name="Charts"/>
+        <group name="CN1 Working">
+            <file>file:/Users/shannah/cn1_files/incubator/GeoVizDemo/src/com/codename1/demos/geoviz/Feature.java</file>
+            <file>file:/Users/shannah/cn1_files/incubator/GeoVizDemo/src/com/codename1/demos/geoviz/FeatureCollection.java</file>
+            <file>file:/Users/shannah/cn1_files/incubator/GeoVizDemo/src/com/codename1/demos/geoviz/GeoVizDemo.java</file>
+            <file>jar:file:/Users/shannah/cn1_files/incubator/GeoVizDemo/lib/CodenameOne_SRC.zip!/com/codename1/ui/Component.java</file>
+            <file>file:/Users/shannah/cn1_files/incubator/GeoVizDemo/src/com/codename1/demos/geoviz/GeoVizComponent.java</file>
+            <file>file:/Users/shannah/cn1_files/incubator/GeoVizDemo/src/us-states.json</file>
+            <file>file:/Users/shannah/cn1_files/incubator/GeoVizDemo/src/com/codename1/demos/geoviz/DensityChart.java</file>
+            <file>file:/Users/shannah/cn1_files/incubator/GeoVizDemo/src/com/codename1/demos/geoviz/PopulationData.java</file>
+            <file>file:/Users/shannah/cn1_files/incubator/GeoVizDemo/src/pop_density.csv</file>
+            <file>file:/Users/shannah/cn1_files/incubator/GeoVizDemo/src/com/codename1/demos/geoviz/FeaturePainter.java</file>
+        </group>
+    </open-files>
+</project-private>
