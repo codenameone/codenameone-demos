@@ -157,9 +157,9 @@ public class CombinedTemperatureChart extends AbstractDemoChart {
     renderer.addSeriesRenderer(0, waterRenderer1);
     renderer.addSeriesRenderer(0, waterRenderer2);
     waterRenderer1.setDisplayChartValues(true);
-    waterRenderer1.setChartValuesTextSize(10);
+    waterRenderer1.setChartValuesTextFont(smallFont);
     waterRenderer2.setDisplayChartValues(true);
-    waterRenderer2.setChartValuesTextSize(10);
+    waterRenderer2.setChartValuesTextFont(smallFont);
 
     XYCombinedChartDef[] types = new XYCombinedChartDef[] {
         new XYCombinedChartDef(BarChart.TYPE, 0, 1), new XYCombinedChartDef(BubbleChart.TYPE, 2),

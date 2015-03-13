@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Font;
 
 
 /**
@@ -34,6 +35,10 @@ import com.codename1.charts.util.ColorUtil;
  */
 public class ChartsInBoxLayout {
 
+    Font smallFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.SIZE_SMALL, Font.STYLE_PLAIN);
+   Font medFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.SIZE_MEDIUM, Font.STYLE_PLAIN);
+   Font largeFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.SIZE_LARGE, Font.STYLE_PLAIN);
+   
     Form form;
 
     public ChartsInBoxLayout() {
@@ -108,7 +113,7 @@ public class ChartsInBoxLayout {
         renderer.setYLabelsAlign(Component.RIGHT);
         XYSeriesRenderer r = (XYSeriesRenderer) renderer.getSeriesRendererAt(0);
         r.setDisplayChartValues(true);
-        r.setChartValuesTextSize(12);
+        r.setChartValuesTextFont(smallFont);
         r.setChartValuesSpacing(3);
         r.setGradientEnabled(true);
         r.setGradientStart(-20, ColorUtil.BLUE);
@@ -208,9 +213,9 @@ public class ChartsInBoxLayout {
         renderer.addSeriesRenderer(0, waterRenderer1);
         renderer.addSeriesRenderer(0, waterRenderer2);
         waterRenderer1.setDisplayChartValues(true);
-        waterRenderer1.setChartValuesTextSize(10);
+        waterRenderer1.setChartValuesTextFont(smallFont);
         waterRenderer2.setDisplayChartValues(true);
-        waterRenderer2.setChartValuesTextSize(10);
+        waterRenderer2.setChartValuesTextFont(smallFont);
 
         CombinedXYChart.XYCombinedChartDef[] types = new CombinedXYChart.XYCombinedChartDef[]{
             new CombinedXYChart.XYCombinedChartDef(BarChart.TYPE, 0, 1), new CombinedXYChart.XYCombinedChartDef(BubbleChart.TYPE, 2),
@@ -230,10 +235,10 @@ public class ChartsInBoxLayout {
      */
     protected XYMultipleSeriesRenderer buildBarRenderer(int[] colors) {
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-        renderer.setAxisTitleTextSize(16);
-        renderer.setChartTitleTextSize(20);
-        renderer.setLabelsTextSize(15);
-        renderer.setLegendTextSize(15);
+        renderer.setAxisTitleTextFont(medFont);
+        renderer.setChartTitleTextFont(largeFont);
+        renderer.setLabelsTextFont(medFont);
+        renderer.setLegendTextFont(medFont);
         int length = colors.length;
         for (int i = 0; i < length; i++) {
             XYSeriesRenderer r = new XYSeriesRenderer();
@@ -257,10 +262,10 @@ public class ChartsInBoxLayout {
     }
 
     protected void setRenderer(XYMultipleSeriesRenderer renderer, int[] colors, PointStyle[] styles) {
-        renderer.setAxisTitleTextSize(16);
-        renderer.setChartTitleTextSize(20);
-        renderer.setLabelsTextSize(15);
-        renderer.setLegendTextSize(15);
+        renderer.setAxisTitleTextFont(medFont);
+        renderer.setChartTitleTextFont(largeFont);
+        renderer.setLabelsTextFont(medFont);
+        renderer.setLegendTextFont(medFont);
         renderer.setPointSize(5f);
         renderer.setMargins(new int[]{20, 30, 15, 20});
         int length = colors.length;

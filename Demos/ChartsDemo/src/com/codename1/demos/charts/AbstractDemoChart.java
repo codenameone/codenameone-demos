@@ -26,6 +26,7 @@ import com.codename1.charts.renderers.XYMultipleSeriesRenderer;
 import com.codename1.charts.renderers.XYSeriesRenderer;
 import com.codename1.charts.views.PointStyle;
 import com.codename1.ui.Component;
+import com.codename1.ui.Font;
 import com.codename1.ui.Form;
 import com.codename1.ui.layouts.BorderLayout;
 import java.util.Date;
@@ -40,6 +41,10 @@ import java.util.List;
  */
 public abstract class AbstractDemoChart implements IDemoChart {
 
+   Font smallFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.SIZE_SMALL, Font.STYLE_PLAIN);
+   Font medFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.SIZE_MEDIUM, Font.STYLE_PLAIN);
+   Font largeFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.SIZE_LARGE, Font.STYLE_PLAIN);
+    
   /**
    * Builds an XY multiple dataset using the provided values.
    * 
@@ -83,13 +88,15 @@ public abstract class AbstractDemoChart implements IDemoChart {
     return renderer;
   }
 
+  
+  
   protected void setRenderer(XYMultipleSeriesRenderer renderer, int[] colors, PointStyle[] styles) {
-    renderer.setAxisTitleTextSize(16);
-    renderer.setChartTitleTextSize(20);
-    renderer.setLabelsTextSize(15);
-    renderer.setLegendTextSize(15);
+    renderer.setAxisTitleTextFont(medFont);
+    renderer.setChartTitleTextFont(largeFont);
+    renderer.setLabelsTextFont(smallFont);
+    renderer.setLegendTextFont(smallFont);
     renderer.setPointSize(5f);
-    renderer.setMargins(new int[] { 20, 30, 15, 20 });
+    renderer.setMargins(new int[] { medFont.getHeight(), medFont.getHeight(), 15, medFont.getHeight() });
     int length = colors.length;
     for (int i = 0; i < length; i++) {
       XYSeriesRenderer r = new XYSeriesRenderer();
@@ -195,9 +202,9 @@ public abstract class AbstractDemoChart implements IDemoChart {
    */
   protected DefaultRenderer buildCategoryRenderer(int[] colors) {
     DefaultRenderer renderer = new DefaultRenderer();
-    renderer.setLabelsTextSize(15);
-    renderer.setLegendTextSize(15);
-    renderer.setMargins(new int[] { 20, 30, 15, 0 });
+    renderer.setLabelsTextFont(smallFont);
+    renderer.setLegendTextFont(smallFont);
+    renderer.setMargins(new int[] { medFont.getHeight(), medFont.getHeight(), medFont.getHeight(), medFont.getHeight() });
     for (int color : colors) {
       SimpleSeriesRenderer r = new SimpleSeriesRenderer();
       r.setColor(color);
@@ -236,10 +243,10 @@ public abstract class AbstractDemoChart implements IDemoChart {
    */
   protected XYMultipleSeriesRenderer buildBarRenderer(int[] colors) {
     XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-    renderer.setAxisTitleTextSize(16);
-    renderer.setChartTitleTextSize(20);
-    renderer.setLabelsTextSize(15);
-    renderer.setLegendTextSize(15);
+    renderer.setAxisTitleTextFont(medFont);
+    renderer.setChartTitleTextFont(largeFont);
+    renderer.setLabelsTextFont(medFont);
+    renderer.setLegendTextFont(medFont);
     int length = colors.length;
     for (int i = 0; i < length; i++) {
       XYSeriesRenderer r = new XYSeriesRenderer();

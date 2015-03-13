@@ -86,7 +86,7 @@ public class MetricsStackedBarChart extends AbstractDemoChart {
       for (int i = 0; i < length; i++) {
           XYSeriesRenderer seriesRenderer = (XYSeriesRenderer) renderer.getSeriesRendererAt(i);
           seriesRenderer.setDisplayChartValues(true);
-          seriesRenderer.setChartValuesTextSize(30);
+          seriesRenderer.setChartValuesTextFont(largeFont);
 //            seriesRenderer.setChartValuesFormat(new ICRNumerFormat());
       }
       

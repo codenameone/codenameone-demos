@@ -60,9 +60,9 @@ public class WeightDialChart extends AbstractDemoChart {
     category.add("Minimum", 65);
     category.add("Maximum", 90);
     DialRenderer renderer = new DialRenderer();
-    renderer.setChartTitleTextSize(20);
-    renderer.setLabelsTextSize(15);
-    renderer.setLegendTextSize(15);
+    renderer.setChartTitleTextFont(largeFont);
+    renderer.setLabelsTextFont(medFont);
+    renderer.setLegendTextFont(medFont);
     renderer.setMargins(new int[] {20, 30, 15, 0});
     SimpleSeriesRenderer r = new SimpleSeriesRenderer();
     r.setColor(ColorUtil.BLUE);
@@ -73,7 +73,7 @@ public class WeightDialChart extends AbstractDemoChart {
     r = new SimpleSeriesRenderer();
     r.setColor(ColorUtil.GREEN);
     renderer.addSeriesRenderer(r);
-    renderer.setLabelsTextSize(10);
+    renderer.setLabelsTextFont(smallFont);
     renderer.setLabelsColor(ColorUtil.WHITE);
     renderer.setShowLabels(true);
     renderer.setVisualTypes(new DialRenderer.Type[] {Type.ARROW, Type.NEEDLE, Type.NEEDLE});

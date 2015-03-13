@@ -65,7 +65,7 @@ public class BudgetPieChart extends AbstractDemoChart {
     final DefaultRenderer renderer = buildCategoryRenderer(colors);
     renderer.setZoomButtonsVisible(true);
     renderer.setZoomEnabled(true);
-    renderer.setChartTitleTextSize(20);
+    renderer.setChartTitleTextFont(largeFont);
     renderer.setDisplayValues(true);
     renderer.setShowLabels(true);
    
@@ -91,15 +91,18 @@ public class BudgetPieChart extends AbstractDemoChart {
         
         @Override
         protected void seriesReleased(SeriesSelection sel) {
+            
             if ( inDrag ){
                 // Don't do this if it was a drag operation
                 return;
             }
+            
             for ( SimpleSeriesRenderer r : renderer.getSeriesRenderers()){
                 r.setHighlighted(false);
             }
             SimpleSeriesRenderer r = renderer.getSeriesRendererAt(sel.getPointIndex());
             r.setHighlighted(true);
+            
             Shape seg = chart.getSegmentShape(sel.getPointIndex());
             Rectangle bounds = seg.getBounds();
             bounds = new Rectangle(
@@ -112,8 +115,9 @@ public class BudgetPieChart extends AbstractDemoChart {
             this.zoomToShapeInChartCoords(bounds, 500);
             
             
+            
         }
-        
+       
         
         
     };

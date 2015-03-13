@@ -102,7 +102,7 @@ public class AverageTemperatureChart extends AbstractDemoChart {
 
     XYSeriesRenderer r = (XYSeriesRenderer) renderer.getSeriesRendererAt(0);
     r.setAnnotationsColor(ColorUtil.GREEN);
-    r.setAnnotationsTextSize(15);
+    r.setAnnotationsTextFont(medFont);
     r.setAnnotationsTextAlign(Component.CENTER);
     LineChart chart = new LineChart(dataset, renderer);
     ChartComponent c = new ChartComponent(chart);

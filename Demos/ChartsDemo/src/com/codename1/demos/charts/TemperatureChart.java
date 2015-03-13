@@ -90,7 +90,7 @@ public class TemperatureChart extends AbstractDemoChart {
     renderer.setYLabelsAlign(Component.RIGHT);
     XYSeriesRenderer r = (XYSeriesRenderer) renderer.getSeriesRendererAt(0);
     r.setDisplayChartValues(true);
-    r.setChartValuesTextSize(12);
+    r.setChartValuesTextFont(smallFont);
     r.setChartValuesSpacing(3);
     r.setGradientEnabled(true);
     r.setGradientStart(-20, ColorUtil.BLUE);
