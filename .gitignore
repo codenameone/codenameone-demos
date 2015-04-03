@@ -1,0 +1,6 @@
+/KitchenSink/nbproject/private/
+/KitchenSink/build/
+/KitchenSink/dist/
+*.jar
+
+*.zip
