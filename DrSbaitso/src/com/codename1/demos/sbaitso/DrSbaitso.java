@@ -260,7 +260,7 @@ public class DrSbaitso {
                     capturedImage = capturedImage.subImage(0, capturedImage.getHeight() / 2 - width / 2, width, width, false);
                 } else {
                     Image n = Image.createImage(width, width);
-                    n.getGraphics().drawImage(userPicture, 0, width / 2- capturedImage.getHeight() / 2);
+                    n.getGraphics().drawImage(capturedImage, 0, width / 2- capturedImage.getHeight() / 2);
                     capturedImage = n;
                 }
             }
