@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <!--build_version=2.6-->
+    <!--build_version=2.7-->
         
     <project name="KitchenSink" default="default" basedir=".">
     <description>Builds, tests, and runs the project KitchenSink.</description>
@@ -12,6 +12,7 @@
 
     <target depends="init,compile,jar" name="compile-test">
         <mkdir dir="${build.test.classes.dir}" />
+        <mkdir dir="test" />
         <javac destdir="${build.test.classes.dir}"
             encoding="${source.encoding}"
             source="1.5"
@@ -217,6 +218,17 @@
         </copy>
     </target>
         
+    <target name="copy-javascript-override">
+        <mkdir dir="${build.classes.dir}" />
+        <mkdir dir="override" />
+        <mkdir dir="native/javascript" />
+        <mkdir dir="lib/impl/native/javascript" />
+        <copy todir="${build.classes.dir}">
+            <fileset dir="native/javascript" includes="**/*"/>
+            <fileset dir="lib/impl/native/javascript" includes="**/*"/>
+        </copy>
+    </target>
+    
     <target name="copy-rim-override">
         <mkdir dir="${build.classes.dir}" />
         <mkdir dir="override" />
@@ -283,6 +295,36 @@
             certPassword="${codename1.android.keystorePassword}"
             />
     </target>
+
+    <target name="build-for-javascript" depends="clean,copy-javascript-override,copy-libs,jar,clean-override">
+        <codeNameOne 
+            jarFile="${dist.jar}"
+            displayName="${codename1.displayName}"
+            packageName = "${codename1.packageName}"
+            mainClassName = "${codename1.mainName}"
+            version="${codename1.version}"
+            icon="${codename1.icon}"
+            vendor="${codename1.vendor}"
+            subtitle="${codename1.secondaryTitle}"
+            
+            targetType="javascript"
+            />
+    </target>    
+    
+    <target name="build-for-javascript-sync" depends="clean,copy-javascript-override,copy-libs,jar,clean-override">
+        <codeNameOne 
+            jarFile="${dist.jar}"
+            displayName="${codename1.displayName}"
+            packageName = "${codename1.packageName}"
+            mainClassName = "${codename1.mainName}"
+            version="${codename1.version}"
+            icon="${codename1.icon}"
+            vendor="${codename1.vendor}"
+            subtitle="${codename1.secondaryTitle}"
+            automated="true"
+            targetType="javascript"
+            />
+    </target>    
 
     <target name="build-for-rim-device" depends="clean,copy-rim-override,copy-libs,jar,clean-override">
         <codeNameOne 

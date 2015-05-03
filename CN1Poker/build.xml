@@ -1,64 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <!--build_version=1.7-->
-    
-    <!-- IMPORTANT!!! When building for ios: if you don't supply the certificate/provisioning profile etc. you will not 
-    be able to run on a regular device (only on jailbroken devices) in that case your package name MUST be: com.codename1.demos.lwuitdemo
-
-    Required attributes for the task:
-
-    jarFile - the application jar file resulting from the build
-
-    displayName - display name for the application in the UI
-
-    Either packageName and mainClassName or fullClassName:
-    mainClassName - the name of the main class not including the package name
-
-    packageName - the package in which the main class resides, this will also 
-    be used to classify the application. It is recommended you give this some thought since
-    package names are impossible to change later on some stores!
-
-    fullClassName - combination of packageName.mainClassName
-
-    icon - a 512x512 pixel icon in PNG format, it will be adjusted for the proper resolutions. 
-    Notice that this icon SHOULDN'T include the iphone tint effect since that effect is overlayed 
-    by the iphone build process
-
-    targetType - the device target, one of the following: iphone, android, rim, me (for j2me support), 
-    win (for Windows Phone 7 support - pending)
-
-    vendor - the vendor name
-    
-    Optional attributes for iphone development these are REQUIRED if you want to distribute an application for
-    any purpose. For details on obtaining these files please go to codenameone.com:
-    certificate - optional for the iPhone project, the p12 certificate file for signing
-    certPassword - required if the certificate is specified
-    ProvisioningProfile - if the certificate is specified a mobile_provisioning file received from Apple must be supplied too
-
-    userName - login information from codenameone.com
-
-    password - the password matching your login from codenameone.com
-
-    subtitle - iphone secondary title
-
-    version - the version number for the application as a floating point value
-
-    -->
-    
-    <project name="CN1Poker" default="default" basedir=".">
-    <description>Builds, tests, and runs the project CN1Poker.</description>
+    <!--build_version=2.7-->
+        
+    <project name="Poker" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Poker.</description>
     <import file="nbproject/build-impl.xml"/>
     <property file="codenameone_settings.properties"/>
     <taskdef name="codeNameOne" classname="com.codename1.build.client.CodeNameOneBuildTask" classpath="CodeNameOneBuildClient.jar"/>
     <taskdef name="prepareTests" classname="com.codename1.build.client.PrepareTestsTask" classpath="CodeNameOneBuildClient.jar"/>
     <taskdef name="installLibs" classname="com.codename1.build.client.InstallLibsTask" classpath="CodeNameOneBuildClient.jar"/>
+    <taskdef name="verifyDir" classname="com.codename1.build.client.VerifyDir" classpath="CodeNameOneBuildClient.jar"/>
 
     <target depends="init,compile,jar" name="compile-test">
         <mkdir dir="${build.test.classes.dir}" />
+        <mkdir dir="test" />
         <javac destdir="${build.test.classes.dir}"
             encoding="${source.encoding}"
             source="1.5"
             target="1.5"
-            bootclasspath="CLDC11.jar"
+            bootclasspath="CLDC11.jar" excludes="${excludes}"
             classpath="${javac.classpath}:${build.classes.dir}">
             <src path="${test.src.dir}"/>
         </javac>        
@@ -87,7 +46,7 @@
             encoding="${source.encoding}"
             source="1.5"
             target="1.5"
-            bootclasspath="lib/CLDC11.jar"
+            bootclasspath="lib/CLDC11.jar" excludes="${excludes}"
             classpath="${javac.classpath}:${build.classes.dir}">
             <src path="${src.dir}"/>
         </javac>        
@@ -259,6 +218,17 @@
         </copy>
     </target>
         
+    <target name="copy-javascript-override">
+        <mkdir dir="${build.classes.dir}" />
+        <mkdir dir="override" />
+        <mkdir dir="native/javascript" />
+        <mkdir dir="lib/impl/native/javascript" />
+        <copy todir="${build.classes.dir}">
+            <fileset dir="native/javascript" includes="**/*"/>
+            <fileset dir="lib/impl/native/javascript" includes="**/*"/>
+        </copy>
+    </target>
+    
     <target name="copy-rim-override">
         <mkdir dir="${build.classes.dir}" />
         <mkdir dir="override" />
@@ -269,6 +239,20 @@
         <copy todir="${build.classes.dir}">
             <fileset dir="native/rim" includes="**/*"/>
             <fileset dir="lib/impl/native/rim" includes="**/*"/>
+        </copy>
+    </target>
+
+    <target name="copy-desktop-override">
+        <mkdir dir="${build.classes.dir}" />
+        <mkdir dir="override" />
+        <mkdir dir="lib/impl/native/javase" />
+        <copy todir="${build.classes.dir}">
+            <fileset dir="override" includes="**/*_tablet.ovr"/>
+            <fileset dir="override" includes="**/*_desktop.ovr"/>
+        </copy>
+        <copy todir="${build.classes.dir}">
+            <fileset dir="native/javase" includes="**/*"/>
+            <fileset dir="lib/impl/native/javase" includes="**/*"/>
         </copy>
     </target>
 
@@ -312,6 +296,36 @@
             />
     </target>
 
+    <target name="build-for-javascript" depends="clean,copy-javascript-override,copy-libs,jar,clean-override">
+        <codeNameOne 
+            jarFile="${dist.jar}"
+            displayName="${codename1.displayName}"
+            packageName = "${codename1.packageName}"
+            mainClassName = "${codename1.mainName}"
+            version="${codename1.version}"
+            icon="${codename1.icon}"
+            vendor="${codename1.vendor}"
+            subtitle="${codename1.secondaryTitle}"
+            
+            targetType="javascript"
+            />
+    </target>    
+    
+    <target name="build-for-javascript-sync" depends="clean,copy-javascript-override,copy-libs,jar,clean-override">
+        <codeNameOne 
+            jarFile="${dist.jar}"
+            displayName="${codename1.displayName}"
+            packageName = "${codename1.packageName}"
+            mainClassName = "${codename1.mainName}"
+            version="${codename1.version}"
+            icon="${codename1.icon}"
+            vendor="${codename1.vendor}"
+            subtitle="${codename1.secondaryTitle}"
+            automated="true"
+            targetType="javascript"
+            />
+    </target>    
+
     <target name="build-for-rim-device" depends="clean,copy-rim-override,copy-libs,jar,clean-override">
         <codeNameOne 
             jarFile="${dist.jar}"
@@ -333,7 +347,43 @@
         </delete>
     </target>
 
-     <target name="build-for-j2me-device" depends="clean,j2me-native-theme-init,copy-j2me-native,copy-j2me-override,copy-libs,jar,clean-j2me-native,clean-override">
+    <target name="build-for-mac-os-x-desktop" depends="clean,copy-desktop-override,copy-libs,jar,clean-override">
+        <codeNameOne 
+            jarFile="${dist.jar}"
+            displayName="${codename1.displayName}"
+            packageName = "${codename1.packageName}"
+            mainClassName = "${codename1.mainName}"
+            version="${codename1.version}"
+            icon="${codename1.icon}"
+            vendor="${codename1.vendor}"
+            subtitle="${codename1.secondaryTitle}"
+
+            targetType="desktop_macosx"
+            />
+        <delete>
+            <fileset dir="${build.classes.dir}" includes="**/*.class"/>
+        </delete>
+    </target>
+    
+    <target name="build-for-windows-desktop" depends="clean,copy-desktop-override,copy-libs,jar,clean-override">
+        <codeNameOne 
+            jarFile="${dist.jar}"
+            displayName="${codename1.displayName}"
+            packageName = "${codename1.packageName}"
+            mainClassName = "${codename1.mainName}"
+            version="${codename1.version}"
+            icon="${codename1.icon}"
+            vendor="${codename1.vendor}"
+            subtitle="${codename1.secondaryTitle}"
+
+            targetType="desktop_windows"
+            />
+        <delete>
+            <fileset dir="${build.classes.dir}" includes="**/*.class"/>
+        </delete>
+    </target>
+
+    <target name="build-for-j2me-device" depends="clean,j2me-native-theme-init,copy-j2me-native,copy-j2me-override,copy-libs,jar,clean-j2me-native,clean-override">
         <codeNameOne
             jarFile="${dist.jar}"
             displayName="${codename1.displayName}"
@@ -366,7 +416,9 @@
         <property name="application.args" value="${codename1.packageName}.${codename1.mainName}"/>
         <property name="javac.source" value="1.5" />
         <property name="javac.target" value="1.5" />
+        <mkdir dir="native/javase" />
         <mkdir dir="native/android" />
+        <mkdir dir="native/internal_tmp" />
         <mkdir dir="native/ios" />
         <mkdir dir="native/j2me" />
         <mkdir dir="native/rim" />
@@ -380,6 +432,21 @@
         <mkdir dir="lib/impl/native/rim" />
         <mkdir dir="lib/impl/native/win" />
         <installLibs lib="lib" dest="lib/impl" />
+    </target>
+
+    <target name="-post-jar">
+        <mkdir dir="native/javase" />
+        <mkdir dir="native/internal_tmp" />
+        <mkdir dir="lib/impl/native/javase" />
+        <javac destdir="native/internal_tmp"
+            encoding="${source.encoding}"
+            source="1.5"
+            target="1.5"
+            bootclasspath="CLDC11.jar" excludes="${excludes}"
+            classpath="${javac.classpath}:${build.classes.dir}">
+            <src path="native/javase"/>
+            <src path="lib/impl/native/javase"/>
+        </javac>        
     </target>
 
     <target name="-post-clean" depends="refresh-libs">
@@ -420,5 +487,9 @@
             
             targetType="win"
             />
+    </target>
+                
+    <target name="webservice-wizard">
+        <java classpath="CodeNameOneBuildClient.jar" classname="com.codename1.ws.wizard.WSWizard" dir="." fork="true" />
     </target>
 </project>
