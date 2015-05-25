@@ -48,6 +48,7 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import java.io.IOException;
 
+
 public class GeoVizDemo {
 
     private Form current;
@@ -76,198 +77,202 @@ public class GeoVizDemo {
        
     }
     
-    public void start() throws Throwable{
-        if(current != null){
-            current.show();
-            return;
-        }
-        
-        //Load all of the population data from CSV file
-        popData = new PopulationData();
-        popData.load(Display.getInstance().getResourceAsStream(null, "/pop_density.csv"));
-        
-        // Record min and max values in data for generating ranges of colors later
-        minDensity = popData.getMinDensity();
-        maxDensity = popData.getMaxDensity();
-        minPopulation = popData.getMinPopulation();
-        maxPopulation = popData.getMaxPopulation();
-        
-        
-        // Density Chart
-        //--------------
-        // A chart to show the population and density of a selected state
-        // at various points in the last century.
-        densityChart = new DensityChart(popData){
-
-            /**
-             * Implement the yearPressed callback so that we can update the 
-             * geoViz component when a year is selected on the density chart.
-             * @param year 
-             */
-            @Override
-            protected void yearPressed(int year) {
-                setCurrentYear(year);
-                geoVizComponent.repaint();
+    public void start() {
+        try {
+            if(current != null){
+                current.show();
+                return;
             }
             
-        };
-        
-        
-        
-        
-        densityChart.setRegion("Alaska");
-        
-        
-        // Load the GEO JSON Data from the accompanying JSON file.
-        // This contains all of the US state contours.
-        GeoJSONLoader loader = new GeoJSONLoader();
-        
-        FeatureCollection coll = loader.loadJSON(Display.getInstance().getResourceAsStream(null, "/us-states.json"), "UTF-8");
-        GeoVizComponent comp = new GeoVizComponent(coll){
-
-            /**
-             * Implement the featurePressed callback so that we can update the
-             * density chart when a state is selected.
-             * @param f The feature that was pressed
-             * @param coord The coordinate that was pressed.
-             */
-            @Override
-            public void featurePressed(Feature f, Coord coord) {
-                super.featurePressed(f, coord);
-                selectedFeature = f;
-                densityChart.setRegion((String)f.getProperties().get("name"));
-            }
+            //Load all of the population data from CSV file
+            popData = new PopulationData();
+            popData.load(Display.getInstance().getResourceAsStream(null, "/pop_density.csv"));
             
-        };
-        
-        // Set the center of the map to somewhere in the mid-USA
-        comp.setCenter(new Coord(49, -109));
-        
-        // Zoom in a bit
-        comp.setScale(2.0);
-        
-        
-        // Set the preferred size of the respective
-        if (Display.getInstance().isPortrait()){
-            comp.setPreferredSize(new Dimension(
-                    Display.getInstance().getDisplayWidth(),
-                    Display.getInstance().getDisplayHeight()/2
-            ));
-        } else {
-            comp.setPreferredSize(new Dimension(
-                    Display.getInstance().getDisplayWidth()/2,
-                    Display.getInstance().getDisplayHeight()
-            ));
-        }
-        
-        geoVizComponent = comp;
-        
-        // Add a custom feature painter so that we can paint states different
-        // colors depending on the data in our CSV file.
-        comp.setFeaturePainter(new FeaturePainter(){
-
-            /**
-             * Callback to fill a feature (State).  We implement this
-             * so that we can fill selected states with red and other states
-             * a color based on the currently selected year.
-             * @param g The graphics context
-             * @param feature The feature to paint
-             * @param path The shape that is to be filled.
-             */
-            @Override
-            protected void fill(Graphics g, Feature feature, GeneralPath path) {
+            // Record min and max values in data for generating ranges of colors later
+            minDensity = popData.getMinDensity();
+            maxDensity = popData.getMaxDensity();
+            minPopulation = popData.getMinPopulation();
+            maxPopulation = popData.getMaxPopulation();
+            
+            
+            // Density Chart
+            //--------------
+            // A chart to show the population and density of a selected state
+            // at various points in the last century.
+            densityChart = new DensityChart(popData){
                 
-                int oldColor = this.getFillColor();
-                int oldAlpha = this.getFillAlpha();
-                if (feature == selectedFeature){
-                    this.setFillColor(0xff0000);
-                } else {
-                    RegionData[] regionData = popData.getRegionData((String)feature.getProperties().get("name"));
-                    if (currentYear > 0){
-                        if (mode==MODE_POPULATION){
-                            for (RegionData d : regionData){
-                                if (d.year == currentYear){
-                                    if (d.pop != 0){
-                                        this.setFillColor(getColor(1.0, 0, 0, d.pop, minPopulation, maxPopulation));
-                                        this.setFillAlpha(getAlpha(d.pop, minPopulation, maxPopulation));
+                /**
+                 * Implement the yearPressed callback so that we can update the
+                 * geoViz component when a year is selected on the density chart.
+                 * @param year
+                 */
+                @Override
+                protected void yearPressed(int year) {
+                    setCurrentYear(year);
+                    geoVizComponent.repaint();
+                }
+                
+            };
+            
+            
+            
+            
+            densityChart.setRegion("Alaska");
+            
+            
+            // Load the GEO JSON Data from the accompanying JSON file.
+            // This contains all of the US state contours.
+            GeoJSONLoader loader = new GeoJSONLoader();
+            
+            FeatureCollection coll = loader.loadJSON(Display.getInstance().getResourceAsStream(null, "/us-states.json"), "UTF-8");
+            GeoVizComponent comp = new GeoVizComponent(coll){
+                
+                /**
+                 * Implement the featurePressed callback so that we can update the
+                 * density chart when a state is selected.
+                 * @param f The feature that was pressed
+                 * @param coord The coordinate that was pressed.
+                 */
+                @Override
+                public void featurePressed(Feature f, Coord coord) {
+                    super.featurePressed(f, coord);
+                    selectedFeature = f;
+                    densityChart.setRegion((String)f.getProperties().get("name"));
+                }
+                
+            };
+            
+            // Set the center of the map to somewhere in the mid-USA
+            comp.setCenter(new Coord(49, -109));
+            
+            // Zoom in a bit
+            comp.setScale(2.0);
+            
+            
+            // Set the preferred size of the respective
+            if (Display.getInstance().isPortrait()){
+                comp.setPreferredSize(new Dimension(
+                        Display.getInstance().getDisplayWidth(),
+                        Display.getInstance().getDisplayHeight()/2
+                ));
+            } else {
+                comp.setPreferredSize(new Dimension(
+                        Display.getInstance().getDisplayWidth()/2,
+                        Display.getInstance().getDisplayHeight()
+                ));
+            }
+            
+            geoVizComponent = comp;
+            
+            // Add a custom feature painter so that we can paint states different
+            // colors depending on the data in our CSV file.
+            comp.setFeaturePainter(new FeaturePainter(){
+                
+                /**
+                 * Callback to fill a feature (State).  We implement this
+                 * so that we can fill selected states with red and other states
+                 * a color based on the currently selected year.
+                 * @param g The graphics context
+                 * @param feature The feature to paint
+                 * @param path The shape that is to be filled.
+                 */
+                @Override
+                protected void fill(Graphics g, Feature feature, GeneralPath path) {
+                    
+                    int oldColor = this.getFillColor();
+                    int oldAlpha = this.getFillAlpha();
+                    if (feature == selectedFeature){
+                        this.setFillColor(0xff0000);
+                    } else {
+                        RegionData[] regionData = popData.getRegionData((String)feature.getProperties().get("name"));
+                        if (currentYear > 0){
+                            if (mode==MODE_POPULATION){
+                                for (RegionData d : regionData){
+                                    if (d.year == currentYear){
+                                        if (d.pop != 0){
+                                            this.setFillColor(getColor(1.0, 0, 0, d.pop, minPopulation, maxPopulation));
+                                            this.setFillAlpha(getAlpha(d.pop, minPopulation, maxPopulation));
+                                        }
+                                        break;
                                     }
-                                    break;
                                 }
-                            }
-                        } else if (mode==MODE_DENSITY){
-                            for (RegionData d : regionData){
-                                if (d.year == currentYear){
-                                    if (d.density != 0){
-                                        this.setFillColor(getColor(0, 1.0, 0, d.density, minDensity, maxDensity));
-                                        this.setFillAlpha(getAlpha(d.density, minDensity, maxDensity));
+                            } else if (mode==MODE_DENSITY){
+                                for (RegionData d : regionData){
+                                    if (d.year == currentYear){
+                                        if (d.density != 0){
+                                            this.setFillColor(getColor(0, 1.0, 0, d.density, minDensity, maxDensity));
+                                            this.setFillAlpha(getAlpha(d.density, minDensity, maxDensity));
+                                        }
+                                        break;
                                     }
-                                    break;
                                 }
                             }
                         }
                     }
+                    super.fill(g, feature, path);
+                    this.setFillColor(oldColor);
+                    this.setFillAlpha(oldAlpha);
                 }
-                super.fill(g, feature, path);
-                this.setFillColor(oldColor);
-                this.setFillAlpha(oldAlpha);
-            }
-            
-        });
                 
-        final Form hi = new Form("Geoviz Demo");
-        current = hi;
-        hi.setLayout(new BorderLayout());
-        hi.addComponent(BorderLayout.CENTER, comp);
-        hi.addComponent(BorderLayout.SOUTH, densityChart);
-        
-        
-        // Add a radio button to select whether to view population density in
-        // the chart or just number of people.
-        RadioButton densityBtn = new RadioButton("Density");
-        densityBtn.addActionListener(new ActionListener(){
-
-            public void actionPerformed(ActionEvent evt) {
-                if (mode != MODE_DENSITY){
-                    mode = MODE_DENSITY;
-                    updateViews();
+            });
+            
+            final Form hi = new Form("Geoviz Demo");
+            current = hi;
+            hi.setLayout(new BorderLayout());
+            hi.addComponent(BorderLayout.CENTER, comp);
+            hi.addComponent(BorderLayout.SOUTH, densityChart);
+            
+            
+            // Add a radio button to select whether to view population density in
+            // the chart or just number of people.
+            RadioButton densityBtn = new RadioButton("Density");
+            densityBtn.addActionListener(new ActionListener(){
+                
+                public void actionPerformed(ActionEvent evt) {
+                    if (mode != MODE_DENSITY){
+                        mode = MODE_DENSITY;
+                        updateViews();
+                    }
                 }
-            }
-            
-        });
-        
-        RadioButton popBtn = new RadioButton("Population");
-        popBtn.addActionListener(new ActionListener(){
 
-            public void actionPerformed(ActionEvent evt) {
-                if (mode != MODE_POPULATION){
-                    mode = MODE_POPULATION;
-                    updateViews();
+            });
+            
+            RadioButton popBtn = new RadioButton("Population");
+            popBtn.addActionListener(new ActionListener(){
+                
+                public void actionPerformed(ActionEvent evt) {
+                    if (mode != MODE_POPULATION){
+                        mode = MODE_POPULATION;
+                        updateViews();
+                    }
                 }
-            }
-            
-        });
-        ButtonGroup btnGroup = new ButtonGroup();
-        btnGroup.add(popBtn);
-        btnGroup.add(densityBtn);
-        Container north = new Container();
-        north.setLayout(new BoxLayout(BoxLayout.X_AXIS));
-        north.addComponent(densityBtn);
-        north.addComponent(popBtn);
-        hi.addComponent(BorderLayout.NORTH, north);
-        updateComponentSizes();
-        
-        hi.show();
-        
-        // Add an orientation listener to the form so that we can reformat
-        // the map and chart to fit nicely.
-        hi.addOrientationListener(new ActionListener(){
 
-            public void actionPerformed(ActionEvent evt) {
-                updateComponentSizes();
-                hi.animateLayout(200);
-            }
+            });
+            ButtonGroup btnGroup = new ButtonGroup();
+            btnGroup.add(popBtn);
+            btnGroup.add(densityBtn);
+            Container north = new Container();
+            north.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+            north.addComponent(densityBtn);
+            north.addComponent(popBtn);
+            hi.addComponent(BorderLayout.NORTH, north);
+            updateComponentSizes();
             
-        });
+            hi.show();
+            
+            // Add an orientation listener to the form so that we can reformat
+            // the map and chart to fit nicely.
+            hi.addOrientationListener(new ActionListener(){
+                
+                public void actionPerformed(ActionEvent evt) {
+                    updateComponentSizes();
+                    hi.animateLayout(200);
+                }
+                
+            });
+        } catch (IOException ex) {
+            Log.e(ex);
+        }
     }
 
     /**
