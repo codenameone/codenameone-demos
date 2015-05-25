@@ -129,7 +129,6 @@ public class KitchenSink implements PushCallback, PurchaseCallback {
         splash.revalidate();
         
         Display.getInstance().callSerially(new Runnable() {
-            @Override
             public void run() {
                 beakerLogo.setVisible(true);
                 beakerLogo.setX(0);
