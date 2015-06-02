@@ -1,5 +1,6 @@
 package com.codename1.db;
 
+import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.CheckBox;
 import com.codename1.ui.Command;
@@ -44,7 +45,10 @@ public class DBDemo {
             boolean created = Database.exists("MyDB.db");
             db = Database.openOrCreate("MyDB.db");
             if(db == null){
-                System.out.println("SQLite is not supported on this platform");
+                Form f = new Form("SQLite Not Supported");
+                SpanLabel label = new SpanLabel("SQLite is not supported on this platform");
+                f.addComponent(label);
+                f.show();
                 return;
             }
             if (!created) {
