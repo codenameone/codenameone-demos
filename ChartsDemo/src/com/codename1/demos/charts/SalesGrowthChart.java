@@ -108,7 +108,7 @@ public class SalesGrowthChart extends AbstractDemoChart {
     
     public static Date date(int y, int m, int d){
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, y);
+        c.set(Calendar.YEAR, y + 1900);
         c.set(Calendar.MONTH, m);
         c.set(Calendar.DAY_OF_MONTH, d);
         return c.getTime();

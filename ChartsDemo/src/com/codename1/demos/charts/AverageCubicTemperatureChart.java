@@ -95,6 +95,7 @@ public class AverageCubicTemperatureChart extends AbstractDemoChart {
             0.33f
     );
     ChartComponent c = new ChartComponent(chart);
+    c.getStyle().setBgColor(0x0);
     return wrap("Avg. Cubic Temperature", c);
     
   }

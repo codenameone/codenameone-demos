@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Display;
 
 
 
@@ -79,7 +80,10 @@ public class TrigonometricFunctionsChart extends AbstractDemoChart {
     XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
     setChartSettings(renderer, "Trigonometric functions", "X (in degrees)", "Y", 0, 360, -1, 1,
         ColorUtil.GRAY, ColorUtil.LTGRAY);
-    renderer.setXLabels(20);
+    
+    int strWidth = smallFont.stringWidth("360") / 2;
+    int numXLabels = Display.getInstance().getDisplayWidth() / (strWidth + 20);
+    renderer.setXLabels(numXLabels);
     renderer.setYLabels(10);
     
     LineChart chart = new LineChart(buildDataset(titles, x, values), renderer);

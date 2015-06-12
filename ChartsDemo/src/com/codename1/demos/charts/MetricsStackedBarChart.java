@@ -82,7 +82,7 @@ public class MetricsStackedBarChart extends AbstractDemoChart {
 //      renderer.setChartTitleTextSize(50);
 //      renderer.setOrientation(XYMultipleSeriesRenderer.Orientation.HORIZONTAL);
       int length = renderer.getSeriesRendererCount();
-      System.out.println("Series len "+length);
+     // System.out.println("Series len "+length);
       for (int i = 0; i < length; i++) {
           XYSeriesRenderer seriesRenderer = (XYSeriesRenderer) renderer.getSeriesRendererAt(i);
           seriesRenderer.setDisplayChartValues(true);

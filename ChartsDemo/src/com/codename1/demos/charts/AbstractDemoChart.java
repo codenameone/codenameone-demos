@@ -91,10 +91,10 @@ public abstract class AbstractDemoChart implements IDemoChart {
   
   
   protected void setRenderer(XYMultipleSeriesRenderer renderer, int[] colors, PointStyle[] styles) {
-    renderer.setAxisTitleTextFont(medFont);
-    renderer.setChartTitleTextFont(largeFont);
-    renderer.setLabelsTextFont(smallFont);
-    renderer.setLegendTextFont(smallFont);
+    renderer.setAxisTitleTextSize(smallFont.getHeight()/2);
+    renderer.setChartTitleTextSize(smallFont.getHeight());
+    renderer.setLabelsTextSize(smallFont.getHeight()/2);
+    renderer.setLegendTextSize(smallFont.getHeight()/2);
     renderer.setPointSize(5f);
     renderer.setMargins(new int[] { medFont.getHeight(), medFont.getHeight(), 15, medFont.getHeight() });
     int length = colors.length;
@@ -202,8 +202,8 @@ public abstract class AbstractDemoChart implements IDemoChart {
    */
   protected DefaultRenderer buildCategoryRenderer(int[] colors) {
     DefaultRenderer renderer = new DefaultRenderer();
-    renderer.setLabelsTextFont(smallFont);
-    renderer.setLegendTextFont(smallFont);
+    renderer.setLabelsTextSize(smallFont.getHeight()/2);
+    renderer.setLegendTextSize(smallFont.getHeight()/2);
     renderer.setMargins(new int[] { medFont.getHeight(), medFont.getHeight(), medFont.getHeight(), medFont.getHeight() });
     for (int color : colors) {
       SimpleSeriesRenderer r = new SimpleSeriesRenderer();
@@ -243,10 +243,10 @@ public abstract class AbstractDemoChart implements IDemoChart {
    */
   protected XYMultipleSeriesRenderer buildBarRenderer(int[] colors) {
     XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-    renderer.setAxisTitleTextFont(medFont);
-    renderer.setChartTitleTextFont(largeFont);
-    renderer.setLabelsTextFont(medFont);
-    renderer.setLegendTextFont(medFont);
+    renderer.setAxisTitleTextSize(smallFont.getHeight()/2);
+    renderer.setChartTitleTextFont(smallFont);
+    renderer.setLabelsTextSize(smallFont.getHeight()/2);
+    renderer.setLegendTextSize(smallFont.getHeight()/2);
     int length = colors.length;
     for (int i = 0; i < length; i++) {
       XYSeriesRenderer r = new XYSeriesRenderer();
@@ -257,6 +257,7 @@ public abstract class AbstractDemoChart implements IDemoChart {
   }
   
   protected Form wrap(String title, Component c){
+      c.getStyle().setBgColor(0x0);
       Form f = new Form(title);
       f.setLayout(new BorderLayout());
       f.addComponent(BorderLayout.CENTER, c);

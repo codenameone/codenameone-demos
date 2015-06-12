@@ -80,11 +80,11 @@ public class SalesComparisonChart extends AbstractDemoChart {
         12.25, -5000, 19000, ColorUtil.GRAY, ColorUtil.LTGRAY);
     renderer.setXLabels(12);
     renderer.setYLabels(10);
-    renderer.setChartTitleTextFont(largeFont);
+    renderer.setChartTitleTextFont(smallFont);
     renderer.setTextTypeface(Font.FACE_SYSTEM, Font.STYLE_BOLD);
-    renderer.setLabelsTextFont(medFont);
-    renderer.setAxisTitleTextFont(medFont);
-    renderer.setLegendTextFont(medFont);
+    renderer.setLabelsTextSize(smallFont.getHeight()/2);
+    renderer.setAxisTitleTextSize(smallFont.getHeight()/2);
+    renderer.setLegendTextSize(smallFont.getHeight()/2);
     length = renderer.getSeriesRendererCount();
 
     for (int i = 0; i < length; i++) {
@@ -96,7 +96,7 @@ public class SalesComparisonChart extends AbstractDemoChart {
       }
       seriesRenderer.setLineWidth(2.5f);
       seriesRenderer.setDisplayChartValues(true);
-      seriesRenderer.setChartValuesTextFont(smallFont);
+      seriesRenderer.setChartValuesTextSize(smallFont.getHeight()/3);
     }
     
     CubicLineChart chart = new CubicLineChart(buildBarDataset(titles, values), renderer,

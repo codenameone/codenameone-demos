@@ -84,7 +84,7 @@ public class CombinedTemperatureChart extends AbstractDemoChart {
     int length = renderer.getSeriesRendererCount();
     for (int i = 0; i < length; i++) {
       XYSeriesRenderer r = (XYSeriesRenderer) renderer.getSeriesRendererAt(i);
-      r.setLineWidth(5);
+      r.setLineWidth(2);
       r.setFillPoints(true);
     }
     setChartSettings(renderer, "Weather data", "Month", "Temperature", 0.5, 12.5, 0, 40,
@@ -157,9 +157,9 @@ public class CombinedTemperatureChart extends AbstractDemoChart {
     renderer.addSeriesRenderer(0, waterRenderer1);
     renderer.addSeriesRenderer(0, waterRenderer2);
     waterRenderer1.setDisplayChartValues(true);
-    waterRenderer1.setChartValuesTextFont(smallFont);
+    waterRenderer1.setChartValuesTextSize(smallFont.getHeight()/2);
     waterRenderer2.setDisplayChartValues(true);
-    waterRenderer2.setChartValuesTextFont(smallFont);
+    waterRenderer2.setChartValuesTextSize(smallFont.getHeight()/2);
 
     XYCombinedChartDef[] types = new XYCombinedChartDef[] {
         new XYCombinedChartDef(BarChart.TYPE, 0, 1), new XYCombinedChartDef(BubbleChart.TYPE, 2),
