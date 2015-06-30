@@ -73,7 +73,7 @@ public class WeightDialChart extends AbstractDemoChart {
     r = new SimpleSeriesRenderer();
     r.setColor(ColorUtil.GREEN);
     renderer.addSeriesRenderer(r);
-    renderer.setLabelsTextFont(smallFont);
+    renderer.setLabelsTextSize(smallFont.getHeight()/2);
     renderer.setLabelsColor(ColorUtil.WHITE);
     renderer.setShowLabels(true);
     renderer.setVisualTypes(new DialRenderer.Type[] {Type.ARROW, Type.NEEDLE, Type.NEEDLE});

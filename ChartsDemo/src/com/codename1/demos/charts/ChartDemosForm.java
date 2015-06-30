@@ -43,7 +43,7 @@ public class ChartDemosForm extends Form {
     
     ListOption[] options = new ListOption[]{
         new ListOption(AverageCubicTemperatureChart.class, "Avg. Cubic Temperature"),
-        new ListOption(AverageTemperatureChart.class, "Avg. Temperature"),
+        //new ListOption(AverageTemperatureChart.class, "Avg. Temperature"),
         new ListOption(BudgetDoughnutChart.class, "Budget Doughnut"),
         new ListOption(BudgetPieChart.class, "Budget Pie Chart"),
         new ListOption(CombinedTemperatureChart.class, "Combined Temperature"),
@@ -85,6 +85,16 @@ public class ChartDemosForm extends Form {
                         }
                         
                     };
+                    f.setBackCommand(cmd);
+                    
+                    f.getStyle().setBgColor(0x0);
+                    f.getStyle().setBgTransparency(0xff);
+                    int numComponents = f.getComponentCount();
+                    for (int i=0; i<numComponents; i++) {
+                        f.getComponentAt(i).getStyle().setBgColor(0x0);
+                        f.getComponentAt(i).getStyle().setBgTransparency(0xff);
+                    }
+                    
                     f.show();
                     return;
                 }
@@ -106,6 +116,11 @@ public class ChartDemosForm extends Form {
                     intent.setBackCommand(cmd);
                     intent.getStyle().setBgColor(0x0);
                     intent.getStyle().setBgTransparency(0xff);
+                    int numComponents = intent.getComponentCount();
+                    for (int i=0; i<numComponents; i++) {
+                        intent.getComponentAt(i).getStyle().setBgColor(0x0);
+                        intent.getComponentAt(i).getStyle().setBgTransparency(0xff);
+                    }
                     intent.show();
                 } catch (InstantiationException ex) {
                     Log.e(ex);

@@ -28,6 +28,7 @@ import java.util.List;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.charts.util.MathHelper;
+import com.codename1.ui.Display;
 
 
 
@@ -95,7 +96,12 @@ public class SensorValuesChart extends AbstractDemoChart {
     }
     setChartSettings(renderer, "Sensor temperature", "Hour", "Celsius degrees",
         x.get(0)[0].getTime(), x.get(0)[HOURS - 1].getTime(), -5, 30, ColorUtil.LTGRAY, ColorUtil.LTGRAY);
-    renderer.setXLabels(10);
+    
+    int strWidth = smallFont.stringWidth("00:00:00 PM")/2;
+    
+    int numXLabels = Display.getInstance().getDisplayWidth() / (strWidth + 20);
+    
+    renderer.setXLabels(numXLabels);
     renderer.setYLabels(10);
     renderer.setShowGrid(true);
     renderer.setXLabelsAlign(Component.CENTER);
