@@ -17,6 +17,11 @@ import java.util.Hashtable;
  * @author Shai Almog
  */
 public class StateMachine extends StateMachineBase {
+    /**
+     * Important, you need to fill this out with your token from the account settings!
+     */
+    private static final String TOKEN = "********-****-****-****-**************";
+    
     public StateMachine(String resFile) {
         super(resFile);
         // do not modify, write code in initVars and initialize class members there,
@@ -34,7 +39,7 @@ public class StateMachine extends StateMachineBase {
     @Override
     protected void onMain_RegisterForPushAction(Component c, ActionEvent event) {
         Hashtable meta = new Hashtable();
-        meta.put(com.codename1.push.Push.GOOGLE_PUSH_KEY, findGoogleProjectId(c));        
+        meta.put(com.codename1.push.Push.GOOGLE_PUSH_KEY, findGoogleProjectId(c).getText());        
         Display.getInstance().registerPush(meta, true);
     }
 
@@ -57,12 +62,12 @@ public class StateMachine extends StateMachineBase {
         String bbAppId = findBbAppId(c).getText();
         String bbPassword = findBbPassword(c).getText();
         String bbPort = findBbPort(c).getText();
-        Push.sendPushMessage(findPushMessage(c).getText(), dest, prod, googleServerKey, iOSCertURL, iOSCertPassword, bbPushURL, bbAppId, bbPassword, bbPort);    
+        Push.sendPushMessage(TOKEN, findPushMessage(c).getText(), dest, prod, googleServerKey, iOSCertURL, iOSCertPassword, bbPushURL, bbAppId, bbPassword, bbPort);    
     }
 
     @Override
     protected void beforeMain(Form f) {
-        String k = Push.getDeviceKey();
+        String k = Push.getPushKey();
         if(k != null) {
             findDeviceKey(f).setText("Device Key: " + k);
         }
