@@ -337,7 +337,7 @@ public class SocialChat implements PushCallback {
     
     private void listenToMessages() {
         try {
-            pb = new Pubnub("pub-c-f058310b-04b4-4797-a8eb-a5448fe77b2e", "sub-c-e9863cf0-3a14-11e5-a5d7-02ee2ddab7fe");
+            pb = new Pubnub("--------", "---------");
             pb.subscribe(tokenPrefix + uniqueId, new Callback() {
                 @Override
                 public void successCallback(String channel, Object message, String timetoken) {
