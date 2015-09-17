@@ -66,14 +66,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SocialChat implements PushCallback {
-    private static final String PUSH_TOKEN = "----------------------------------";
-    private static final String GCM_SENDER_ID = "------------------";
+    private static final String PUSH_TOKEN = "-------------------------------";
+    private static final String GCM_SENDER_ID = "-----------------";
     private static final boolean ITUNES_PRODUCTION_PUSH = false;
-    private static final String GCM_SERVER_API_KEY = "------------------------------";
-    private static final String ITUNES_PRODUCTION_PUSH_CERT = "------------------------";
-    private static final String ITUNES_PRODUCTION_PUSH_CERT_PASSWORD = "--------";
-    private static final String ITUNES_DEVELOPMENT_PUSH_CERT = "-----------------------";
-    private static final String ITUNES_DEVELOPMENT_PUSH_CERT_PASSWORD = "----------";
+    private static final String GCM_SERVER_API_KEY = "------------------";
+    private static final String ITUNES_PRODUCTION_PUSH_CERT = "--------------";
+    private static final String ITUNES_PRODUCTION_PUSH_CERT_PASSWORD = "-------";
+    private static final String ITUNES_DEVELOPMENT_PUSH_CERT = "---------------";
+    private static final String ITUNES_DEVELOPMENT_PUSH_CERT_PASSWORD = "---------";
+    private static final String PUBNUB_SUB_KEY = "--------------------";
+    private static final String PUBNUB_PUB_KEY = "--------------------";
     
     private Form current;
     private Resources theme;
@@ -337,7 +339,7 @@ public class SocialChat implements PushCallback {
     
     private void listenToMessages() {
         try {
-            pb = new Pubnub("--------", "---------");
+            pb = new Pubnub(PUBNUB_PUB_KEY, PUBNUB_SUB_KEY);
             pb.subscribe(tokenPrefix + uniqueId, new Callback() {
                 @Override
                 public void successCallback(String channel, Object message, String timetoken) {
@@ -562,7 +564,7 @@ public class SocialChat implements PushCallback {
             if(pid != null) {
                 // if we have a push address for the contact we can send them a push if they aren't reachable...
                 UITimer timeout = new UITimer(() -> {
-                    if(true) { //pendingAck.contains(tokenPrefix + d.uniqueId)) {
+                    if(pendingAck.contains(tokenPrefix + d.uniqueId)) {
                         pendingAck.remove(tokenPrefix + d.uniqueId);
                         // send two messages, one hidden with the data as JSON for parsing on the client
                         // the other one visible with the text that should appear to the user who isn't running
