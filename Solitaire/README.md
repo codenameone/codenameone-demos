@@ -1,9 +1,11 @@
-# CodenameOne
-Codename One allows Java developers to write their app once and have it work on all mobile devices. 
-It features a simulator, designer (visual theme/builder) and ports to multiple OS's all as part of the hierarchy.
+# Solitaire Demo
 
-You can learn more about Codename One and its capabilities at the [main site](http://www.codenameone.com) and you can read 
-additional documentation [here](http://www.codenameone.com/getting-started.html).
+This is a simple Solitaire Klondike app that was submitted to both Google and Apple and is available in both app stores as well as thru the web using the Codename One JavaScript port.
 
-# Demos
-This project concentrates the demos that ship with Codename One and some demos that don't. 
+This isn't meant to be a great game or even a full demo of what Codename One can do, just a simple demo to get you started and show off the JavaScript port.
+
+You can try it on devices or directly in the web browser here: https://www.codenameone.com/demos-Solitaire.html
+
+# License 
+
+The code for this demo is unlicensed and completely free for use in any way you choose with no attribution or restrictions.
