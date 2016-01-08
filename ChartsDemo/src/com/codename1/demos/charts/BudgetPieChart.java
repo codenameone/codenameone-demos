@@ -68,7 +68,10 @@ public class BudgetPieChart extends AbstractDemoChart {
     renderer.setChartTitleTextFont(largeFont);
     renderer.setDisplayValues(true);
     renderer.setShowLabels(true);
-   
+    renderer.setBackgroundColor(0xff0000ff);
+    renderer.setApplyBackgroundColor(true);
+    renderer.setLabelsColor(0x00ff00);
+    
     final CategorySeries seriesSet = buildCategoryDataset("Project budget", values);
     final PieChart chart = new PieChart(seriesSet, renderer);
     ChartComponent comp = new ChartComponent(chart){
@@ -123,6 +126,8 @@ public class BudgetPieChart extends AbstractDemoChart {
     };
     comp.setZoomEnabled(true);
     comp.setPanEnabled(true);
+    comp.getStyle().setBgColor(0xff0000);
+    comp.getStyle().setBgTransparency(255);
     
     return wrap("Budget", comp);
     

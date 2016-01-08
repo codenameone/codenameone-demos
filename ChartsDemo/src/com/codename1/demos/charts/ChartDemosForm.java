@@ -7,6 +7,7 @@
 package com.codename1.demos.charts;
 
 import com.codename1.io.Log;
+import com.codename1.ui.CheckBox;
 import com.codename1.ui.Command;
 import com.codename1.ui.Form;
 import com.codename1.ui.List;
@@ -24,7 +25,7 @@ import com.codename1.ui.layouts.BorderLayout;
 public class ChartDemosForm extends Form {
     
     
-    
+    boolean drawOnMutableImages;
     List formMenu;
     
     class ListOption {
@@ -100,7 +101,7 @@ public class ChartDemosForm extends Form {
                 }
                 try {
                     AbstractDemoChart demo = (AbstractDemoChart)cls.newInstance();
-                   
+                    demo.setDrawOnMutableImage(drawOnMutableImages);
                     Form intent = demo.execute();
                     if ( "".equals(intent.getTitle())){
                         intent.setTitle(demo.getName());
@@ -132,6 +133,16 @@ public class ChartDemosForm extends Form {
         });
         
         setLayout(new BorderLayout());
+        
+        final CheckBox mutableImageCb = new CheckBox("Render on Mutable Image");
+        mutableImageCb.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                drawOnMutableImages =  mutableImageCb.isSelected();
+            }
+            
+        });
+        addComponent(BorderLayout.NORTH, mutableImageCb);
         addComponent(BorderLayout.CENTER, formMenu);
         
     }

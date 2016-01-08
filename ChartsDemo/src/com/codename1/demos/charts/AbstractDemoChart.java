@@ -26,8 +26,12 @@ import com.codename1.charts.renderers.XYMultipleSeriesRenderer;
 import com.codename1.charts.renderers.XYSeriesRenderer;
 import com.codename1.charts.views.PointStyle;
 import com.codename1.ui.Component;
+import com.codename1.ui.Display;
 import com.codename1.ui.Font;
 import com.codename1.ui.Form;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.Image;
+import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BorderLayout;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +45,8 @@ import java.util.List;
  */
 public abstract class AbstractDemoChart implements IDemoChart {
 
+    
+   private boolean drawOnMutableImage;
    Font smallFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.SIZE_SMALL, Font.STYLE_PLAIN);
    Font medFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.SIZE_MEDIUM, Font.STYLE_PLAIN);
    Font largeFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.SIZE_LARGE, Font.STYLE_PLAIN);
@@ -257,11 +263,31 @@ public abstract class AbstractDemoChart implements IDemoChart {
   }
   
   protected Form wrap(String title, Component c){
-      c.getStyle().setBgColor(0x0);
+      c.getStyle().setBgColor(0xff0000);
       Form f = new Form(title);
       f.setLayout(new BorderLayout());
-      f.addComponent(BorderLayout.CENTER, c);
+      if (isDrawOnMutableImage()) {
+          int dispW = Display.getInstance().getDisplayWidth();
+          int dispH = Display.getInstance().getDisplayHeight();
+          Image img = Image.createImage((int)(dispW * 0.8), (int)(dispH * 0.8), 0x0);
+          Graphics g = img.getGraphics();
+          c.setWidth((int)(dispW * 0.8));
+          c.setHeight((int)(dispH * 0.8));
+          c.paint(g);
+          f.addComponent(BorderLayout.CENTER, new Label(img));
+      } else {
+        f.addComponent(BorderLayout.CENTER, c);
+      }
+      
       return f;
   }
 
+  public void setDrawOnMutableImage(boolean b) {
+      this.drawOnMutableImage = b;
+  }
+  
+  public boolean isDrawOnMutableImage() {
+      return this.drawOnMutableImage;
+  }
+  
 }
