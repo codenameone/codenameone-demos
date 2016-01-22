@@ -25,6 +25,9 @@ import java.util.List;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Display;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.animations.Animation;
+import com.codename1.ui.animations.Motion;
 
 
 
@@ -77,7 +80,7 @@ public class TrigonometricFunctionsChart extends AbstractDemoChart {
     }
     int [] colors = new int[] { ColorUtil.BLUE, ColorUtil.CYAN };
     PointStyle[] styles = new PointStyle[] { PointStyle.POINT, PointStyle.POINT };
-    XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
+    final XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
     setChartSettings(renderer, "Trigonometric functions", "X (in degrees)", "Y", 0, 360, -1, 1,
         ColorUtil.GRAY, ColorUtil.LTGRAY);
     
@@ -85,9 +88,35 @@ public class TrigonometricFunctionsChart extends AbstractDemoChart {
     int numXLabels = Display.getInstance().getDisplayWidth() / (strWidth + 20);
     renderer.setXLabels(numXLabels);
     renderer.setYLabels(10);
+    renderer.setXAxisMin(0);
+    renderer.setXAxisMax(50);
     
-    LineChart chart = new LineChart(buildDataset(titles, x, values), renderer);
-    return wrap("", new ChartComponent(chart));
+    final Motion m = Motion.createLinearMotion(0, 310, 10000);
+    
+    
+    final LineChart chart = new LineChart(buildDataset(titles, x, values), renderer);
+    final ChartComponent cmp = new ChartComponent(chart);
+    Form out = wrap("", cmp);
+    out.registerAnimated(new Animation() {
+
+        public boolean animate() {
+            if (m.isFinished()) {
+                return false;
+            } else {
+                renderer.setXAxisMin(m.getValue());
+                renderer.setXAxisMax(m.getValue()+50);
+                cmp.repaint();
+                return true;
+            }
+        }
+
+        public void paint(Graphics g) {
+            
+        }
+        
+    });
+    m.start();
+    return out;
     
   }
 
