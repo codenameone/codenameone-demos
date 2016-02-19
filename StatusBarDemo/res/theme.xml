@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="7" useXmlUI="false">
+    <image name="back-command.png" type="multi"  />
+    <image name="border.png"  />
+    <image name="cal_left_arrow.png" type="multi"  />
+    <image name="cal_right_arrow.png" type="multi"  />
+    <image name="chbox1.png" type="multi"  />
+    <image name="chboxv1.png" type="multi"  />
+    <image name="ComboBox.borderBottom_1.png" type="multi"  />
+    <image name="ComboBox.borderBottomL_1.png" type="multi"  />
+    <image name="ComboBox.borderBottomR_1.png" type="multi"  />
+    <image name="ComboBox.borderCenter_1.png" type="multi"  />
+    <image name="ComboBox.borderLeft_1.png" type="multi"  />
+    <image name="ComboBox.borderRight_1.png" type="multi"  />
+    <image name="ComboBox.borderTop_1.png" type="multi"  />
+    <image name="ComboBox.borderTopL_1.png" type="multi"  />
+    <image name="ComboBox.borderTopR_1.png" type="multi"  />
+    <image name="ComboBox.sel#borderBottom_1.png" type="multi"  />
+    <image name="ComboBox.sel#borderBottomL_1.png" type="multi"  />
+    <image name="ComboBox.sel#borderBottomR_1.png" type="multi"  />
+    <image name="ComboBox.sel#borderCenter_1.png" type="multi"  />
+    <image name="ComboBox.sel#borderLeft_1.png" type="multi"  />
+    <image name="ComboBox.sel#borderRight_1.png" type="multi"  />
+    <image name="ComboBox.sel#borderTop_1.png" type="multi"  />
+    <image name="ComboBox.sel#borderTopL_1.png" type="multi"  />
+    <image name="ComboBox.sel#borderTopR_1.png" type="multi"  />
+    <image name="Dialog.borderBottom_1.png" type="multi"  />
+    <image name="Dialog.borderBottomL_1.png" type="multi"  />
+    <image name="Dialog.borderBottomR_1.png" type="multi"  />
+    <image name="Dialog.borderCenter_1.png" type="multi"  />
+    <image name="Dialog.borderLeft_1.png" type="multi"  />
+    <image name="Dialog.borderRight_1.png" type="multi"  />
+    <image name="Dialog.borderTop_1.png" type="multi"  />
+    <image name="Dialog.borderTopL_1.png" type="multi"  />
+    <image name="Dialog.borderTopR_1.png" type="multi"  />
+    <image name="menu.png" type="multi"  />
+    <image name="of_menu.png" type="multi"  />
+    <image name="OKGR.borderBottom_1.png" type="multi"  />
+    <image name="OKGR.borderBottomL_1.png" type="multi"  />
+    <image name="OKGR.borderBottomR_1.png" type="multi"  />
+    <image name="OKGR.borderCenter_1.png" type="multi"  />
+    <image name="OKGR.borderLeft_1.png" type="multi"  />
+    <image name="OKGR.borderRight_1.png" type="multi"  />
+    <image name="OKGR.borderTop_1.png" type="multi"  />
+    <image name="OKGR.borderTopL_1.png" type="multi"  />
+    <image name="OKGR.borderTopR_1.png" type="multi"  />
+    <image name="sliderBlueCenter.png" type="multi"  />
+    <image name="sliderBlueLeft.png" type="multi"  />
+    <image name="sliderBlueRight.png" type="multi"  />
+    <image name="sliderEmpty.png" type="multi"  />
+    <image name="sliderEmptyLeft.png" type="multi"  />
+    <image name="sliderEmptyRight.png" type="multi"  />
+    <image name="switch_mask.png" type="multi"  />
+    <image name="switch_off.png" type="multi"  />
+    <image name="switch_on.png" type="multi"  />
+    <theme name="Theme">
+        <val key="@PopupDialogArrowBool" value="false" />
+        <val key="@calTitleDayStyleBool" value="true" />
+        <val key="@calTransitionVertBool" value="false" />
+        <val key="@calendarLeftImage" value="cal_left_arrow.png" />
+        <val key="@calendarRightImage" value="cal_right_arrow.png" />
+        <val key="@centeredPopupBool" value="false" />
+        <val key="@checkBoxCheckDisFocusImage" value="chbox1.png" />
+        <val key="@checkBoxCheckedFocusImage" value="chboxv1.png" />
+        <val key="@checkBoxCheckedImage" value="chboxv1.png" />
+        <val key="@checkBoxOppositeSideBool" value="true" />
+        <val key="@checkBoxUncheckedFocusImage" value="chbox1.png" />
+        <val key="@checkBoxUncheckedImage" value="chbox1.png" />
+        <val key="@comboImage" value="ComboBox.borderBottom_1.png" />
+        <val key="@commandBehavior" value="Side" />
+        <val key="@dialogTransitionIn" value="fade" />
+        <val key="@dialogTransitionOut" value="fade" />
+        <val key="@dlgButtonCommandUIID" value="DialogButton" />
+        <val key="@dlgCommandGridBool" value="true" />
+        <val key="@dlgInvisibleButtons" value="1a1a1a" />
+        <val key="@formTransitionIn" value="empty" />
+        <val key="@formTransitionOut" value="slide" />
+        <val key="@includeNativeBool" value="true" />
+        <val key="@menuImage" value="of_menu.png" />
+        <val key="@noTextModeBool" value="true" />
+        <val key="@onOffIOSModeBool" value="true" />
+        <val key="@otherPopupRendererBool" value="false" />
+        <val key="@pureTouchBool" value="true" />
+        <val key="@radioSelectedFocusImage" value="chboxv1.png" />
+        <val key="@radioSelectedImage" value="chboxv1.png" />
+        <val key="@radioUnselectedFocusImage" value="chbox1.png" />
+        <val key="@radioUnselectedImage" value="chbox1.png" />
+        <val key="@sideMenuImage" value="menu.png" />
+        <val key="@switchMaskImage" value="switch_mask.png" />
+        <val key="@switchOffImage" value="switch_off.png" />
+        <val key="@switchOnImage" value="switch_on.png" />
+        <val key="@tabPlacementInt" value="0" />
+        <val key="BackCommand.align" value="4" />
+        <val key="BackCommand.bgImage" value="back-command.png" />
+        <val key="BackCommand.bgType" value="22" />
+        <border key="BackCommand.border" type="empty" />
+        <val key="BackCommand.fgColor" value="ffffff" />
+        <font key="BackCommand.font" type="ttf" face="0" style="1" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="BackCommand.margin" value="0,0,0,0" />
+        <val key="BackCommand.padUnit" value="2,2,2,2" />
+        <val key="BackCommand.padding" value="1,1,4,4" />
+        <val key="BackCommand.press#align" value="4" />
+        <val key="BackCommand.press#bgImage" value="back-command.png" />
+        <val key="BackCommand.press#bgType" value="22" />
+        <border key="BackCommand.press#border" type="empty" />
+        <font key="BackCommand.press#font" type="ttf" face="0" style="1" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="BackCommand.press#margin" value="0,0,0,0" />
+        <val key="BackCommand.press#padUnit" value="2,2,2,2" />
+        <val key="BackCommand.press#padding" value="1,1,4,4" />
+        <val key="BackCommand.press#transparency" value="0" />
+        <val key="BackCommand.sel#align" value="4" />
+        <val key="BackCommand.sel#bgImage" value="back-command.png" />
+        <val key="BackCommand.sel#bgType" value="22" />
+        <border key="BackCommand.sel#border" type="empty" />
+        <val key="BackCommand.sel#fgColor" value="ffffff" />
+        <font key="BackCommand.sel#font" type="ttf" face="0" style="1" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="BackCommand.sel#margin" value="0,0,0,0" />
+        <val key="BackCommand.sel#padUnit" value="2,2,2,2" />
+        <val key="BackCommand.sel#padding" value="1,1,4,4" />
+        <val key="BackCommand.sel#transparency" value="0" />
+        <val key="BackCommand.transparency" value="0" />
+        <val key="Button.align" value="4" />
+        <gradient key="Button.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="Button.bgType" value="0" />
+        <border key="Button.border" type="image" i1="OKGR.borderTop_1.png" i2="OKGR.borderBottom_1.png" i3="OKGR.borderLeft_1.png" i4="OKGR.borderRight_1.png" i5="OKGR.borderTopL_1.png" i6="OKGR.borderTopR_1.png" i7="OKGR.borderBottomL_1.png" i8="OKGR.borderBottomR_1.png" i9="OKGR.borderCenter_1.png" />
+        <val key="Button.fgColor" value="ffffff" />
+        <font key="Button.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="Button.marUnit" value="2,2,2,2" />
+        <val key="Button.margin" value="1,1,1,1" />
+        <val key="Button.padUnit" value="2,2,2,2" />
+        <val key="Button.padding" value="1,1,1,1" />
+        <val key="Button.press#align" value="4" />
+        <gradient key="Button.press#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="Button.press#bgType" value="0" />
+        <border key="Button.press#border" type="image" i1="OKGR.borderTop_1.png" i2="OKGR.borderBottom_1.png" i3="OKGR.borderLeft_1.png" i4="OKGR.borderRight_1.png" i5="OKGR.borderTopL_1.png" i6="OKGR.borderTopR_1.png" i7="OKGR.borderBottomL_1.png" i8="OKGR.borderBottomR_1.png" i9="OKGR.borderCenter_1.png" />
+        <val key="Button.press#fgColor" value="999999" />
+        <font key="Button.press#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="Button.press#marUnit" value="2,2,2,2" />
+        <val key="Button.press#margin" value="1,1,1,1" />
+        <val key="Button.press#padUnit" value="2,2,2,2" />
+        <val key="Button.press#padding" value="1,1,1,1" />
+        <val key="Button.press#transparency" value="0" />
+        <val key="Button.sel#align" value="4" />
+        <gradient key="Button.sel#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="Button.sel#bgType" value="0" />
+        <border key="Button.sel#border" type="image" i1="OKGR.borderTop_1.png" i2="OKGR.borderBottom_1.png" i3="OKGR.borderLeft_1.png" i4="OKGR.borderRight_1.png" i5="OKGR.borderTopL_1.png" i6="OKGR.borderTopR_1.png" i7="OKGR.borderBottomL_1.png" i8="OKGR.borderBottomR_1.png" i9="OKGR.borderCenter_1.png" />
+        <val key="Button.sel#fgColor" value="ffffff" />
+        <font key="Button.sel#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="Button.sel#marUnit" value="2,2,2,2" />
+        <val key="Button.sel#margin" value="1,1,1,1" />
+        <val key="Button.sel#padUnit" value="2,2,2,2" />
+        <val key="Button.sel#padding" value="1,1,1,1" />
+        <val key="Button.sel#transparency" value="0" />
+        <val key="Button.transparency" value="0" />
+        <val key="CalendarDate.bgColor" value="3399ff" />
+        <val key="CalendarDate.fgColor" value="0" />
+        <val key="CalendarDate.margin" value="0,0,0,0" />
+        <val key="CalendarDate.padUnit" value="0,2,0,2" />
+        <val key="CalendarDate.padding" value="0,0,2,2" />
+        <val key="CalendarDate.transparency" value="255" />
+        <val key="CalendarDateLabel.align" value="4" />
+        <val key="CalendarDateLabel.fgColor" value="ffffff" />
+        <font key="CalendarDateLabel.font" type="ttf" face="0" style="1" size="16" name="native:MainThin" family="native:MainThin" sizeSettings="2" actualSize="12.0" />
+        <val key="CalendarDay.align" value="4" />
+        <border key="CalendarDay.border" type="line" thickness="1" color="13421772" />
+        <val key="CalendarDay.dis#align" value="4" />
+        <border key="CalendarDay.dis#border" type="line" thickness="1" color="13421772" />
+        <val key="CalendarDay.dis#fgColor" value="999999" />
+        <font key="CalendarDay.dis#font" type="system" face="0" style="0" size="0" />
+        <val key="CalendarDay.dis#margin" value="0,0,0,0" />
+        <val key="CalendarDay.dis#transparency" value="0" />
+        <val key="CalendarDay.fgColor" value="0" />
+        <font key="CalendarDay.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="CalendarDay.margin" value="0,0,0,0" />
+        <val key="CalendarDay.press#align" value="4" />
+        <border key="CalendarDay.press#border" type="line" thickness="1" color="13421772" />
+        <val key="CalendarDay.press#fgColor" value="0" />
+        <font key="CalendarDay.press#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="CalendarDay.press#margin" value="0,0,0,0" />
+        <val key="CalendarDay.press#transparency" value="0" />
+        <val key="CalendarDay.sel#align" value="4" />
+        <border key="CalendarDay.sel#border" type="line" thickness="1" color="13421772" />
+        <val key="CalendarDay.sel#fgColor" value="0" />
+        <font key="CalendarDay.sel#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="CalendarDay.sel#margin" value="0,0,0,0" />
+        <val key="CalendarDay.sel#transparency" value="0" />
+        <val key="CalendarDay.transparency" value="0" />
+        <val key="CalendarDayArea.margin" value="0,0,0,0" />
+        <val key="CalendarDayArea.padding" value="0,0,0,0" />
+        <val key="CalendarSelectedDay.align" value="4" />
+        <val key="CalendarSelectedDay.bgColor" value="3399ff" />
+        <border key="CalendarSelectedDay.border" type="line" thickness="1" color="13421772" />
+        <val key="CalendarSelectedDay.fgColor" value="ffffff" />
+        <font key="CalendarSelectedDay.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="1" actualSize="12.0" />
+        <val key="CalendarSelectedDay.margin" value="0,0,0,0" />
+        <val key="CalendarSelectedDay.press#align" value="4" />
+        <val key="CalendarSelectedDay.press#bgColor" value="3399ff" />
+        <border key="CalendarSelectedDay.press#border" type="line" thickness="1" color="13421772" />
+        <val key="CalendarSelectedDay.press#fgColor" value="999999" />
+        <font key="CalendarSelectedDay.press#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="CalendarSelectedDay.press#margin" value="0,0,0,0" />
+        <val key="CalendarSelectedDay.press#transparency" value="255" />
+        <val key="CalendarSelectedDay.transparency" value="255" />
+        <val key="CalendarTitle.align" value="4" />
+        <val key="CalendarTitle.fgColor" value="ffffff" />
+        <font key="CalendarTitle.font" type="ttf" face="0" style="1" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="1" actualSize="12.0" />
+        <val key="CalendarTitleArea.align" value="4" />
+        <val key="CalendarTitleArea.bgColor" value="3399ff" />
+        <val key="CalendarTitleArea.fgColor" value="ffffff" />
+        <val key="CalendarTitleArea.margin" value="0,0,0,0" />
+        <val key="CalendarTitleArea.transparency" value="255" />
+        <val key="CheckBox.align" value="4" />
+        <gradient key="CheckBox.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="CheckBox.bgType" value="0" />
+        <border key="CheckBox.border" type="image" i1="OKGR.borderTop_1.png" i2="OKGR.borderBottom_1.png" i3="OKGR.borderLeft_1.png" i4="OKGR.borderRight_1.png" i5="OKGR.borderTopL_1.png" i6="OKGR.borderTopR_1.png" i7="OKGR.borderBottomL_1.png" i8="OKGR.borderBottomR_1.png" i9="OKGR.borderCenter_1.png" />
+        <val key="CheckBox.fgColor" value="ffffff" />
+        <font key="CheckBox.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="CheckBox.marUnit" value="2,2,2,2" />
+        <val key="CheckBox.margin" value="1,1,1,1" />
+        <val key="CheckBox.padUnit" value="2,2,2,2" />
+        <val key="CheckBox.padding" value="1,1,1,1" />
+        <val key="CheckBox.press#align" value="4" />
+        <gradient key="CheckBox.press#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="CheckBox.press#bgType" value="0" />
+        <border key="CheckBox.press#border" type="image" i1="OKGR.borderTop_1.png" i2="OKGR.borderBottom_1.png" i3="OKGR.borderLeft_1.png" i4="OKGR.borderRight_1.png" i5="OKGR.borderTopL_1.png" i6="OKGR.borderTopR_1.png" i7="OKGR.borderBottomL_1.png" i8="OKGR.borderBottomR_1.png" i9="OKGR.borderCenter_1.png" />
+        <val key="CheckBox.press#fgColor" value="999999" />
+        <font key="CheckBox.press#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="CheckBox.press#marUnit" value="2,2,2,2" />
+        <val key="CheckBox.press#margin" value="1,1,1,1" />
+        <val key="CheckBox.press#padUnit" value="2,2,2,2" />
+        <val key="CheckBox.press#padding" value="1,1,1,1" />
+        <val key="CheckBox.press#transparency" value="0" />
+        <val key="CheckBox.sel#align" value="4" />
+        <gradient key="CheckBox.sel#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="CheckBox.sel#bgType" value="0" />
+        <border key="CheckBox.sel#border" type="image" i1="OKGR.borderTop_1.png" i2="OKGR.borderBottom_1.png" i3="OKGR.borderLeft_1.png" i4="OKGR.borderRight_1.png" i5="OKGR.borderTopL_1.png" i6="OKGR.borderTopR_1.png" i7="OKGR.borderBottomL_1.png" i8="OKGR.borderBottomR_1.png" i9="OKGR.borderCenter_1.png" />
+        <val key="CheckBox.sel#fgColor" value="ffffff" />
+        <font key="CheckBox.sel#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="CheckBox.sel#marUnit" value="2,2,2,2" />
+        <val key="CheckBox.sel#margin" value="1,1,1,1" />
+        <val key="CheckBox.sel#padUnit" value="2,2,2,2" />
+        <val key="CheckBox.sel#padding" value="1,1,1,1" />
+        <val key="CheckBox.sel#transparency" value="0" />
+        <val key="CheckBox.transparency" value="0" />
+        <border key="ComboBox.border" type="image" i1="ComboBox.borderTop_1.png" i2="ComboBox.borderBottom_1.png" i3="ComboBox.borderLeft_1.png" i4="ComboBox.borderRight_1.png" i5="ComboBox.borderTopL_1.png" i6="ComboBox.borderTopR_1.png" i7="ComboBox.borderBottomL_1.png" i8="ComboBox.borderBottomR_1.png" i9="ComboBox.borderCenter_1.png" />
+        <val key="ComboBox.marUnit" value="2,2,2,2" />
+        <val key="ComboBox.margin" value="1,1,1,1" />
+        <val key="ComboBox.padUnit" value="2,2,2,2" />
+        <val key="ComboBox.padding" value="1,1,1,1" />
+        <border key="ComboBox.press#border" type="image" i1="ComboBox.sel#borderTop_1.png" i2="ComboBox.sel#borderBottom_1.png" i3="ComboBox.sel#borderLeft_1.png" i4="ComboBox.sel#borderRight_1.png" i5="ComboBox.sel#borderTopL_1.png" i6="ComboBox.sel#borderTopR_1.png" i7="ComboBox.sel#borderBottomL_1.png" i8="ComboBox.sel#borderBottomR_1.png" i9="ComboBox.sel#borderCenter_1.png" />
+        <val key="ComboBox.press#marUnit" value="2,2,2,2" />
+        <val key="ComboBox.press#margin" value="1,1,1,1" />
+        <val key="ComboBox.press#padUnit" value="2,2,2,2" />
+        <val key="ComboBox.press#padding" value="1,1,1,1" />
+        <val key="ComboBox.press#transparency" value="0" />
+        <border key="ComboBox.sel#border" type="image" i1="ComboBox.sel#borderTop_1.png" i2="ComboBox.sel#borderBottom_1.png" i3="ComboBox.sel#borderLeft_1.png" i4="ComboBox.sel#borderRight_1.png" i5="ComboBox.sel#borderTopL_1.png" i6="ComboBox.sel#borderTopR_1.png" i7="ComboBox.sel#borderBottomL_1.png" i8="ComboBox.sel#borderBottomR_1.png" i9="ComboBox.sel#borderCenter_1.png" />
+        <val key="ComboBox.sel#marUnit" value="2,2,2,2" />
+        <val key="ComboBox.sel#margin" value="1,1,1,1" />
+        <val key="ComboBox.sel#padUnit" value="2,2,2,2" />
+        <val key="ComboBox.sel#padding" value="1,1,1,1" />
+        <val key="ComboBox.sel#transparency" value="0" />
+        <val key="ComboBoxFocus.transparency" value="0" />
+        <val key="ComboBoxItem.fgColor" value="0" />
+        <font key="ComboBoxItem.font" type="ttf" face="0" style="1" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="ComboBoxItem.sel#fgColor" value="ffffff" />
+        <font key="ComboBoxItem.sel#font" type="ttf" face="0" style="1" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="ComboBoxItem.sel#transparency" value="0" />
+        <val key="ComboBoxItem.transparency" value="0" />
+        <border key="ComboBoxList.border" type="empty" />
+        <val key="ComboBoxList.transparency" value="0" />
+        <val key="ComboBoxPopup.derive" value="Dialog" />
+        <val key="ComboBoxPopup.marUnit" value="0,2,0,2" />
+        <val key="ComboBoxPopup.margin" value="0,0,1,1" />
+        <border key="Command.border" type="empty" />
+        <val key="Command.fgColor" value="ffffff" />
+        <val key="Command.margin" value="0,0,0,0" />
+        <val key="Command.padUnit" value="2,2,2,2" />
+        <val key="Command.padding" value="1,1,3,3" />
+        <border key="Command.press#border" type="empty" />
+        <val key="Command.press#fgColor" value="ffffff" />
+        <val key="Command.press#margin" value="0,0,0,0" />
+        <val key="Command.press#padUnit" value="2,2,2,2" />
+        <val key="Command.press#padding" value="1,1,3,3" />
+        <val key="Command.press#transparency" value="0" />
+        <border key="Command.sel#border" type="empty" />
+        <val key="Command.sel#fgColor" value="ffffff" />
+        <val key="Command.sel#margin" value="0,0,0,0" />
+        <val key="Command.sel#padUnit" value="2,2,2,2" />
+        <val key="Command.sel#padding" value="1,1,3,3" />
+        <val key="Command.sel#transparency" value="0" />
+        <val key="Command.transparency" value="0" />
+        <border key="CommandFocus.border" type="empty" />
+        <val key="CommandFocus.fgColor" value="ffffff" />
+        <val key="CommandFocus.margin" value="0,0,0,0" />
+        <val key="CommandFocus.padUnit" value="2,2,2,2" />
+        <val key="CommandFocus.padding" value="1,1,3,3" />
+        <border key="CommandFocus.press#border" type="empty" />
+        <val key="CommandFocus.press#fgColor" value="ffffff" />
+        <val key="CommandFocus.press#margin" value="0,0,0,0" />
+        <val key="CommandFocus.press#padUnit" value="2,2,2,2" />
+        <val key="CommandFocus.press#padding" value="1,1,3,3" />
+        <val key="CommandFocus.press#transparency" value="0" />
+        <border key="CommandFocus.sel#border" type="empty" />
+        <val key="CommandFocus.sel#fgColor" value="ffffff" />
+        <val key="CommandFocus.sel#margin" value="0,0,0,0" />
+        <val key="CommandFocus.sel#padUnit" value="2,2,2,2" />
+        <val key="CommandFocus.sel#padding" value="1,1,3,3" />
+        <val key="CommandFocus.sel#transparency" value="0" />
+        <val key="CommandFocus.transparency" value="0" />
+        <border key="CommandList.border" type="empty" />
+        <val key="CommandList.margin" value="0,0,0,0" />
+        <val key="CommandList.padding" value="0,0,0,0" />
+        <border key="CommandList.press#border" type="empty" />
+        <val key="CommandList.press#margin" value="0,0,0,0" />
+        <val key="CommandList.press#padding" value="0,0,0,0" />
+        <val key="CommandList.press#transparency" value="0" />
+        <border key="CommandList.sel#border" type="empty" />
+        <val key="CommandList.sel#margin" value="0,0,0,0" />
+        <val key="CommandList.sel#padding" value="0,0,0,0" />
+        <val key="CommandList.sel#transparency" value="0" />
+        <val key="CommandList.transparency" value="0" />
+        <gradient key="Container.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="Container.bgType" value="0" />
+        <val key="Container.press#derive" value="Container" />
+        <val key="Container.press#transparency" value="0" />
+        <val key="Container.sel#derive" value="Container" />
+        <val key="Container.sel#transparency" value="0" />
+        <val key="Container.transparency" value="0" />
+        <val key="ContentContainer.bgColor" value="5bc8fb" />
+        <gradient key="ContentContainer.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="ContentContainer.bgType" value="0" />
+        <val key="ContentContainer.margin" value="0,0,0,0" />
+        <val key="ContentContainer.padding" value="0,0,0,0" />
+        <val key="ContentContainer.transparency" value="255" />
+        <gradient key="Dialog.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="Dialog.bgType" value="0" />
+        <border key="Dialog.border" type="image" i1="Dialog.borderTop_1.png" i2="Dialog.borderBottom_1.png" i3="Dialog.borderLeft_1.png" i4="Dialog.borderRight_1.png" i5="Dialog.borderTopL_1.png" i6="Dialog.borderTopR_1.png" i7="Dialog.borderBottomL_1.png" i8="Dialog.borderBottomR_1.png" i9="Dialog.borderCenter_1.png" />
+        <val key="Dialog.marUnit" value="2,2,2,2" />
+        <val key="Dialog.margin" value="1,1,1,1" />
+        <val key="Dialog.padUnit" value="2,2,2,2" />
+        <val key="Dialog.padding" value="0,0,0,0" />
+        <val key="DialogBody.align" value="4" />
+        <val key="DialogBody.fgColor" value="ffffff" />
+        <font key="DialogBody.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="DialogBody.margin" value="0,0,0,0" />
+        <val key="DialogBody.padUnit" value="2,2,2,2" />
+        <val key="DialogBody.padding" value="2,2,3,3" />
+        <val key="DialogBody.press#align" value="4" />
+        <val key="DialogBody.press#fgColor" value="ffffff" />
+        <font key="DialogBody.press#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="DialogBody.press#margin" value="0,0,0,0" />
+        <val key="DialogBody.press#padUnit" value="2,2,2,2" />
+        <val key="DialogBody.press#padding" value="2,2,3,3" />
+        <val key="DialogBody.press#transparency" value="0" />
+        <val key="DialogBody.sel#align" value="4" />
+        <val key="DialogBody.sel#fgColor" value="ffffff" />
+        <val key="DialogBody.sel#margin" value="0,0,0,0" />
+        <val key="DialogBody.sel#padUnit" value="2,2,2,2" />
+        <val key="DialogBody.sel#padding" value="2,2,3,3" />
+        <val key="DialogBody.sel#transparency" value="0" />
+        <val key="DialogBody.transparency" value="0" />
+        <val key="DialogButton.align" value="4" />
+        <gradient key="DialogButton.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="DialogButton.bgType" value="0" />
+        <val key="DialogButton.fgColor" value="ffffff" />
+        <val key="DialogButton.marUnit" value="2,2,2,2" />
+        <val key="DialogButton.margin" value="0,0,0,0" />
+        <val key="DialogButton.padUnit" value="2,2,2,2" />
+        <val key="DialogButton.padding" value="1,1,1,1" />
+        <val key="DialogButton.press#align" value="4" />
+        <gradient key="DialogButton.press#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="DialogButton.press#bgType" value="0" />
+        <val key="DialogButton.press#fgColor" value="0" />
+        <val key="DialogButton.press#marUnit" value="2,2,2,2" />
+        <val key="DialogButton.press#margin" value="0,0,0,0" />
+        <val key="DialogButton.press#padUnit" value="2,2,2,2" />
+        <val key="DialogButton.press#padding" value="1,1,1,1" />
+        <val key="DialogButton.press#transparency" value="0" />
+        <val key="DialogButton.sel#align" value="4" />
+        <gradient key="DialogButton.sel#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="DialogButton.sel#bgType" value="0" />
+        <val key="DialogButton.sel#fgColor" value="ffffff" />
+        <val key="DialogButton.sel#marUnit" value="2,2,2,2" />
+        <val key="DialogButton.sel#margin" value="0,0,0,0" />
+        <val key="DialogButton.sel#padUnit" value="2,2,2,2" />
+        <val key="DialogButton.sel#padding" value="1,1,1,1" />
+        <val key="DialogButton.sel#transparency" value="0" />
+        <val key="DialogButton.transparency" value="0" />
+        <gradient key="DialogCommandArea.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="DialogCommandArea.bgType" value="0" />
+        <val key="DialogCommandArea.padding" value="0,0,0,0" />
+        <val key="DialogCommandArea.transparency" value="0" />
+        <val key="DialogTitle.align" value="4" />
+        <gradient key="DialogTitle.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="DialogTitle.bgType" value="0" />
+        <val key="DialogTitle.fgColor" value="ffffff" />
+        <font key="DialogTitle.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="2" actualSize="12.0" />
+        <val key="DialogTitle.transparency" value="0" />
+        <val key="Form.bgColor" value="ffffff" />
+        <gradient key="Form.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="Form.bgType" value="0" />
+        <val key="Form.transparency" value="255" />
+        <val key="ImageViewer.margin" value="0,0,0,0" />
+        <val key="ImageViewer.padding" value="0,0,0,0" />
+        <val key="Label.fgColor" value="0" />
+        <font key="Label.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <border key="Label.press#border" type="empty" />
+        <val key="Label.press#fgColor" value="ffffff" />
+        <font key="Label.press#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="Label.press#transparency" value="0" />
+        <border key="Label.sel#border" type="empty" />
+        <font key="Label.sel#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="Label.sel#transparency" value="0" />
+        <val key="Label.transparency" value="0" />
+        <val key="List.bgColor" value="ffffff" />
+        <val key="List.margin" value="0,0,0,0" />
+        <val key="List.padding" value="0,0,0,0" />
+        <val key="List.press#bgColor" value="ffffff" />
+        <val key="List.press#margin" value="0,0,0,0" />
+        <val key="List.press#padding" value="0,0,0,0" />
+        <val key="List.press#transparency" value="255" />
+        <val key="List.sel#bgColor" value="ffffff" />
+        <val key="List.sel#margin" value="0,0,0,0" />
+        <val key="List.sel#padding" value="0,0,0,0" />
+        <val key="List.sel#transparency" value="255" />
+        <val key="List.transparency" value="255" />
+        <border key="ListRenderer.border" type="image" i1="ComboBox.borderBottom_1.png" i2="border.png" i3="ComboBox.borderBottom_1.png" i4="ComboBox.borderBottom_1.png" i5="ComboBox.borderBottom_1.png" i6="ComboBox.borderBottom_1.png" i7="border.png" i8="border.png" i9="ComboBox.borderBottom_1.png" />
+        <val key="ListRenderer.fgColor" value="0" />
+        <val key="ListRenderer.margin" value="0,0,0,0" />
+        <val key="ListRenderer.padUnit" value="2,2,2,2" />
+        <val key="ListRenderer.padding" value="1,1,1,1" />
+        <val key="ListRenderer.sel#bgColor" value="3399ff" />
+        <val key="ListRenderer.sel#fgColor" value="ffffff" />
+        <val key="ListRenderer.sel#margin" value="0,0,0,0" />
+        <val key="ListRenderer.sel#padUnit" value="2,2,2,2" />
+        <val key="ListRenderer.sel#padding" value="1,1,1,1" />
+        <val key="ListRenderer.sel#transparency" value="255" />
+        <val key="ListRenderer.transparency" value="0" />
+        <border key="ListRendererFocus.border" type="empty" />
+        <val key="ListRendererFocus.transparency" value="0" />
+        <gradient key="Menu.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="Menu.bgType" value="0" />
+        <border key="Menu.border" type="image" i1="Dialog.borderTop_1.png" i2="Dialog.borderBottom_1.png" i3="Dialog.borderLeft_1.png" i4="Dialog.borderRight_1.png" i5="Dialog.borderTopL_1.png" i6="Dialog.borderTopR_1.png" i7="Dialog.borderBottomL_1.png" i8="Dialog.borderBottomR_1.png" i9="Dialog.borderCenter_1.png" />
+        <val key="Menu.marUnit" value="2,2,2,2" />
+        <val key="Menu.margin" value="1,1,1,1" />
+        <val key="Menu.padUnit" value="2,2,2,2" />
+        <val key="Menu.padding" value="0,0,0,0" />
+        <gradient key="MenuButton.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="MenuButton.bgType" value="0" />
+        <val key="MenuButton.marUnit" value="2,2,0,2" />
+        <val key="MenuButton.margin" value="0,0,0,0" />
+        <val key="MenuButton.padUnit" value="2,2,2,2" />
+        <val key="MenuButton.padding" value="1,1,1,1" />
+        <gradient key="MenuButton.press#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="MenuButton.press#bgType" value="0" />
+        <val key="MenuButton.press#marUnit" value="2,2,0,2" />
+        <val key="MenuButton.press#margin" value="0,0,0,0" />
+        <val key="MenuButton.press#padUnit" value="2,2,2,2" />
+        <val key="MenuButton.press#padding" value="1,1,1,1" />
+        <val key="MenuButton.press#transparency" value="0" />
+        <gradient key="MenuButton.sel#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="MenuButton.sel#bgType" value="0" />
+        <val key="MenuButton.sel#marUnit" value="2,2,0,2" />
+        <val key="MenuButton.sel#margin" value="0,0,0,0" />
+        <val key="MenuButton.sel#padUnit" value="2,2,2,2" />
+        <val key="MenuButton.sel#padding" value="1,1,1,1" />
+        <val key="MenuButton.sel#transparency" value="0" />
+        <val key="MenuButton.transparency" value="0" />
+        <val key="MonthView.margin" value="0,0,0,0" />
+        <val key="MonthView.padding" value="0,0,0,0" />
+        <val key="MultiButton.press#transparency" value="0" />
+        <val key="MultiButton.sel#transparency" value="0" />
+        <val key="MultiButton.transparency" value="0" />
+        <val key="MultiLine1.fgColor" value="0" />
+        <font key="MultiLine1.font" type="ttf" face="0" style="1" size="16" name="native:MainLight" family="native:MainLight" sizeSettings="2" actualSize="12.0" />
+        <val key="MultiLine1.press#fgColor" value="0" />
+        <font key="MultiLine1.press#font" type="ttf" face="0" style="1" size="16" name="native:MainLight" family="native:MainLight" sizeSettings="2" actualSize="12.0" />
+        <val key="MultiLine1.press#transparency" value="0" />
+        <val key="MultiLine1.sel#fgColor" value="0" />
+        <font key="MultiLine1.sel#font" type="ttf" face="0" style="1" size="16" name="native:MainLight" family="native:MainLight" sizeSettings="2" actualSize="12.0" />
+        <val key="MultiLine1.sel#transparency" value="0" />
+        <val key="MultiLine1.transparency" value="0" />
+        <val key="MultiLine2.fgColor" value="33cc" />
+        <font key="MultiLine2.font" type="ttf" face="0" style="1" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="MultiLine2.press#fgColor" value="33cc" />
+        <font key="MultiLine2.press#font" type="ttf" face="0" style="1" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="MultiLine2.press#transparency" value="0" />
+        <val key="MultiLine2.sel#fgColor" value="33cc" />
+        <font key="MultiLine2.sel#font" type="ttf" face="0" style="1" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="MultiLine2.sel#transparency" value="0" />
+        <val key="MultiLine2.transparency" value="0" />
+        <val key="MultiLine3.fgColor" value="666666" />
+        <font key="MultiLine3.font" type="ttf" face="0" style="0" size="8" name="native:MainThin" family="native:MainThin" sizeSettings="0" actualSize="12.0" />
+        <val key="MultiLine3.press#fgColor" value="666666" />
+        <font key="MultiLine3.press#font" type="ttf" face="0" style="0" size="8" name="native:MainThin" family="native:MainThin" sizeSettings="0" actualSize="12.0" />
+        <val key="MultiLine3.press#transparency" value="0" />
+        <val key="MultiLine3.sel#fgColor" value="666666" />
+        <font key="MultiLine3.sel#font" type="ttf" face="0" style="0" size="8" name="native:MainThin" family="native:MainThin" sizeSettings="0" actualSize="12.0" />
+        <val key="MultiLine3.sel#transparency" value="0" />
+        <val key="MultiLine3.transparency" value="0" />
+        <val key="MultiLine4.fgColor" value="666666" />
+        <font key="MultiLine4.font" type="ttf" face="0" style="0" size="8" name="native:MainThin" family="native:MainThin" sizeSettings="0" actualSize="12.0" />
+        <val key="MultiLine4.press#fgColor" value="666666" />
+        <font key="MultiLine4.press#font" type="ttf" face="0" style="0" size="8" name="native:MainThin" family="native:MainThin" sizeSettings="0" actualSize="12.0" />
+        <val key="MultiLine4.press#transparency" value="0" />
+        <val key="MultiLine4.sel#fgColor" value="666666" />
+        <font key="MultiLine4.sel#font" type="ttf" face="0" style="0" size="8" name="native:MainThin" family="native:MainThin" sizeSettings="0" actualSize="12.0" />
+        <val key="MultiLine4.sel#transparency" value="0" />
+        <val key="MultiLine4.transparency" value="0" />
+        <val key="PopupContentPane.marUnit" value="0,2,0,2" />
+        <val key="PopupContentPane.margin" value="0,0,1,1" />
+        <val key="PopupContentPane.padUnit" value="2,2,2,2" />
+        <val key="PopupContentPane.padding" value="1,1,0,0" />
+        <gradient key="PopupDialog.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="PopupDialog.bgType" value="0" />
+        <border key="PopupDialog.border" type="image" i1="Dialog.borderTop_1.png" i2="Dialog.borderBottom_1.png" i3="Dialog.borderLeft_1.png" i4="Dialog.borderRight_1.png" i5="Dialog.borderTopL_1.png" i6="Dialog.borderTopR_1.png" i7="Dialog.borderBottomL_1.png" i8="Dialog.borderBottomR_1.png" i9="Dialog.borderCenter_1.png" />
+        <val key="PopupDialog.marUnit" value="2,2,2,2" />
+        <val key="PopupDialog.margin" value="1,1,1,1" />
+        <val key="PopupDialog.padUnit" value="2,2,2,2" />
+        <val key="PopupDialog.padding" value="0,0,0,0" />
+        <val key="PopupDialogTitle.align" value="4" />
+        <gradient key="PopupDialogTitle.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="PopupDialogTitle.bgType" value="0" />
+        <border key="PopupDialogTitle.border" type="empty" />
+        <val key="PopupDialogTitle.fgColor" value="0" />
+        <font key="PopupDialogTitle.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="2" actualSize="12.0" />
+        <val key="PopupDialogTitle.margin" value="0,0,0,0" />
+        <val key="PopupDialogTitle.padUnit" value="2,2,2,0" />
+        <val key="PopupDialogTitle.padding" value="1,1,0,0" />
+        <val key="PopupDialogTitle.transparency" value="0" />
+        <val key="RadioButton.align" value="4" />
+        <gradient key="RadioButton.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="RadioButton.bgType" value="0" />
+        <border key="RadioButton.border" type="image" i1="OKGR.borderTop_1.png" i2="OKGR.borderBottom_1.png" i3="OKGR.borderLeft_1.png" i4="OKGR.borderRight_1.png" i5="OKGR.borderTopL_1.png" i6="OKGR.borderTopR_1.png" i7="OKGR.borderBottomL_1.png" i8="OKGR.borderBottomR_1.png" i9="OKGR.borderCenter_1.png" />
+        <val key="RadioButton.fgColor" value="ffffff" />
+        <font key="RadioButton.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="RadioButton.marUnit" value="2,2,2,2" />
+        <val key="RadioButton.margin" value="1,1,1,1" />
+        <val key="RadioButton.padUnit" value="2,2,2,2" />
+        <val key="RadioButton.padding" value="1,1,1,1" />
+        <val key="RadioButton.press#align" value="4" />
+        <gradient key="RadioButton.press#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="RadioButton.press#bgType" value="0" />
+        <border key="RadioButton.press#border" type="image" i1="OKGR.borderTop_1.png" i2="OKGR.borderBottom_1.png" i3="OKGR.borderLeft_1.png" i4="OKGR.borderRight_1.png" i5="OKGR.borderTopL_1.png" i6="OKGR.borderTopR_1.png" i7="OKGR.borderBottomL_1.png" i8="OKGR.borderBottomR_1.png" i9="OKGR.borderCenter_1.png" />
+        <val key="RadioButton.press#fgColor" value="999999" />
+        <font key="RadioButton.press#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="RadioButton.press#marUnit" value="2,2,2,2" />
+        <val key="RadioButton.press#margin" value="1,1,1,1" />
+        <val key="RadioButton.press#padUnit" value="2,2,2,2" />
+        <val key="RadioButton.press#padding" value="1,1,1,1" />
+        <val key="RadioButton.press#transparency" value="0" />
+        <val key="RadioButton.sel#align" value="4" />
+        <gradient key="RadioButton.sel#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="RadioButton.sel#bgType" value="0" />
+        <border key="RadioButton.sel#border" type="image" i1="OKGR.borderTop_1.png" i2="OKGR.borderBottom_1.png" i3="OKGR.borderLeft_1.png" i4="OKGR.borderRight_1.png" i5="OKGR.borderTopL_1.png" i6="OKGR.borderTopR_1.png" i7="OKGR.borderBottomL_1.png" i8="OKGR.borderBottomR_1.png" i9="OKGR.borderCenter_1.png" />
+        <val key="RadioButton.sel#fgColor" value="ffffff" />
+        <font key="RadioButton.sel#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="RadioButton.sel#marUnit" value="2,2,2,2" />
+        <val key="RadioButton.sel#margin" value="1,1,1,1" />
+        <val key="RadioButton.sel#padUnit" value="2,2,2,2" />
+        <val key="RadioButton.sel#padding" value="1,1,1,1" />
+        <val key="RadioButton.sel#transparency" value="0" />
+        <val key="RadioButton.transparency" value="0" />
+        <gradient key="SideCommand.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="SideCommand.bgType" value="0" />
+        <border key="SideCommand.border" type="empty" />
+        <val key="SideCommand.fgColor" value="ffffff" />
+        <font key="SideCommand.font" type="ttf" face="0" style="1" size="16" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="5.0" />
+        <val key="SideCommand.marUnit" value="2,2,2,2" />
+        <val key="SideCommand.margin" value="1,0,1,1" />
+        <val key="SideCommand.padUnit" value="2,0,2,0" />
+        <val key="SideCommand.padding" value="1,1,0,0" />
+        <gradient key="SideCommand.press#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="SideCommand.press#bgType" value="0" />
+        <border key="SideCommand.press#border" type="empty" />
+        <val key="SideCommand.press#fgColor" value="ffffff" />
+        <font key="SideCommand.press#font" type="ttf" face="0" style="1" size="16" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="5.0" />
+        <val key="SideCommand.press#marUnit" value="2,2,2,2" />
+        <val key="SideCommand.press#margin" value="1,0,1,1" />
+        <val key="SideCommand.press#padUnit" value="2,0,2,0" />
+        <val key="SideCommand.press#padding" value="1,1,0,0" />
+        <val key="SideCommand.press#textDecoration" value="0" />
+        <val key="SideCommand.press#transparency" value="0" />
+        <gradient key="SideCommand.sel#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="SideCommand.sel#bgType" value="0" />
+        <border key="SideCommand.sel#border" type="empty" />
+        <val key="SideCommand.sel#fgColor" value="ffffff" />
+        <font key="SideCommand.sel#font" type="ttf" face="0" style="1" size="16" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="5.0" />
+        <val key="SideCommand.sel#marUnit" value="2,2,2,2" />
+        <val key="SideCommand.sel#margin" value="1,0,1,1" />
+        <val key="SideCommand.sel#padUnit" value="2,0,2,0" />
+        <val key="SideCommand.sel#padding" value="1,1,0,0" />
+        <val key="SideCommand.sel#textDecoration" value="0" />
+        <val key="SideCommand.sel#transparency" value="0" />
+        <val key="SideCommand.textDecoration" value="0" />
+        <val key="SideCommand.transparency" value="0" />
+        <val key="SideNavigationPanel.bgColor" value="2f97c7" />
+        <val key="SideNavigationPanel.margin" value="0,0,0,0" />
+        <val key="SideNavigationPanel.padding" value="0,0,0,0" />
+        <val key="SideNavigationPanel.transparency" value="255" />
+        <gradient key="Slider.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="Slider.bgType" value="0" />
+        <border key="Slider.border" type="imageH" i1="sliderEmptyLeft.png" i2="sliderEmptyRight.png" i3="sliderEmpty.png" />
+        <val key="Slider.margin" value="0,0,0,0" />
+        <val key="Slider.padUnit" value="2,2,2,2" />
+        <val key="Slider.padding" value="0,0,4,4" />
+        <gradient key="Slider.press#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="Slider.press#bgType" value="0" />
+        <border key="Slider.press#border" type="imageH" i1="sliderEmptyLeft.png" i2="sliderEmptyRight.png" i3="sliderEmpty.png" />
+        <val key="Slider.press#margin" value="0,0,0,0" />
+        <val key="Slider.press#padUnit" value="2,2,2,2" />
+        <val key="Slider.press#padding" value="0,0,4,4" />
+        <gradient key="Slider.sel#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="Slider.sel#bgType" value="0" />
+        <border key="Slider.sel#border" type="imageH" i1="sliderEmptyLeft.png" i2="sliderEmptyRight.png" i3="sliderEmpty.png" />
+        <val key="Slider.sel#margin" value="0,0,0,0" />
+        <val key="Slider.sel#padUnit" value="2,2,2,2" />
+        <val key="Slider.sel#padding" value="0,0,4,4" />
+        <val key="Slider.transparency" value="0" />
+        <gradient key="SliderFull.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="SliderFull.bgType" value="0" />
+        <border key="SliderFull.border" type="imageH" i1="sliderBlueLeft.png" i2="sliderBlueRight.png" i3="sliderBlueCenter.png" />
+        <val key="SliderFull.margin" value="0,0,0,0" />
+        <val key="SliderFull.padUnit" value="2,2,2,2" />
+        <val key="SliderFull.padding" value="0,0,4,4" />
+        <gradient key="SliderFull.press#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="SliderFull.press#bgType" value="0" />
+        <border key="SliderFull.press#border" type="imageH" i1="sliderBlueLeft.png" i2="sliderBlueRight.png" i3="sliderBlueCenter.png" />
+        <val key="SliderFull.press#margin" value="0,0,0,0" />
+        <val key="SliderFull.press#padUnit" value="2,2,2,2" />
+        <val key="SliderFull.press#padding" value="0,0,4,4" />
+        <gradient key="SliderFull.sel#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="SliderFull.sel#bgType" value="0" />
+        <border key="SliderFull.sel#border" type="imageH" i1="sliderBlueLeft.png" i2="sliderBlueRight.png" i3="sliderBlueCenter.png" />
+        <val key="SliderFull.sel#margin" value="0,0,0,0" />
+        <val key="SliderFull.sel#padUnit" value="2,2,2,2" />
+        <val key="SliderFull.sel#padding" value="0,0,4,4" />
+        <val key="SliderFull.transparency" value="0" />
+        <val key="Tab.bgColor" value="5bc8fb" />
+        <border key="Tab.border" type="line" thickness="1" color="16777215" />
+        <val key="Tab.fgColor" value="ffffff" />
+        <font key="Tab.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="Tab.margin" value="0,0,0,0" />
+        <val key="Tab.press#bgColor" value="ffffff" />
+        <border key="Tab.press#border" type="line" thickness="1" color="16777215" />
+        <val key="Tab.press#fgColor" value="0" />
+        <font key="Tab.press#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="Tab.press#margin" value="0,0,0,0" />
+        <val key="Tab.press#transparency" value="255" />
+        <val key="Tab.sel#bgColor" value="ffffff" />
+        <border key="Tab.sel#border" type="line" thickness="1" color="16777215" />
+        <val key="Tab.sel#fgColor" value="0" />
+        <font key="Tab.sel#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="Tab.sel#margin" value="0,0,0,0" />
+        <val key="Tab.sel#transparency" value="255" />
+        <val key="Tab.transparency" value="255" />
+        <val key="Tabs.bgColor" value="5bc8fb" />
+        <val key="Tabs.fgColor" value="0" />
+        <val key="Tabs.margin" value="0,0,0,0" />
+        <val key="Tabs.padding" value="0,0,0,0" />
+        <val key="Tabs.transparency" value="255" />
+        <gradient key="TextArea.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="TextArea.bgType" value="0" />
+        <border key="TextArea.border" type="empty" />
+        <val key="TextArea.fgColor" value="ffffff" />
+        <val key="TextArea.transparency" value="0" />
+        <gradient key="TextField.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="TextField.bgType" value="0" />
+        <border key="TextField.border" type="line" thickness="1" color="10066329" />
+        <val key="TextField.fgColor" value="0" />
+        <val key="TextField.marUnit" value="2,2,2,2" />
+        <val key="TextField.margin" value="1,1,1,1" />
+        <gradient key="TextField.press#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="TextField.press#bgType" value="0" />
+        <border key="TextField.press#border" type="line" thickness="1" color="6015227" />
+        <val key="TextField.press#fgColor" value="0" />
+        <val key="TextField.press#marUnit" value="2,2,2,2" />
+        <val key="TextField.press#margin" value="1,1,1,1" />
+        <val key="TextField.press#transparency" value="0" />
+        <gradient key="TextField.sel#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="TextField.sel#bgType" value="0" />
+        <border key="TextField.sel#border" type="line" thickness="1" color="6015227" />
+        <val key="TextField.sel#fgColor" value="0" />
+        <val key="TextField.sel#marUnit" value="2,2,2,2" />
+        <val key="TextField.sel#margin" value="1,1,1,1" />
+        <val key="TextField.sel#transparency" value="0" />
+        <val key="TextField.transparency" value="0" />
+        <val key="TextHint.fgColor" value="999999" />
+        <font key="TextHint.font" type="ttf" face="0" style="2" size="0" name="native:ItalicThin" family="native:ItalicThin" sizeSettings="1" actualSize="12.0" />
+        <val key="Title.align" value="4" />
+        <val key="Title.fgColor" value="ffffff" />
+        <font key="Title.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="3" actualSize="6.5" />
+        <val key="Title.transparency" value="0" />
+        <val key="TitleArea.bgColor" value="5bc8fb" />
+        <gradient key="TitleArea.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="TitleArea.bgType" value="0" />
+        <border key="TitleArea.border" type="image" i1="TitleArea.borderTop_2.png" i2="TitleArea.borderBottom_2.png" i3="TitleArea.borderLeft_2.png" i4="TitleArea.borderRight_2.png" i5="TitleArea.borderTopL_2.png" i6="TitleArea.borderTopR_2.png" i7="TitleArea.borderBottomL_2.png" i8="TitleArea.borderBottomR_2.png" i9="TitleArea.borderCenter_2.png" />
+        <val key="TitleArea.margin" value="0,0,0,0" />
+        <val key="TitleArea.padUnit" value="2,0,2,0" />
+        <val key="TitleArea.padding" value="1,1,0,0" />
+        <val key="TitleArea.transparency" value="255" />
+        <gradient key="TitleCommand.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="TitleCommand.bgType" value="0" />
+        <border key="TitleCommand.border" type="empty" />
+        <val key="TitleCommand.fgColor" value="ffffff" />
+        <font key="TitleCommand.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="TitleCommand.margin" value="0,0,0,0" />
+        <val key="TitleCommand.padUnit" value="2,2,2,2" />
+        <val key="TitleCommand.padding" value="1,1,1,1" />
+        <gradient key="TitleCommand.press#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="TitleCommand.press#bgType" value="0" />
+        <border key="TitleCommand.press#border" type="empty" />
+        <val key="TitleCommand.press#fgColor" value="ffffff" />
+        <font key="TitleCommand.press#font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <val key="TitleCommand.press#margin" value="0,0,0,0" />
+        <val key="TitleCommand.press#padUnit" value="2,2,2,2" />
+        <val key="TitleCommand.press#padding" value="1,1,1,1" />
+        <val key="TitleCommand.press#transparency" value="0" />
+        <gradient key="TitleCommand.sel#bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="TitleCommand.sel#bgType" value="0" />
+        <border key="TitleCommand.sel#border" type="empty" />
+        <val key="TitleCommand.sel#fgColor" value="ffffff" />
+        <val key="TitleCommand.sel#margin" value="0,0,0,0" />
+        <val key="TitleCommand.sel#padUnit" value="2,2,2,2" />
+        <val key="TitleCommand.sel#padding" value="1,1,1,1" />
+        <val key="TitleCommand.sel#transparency" value="0" />
+        <val key="TitleCommand.transparency" value="0" />
+        <val key="bgColor" value="ffffff" />
+        <border key="border" type="empty" />
+        <val key="fgColor" value="0" />
+        <font key="font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="1" actualSize="12.0" />
+        <border key="press#border" type="empty" />
+        <border key="sel#border" type="empty" />
+        <val key="transparency" value="0" />
+    </theme>
+    <image name="TitleArea.borderBottom_2.png" type="multi"  />
+    <image name="TitleArea.borderBottomL_2.png" type="multi"  />
+    <image name="TitleArea.borderBottomR_2.png" type="multi"  />
+    <image name="TitleArea.borderCenter_2.png" type="multi"  />
+    <image name="TitleArea.borderLeft_2.png" type="multi"  />
+    <image name="TitleArea.borderRight_2.png" type="multi"  />
+    <image name="TitleArea.borderTop_2.png" type="multi"  />
+    <image name="TitleArea.borderTopL_2.png" type="multi"  />
+    <image name="TitleArea.borderTopR_2.png" type="multi"  />
+</resource>
