@@ -1,6 +1,6 @@
-# Status Bar Demo
+# Toast Bar Demo
 
-This app demonstrates the use of the StatusBar component.
+This app demonstrates the use of the ToastBar component.
 
 ## Screencast
 

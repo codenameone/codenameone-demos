@@ -24,8 +24,8 @@ package com.codename1.demos.status;
 
 
 import com.codename1.components.SpanLabel;
-import com.codename1.components.StatusBar;
-import com.codename1.components.StatusBar.Status;
+import com.codename1.components.ToastBar;
+import com.codename1.components.ToastBar.Status;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.plaf.UIManager;
@@ -40,7 +40,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Style;
 import java.util.Random;
 
-public class StatusBarDemo {
+public class ToastBarDemo {
 
     private Form current;
     private Resources theme;
@@ -62,7 +62,7 @@ public class StatusBarDemo {
         Button task1Btn = new Button("Do Task 1");
         Random r = new Random();
         task1Btn.addActionListener((evt)-> {
-            Status status = StatusBar.getInstance().createStatus();
+            Status status = ToastBar.getInstance().createStatus();
             status.setMessage("Doing task 1...");
             status.setShowProgressIndicator(true);
             status.setIcon(createIcon(FontImage.MATERIAL_WORK));
@@ -107,7 +107,7 @@ public class StatusBarDemo {
         task2Btn.addActionListener((evt)-> {
             task2Result.setText("");
             hi.getContentPane().revalidate();
-            Status status = StatusBar.getInstance().createStatus();
+            Status status = ToastBar.getInstance().createStatus();
             status.setMessage("Doing task 2 now");
             status.setShowProgressIndicator(true);
             status.showDelayed(300); 
@@ -154,14 +154,14 @@ public class StatusBarDemo {
         
         Button task3Btn = new Button("Do Task 3");
         task3Btn.addActionListener((evt)->{
-            Status status = StatusBar.getInstance().createStatus();
+            Status status = ToastBar.getInstance().createStatus();
             status.setMessage("Working on Task with Progress");
             status.setProgress(0);
             status.setIcon(createIcon(FontImage.MATERIAL_BACKUP));
             status.show();
             
             for (int progress=0; progress <= 100; progress += 10) {
-                Display.getInstance().invokeAndBlock(()->{Util.sleep(100);});
+                Display.getInstance().invokeAndBlock(()->{Util.sleep(500);});
                 status.setProgress(progress);
                 status.show();
                 if (progress == 100) {
