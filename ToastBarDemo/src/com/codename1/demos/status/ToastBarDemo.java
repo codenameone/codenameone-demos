@@ -32,6 +32,7 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Util;
 import com.codename1.ui.Button;
+import com.codename1.ui.Component;
 import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
@@ -57,6 +58,8 @@ public class ToastBarDemo {
             current.show();
             return;
         }
+        // Optional: Uncomment to move ToastBar to the top of the screen.
+        //ToastBar.getInstance().setPosition(Component.TOP);  
         Form hi = new Form("Status Demo");
         hi.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
         Button task1Btn = new Button("Do Task 1");
