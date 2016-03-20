@@ -7,32 +7,21 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import java.io.IOException;
 import com.codename1.demos.charts.ChartDemosForm;
+import com.codename1.ui.Toolbar;
 
 
 public class MyApplication {
    
     private Form current;
 
+    private Resources theme;
+    
     public void init(Object context) {
-        try{
-            Resources theme = Resources.openLayered("/theme");
-            UIManager.getInstance().setThemeProps(theme.getTheme(theme.getThemeResourceNames()[0]));
-            //UIManager.getInstance().setThemeProps(theme.getTheme("Theme 1"));
-       }catch(IOException e){
-            e.printStackTrace();
-        }
-        // Pro users - uncomment this code to get crash reports sent to you automatically
-        /*Display.getInstance().addEdtErrorHandler(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                evt.consume();
-                Log.p("Exception in AppName version " + Display.getInstance().getProperty("AppVersion", "Unknown"));
-                Log.p("OS " + Display.getInstance().getPlatformName());
-                Log.p("Error " + evt.getSource());
-                Log.p("Current Form " + Display.getInstance().getCurrent().getName());
-                Log.e((Throwable)evt.getSource());
-                Log.sendLog();
-            }
-        });*/
+        theme = UIManager.initFirstTheme("/theme");
+        //Enable Toolbar to all Forms by default
+        Toolbar.setGlobalToolbar(true);
+        // Pro only feature, uncomment if you have a pro subscription
+        //Log.bindCrashProtection(true);
     }
 
     public void start() {
@@ -40,7 +29,6 @@ public class MyApplication {
             current.show();
             return;
         }
-        
         
         ChartDemosForm demos = new ChartDemosForm();
         current = demos;

@@ -7,6 +7,7 @@ package userclasses;
 import generated.StateMachineBase;
 import com.codename1.ui.*; 
 import com.codename1.ui.events.*;
+import com.codename1.ui.plaf.UIManager;
 
 /**
  *
@@ -31,6 +32,7 @@ public class StateMachine extends StateMachineBase {
      * the constructor/class scope to avoid race conditions
      */
     protected void initVars() {
+        setBackCommandEnabled(true);
     }
 
 
@@ -167,7 +169,18 @@ public class StateMachine extends StateMachineBase {
     }
 
     @Override
-    protected void beforeCalculator(Form f) {
+    protected void beforeCalculator(Form f) {        
+        Image img = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, UIManager.getInstance().getComponentStyle("TitleCommand"));
+        
+        f.getToolbar().addCommandToLeftBar(new Command("",img){
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                back();
+            }
+        
+        });
+        
         findCalculatorField(f).setText("" + calcValueAsString(calcValue));
     }
     
@@ -177,5 +190,18 @@ public class StateMachine extends StateMachineBase {
             return "" + v;
         }
         return "" + d;
+    }
+
+    @Override
+    protected void beforeMain(Form f) {
+        f.getToolbar().addCommandToRightBar(new Command("Calculator"){
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                showForm("Calculator", null);
+            }
+        
+        });
+        
     }
 }

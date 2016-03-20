@@ -1,27 +1,31 @@
 package com.codename1.demo.chrome;
 
-
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
+import com.codename1.ui.Toolbar;
 import userclasses.StateMachine;
 
 public class Chrome {
+
     private Form current;
+
     public void init(Object context) {
+        //Enable Toolbar to all Forms by default
+        Toolbar.setGlobalToolbar(true);
     }
 
     public void start() {
-        if(current != null) {
+        if (current != null) {
             current.show();
             return;
         }
-        new StateMachine("/theme");        
+        new StateMachine("/theme");
     }
 
     public void stop() {
         current = Display.getInstance().getCurrent();
     }
-    
+
     public void destroy() {
     }
 }

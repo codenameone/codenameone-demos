@@ -60,25 +60,11 @@ public class DrSbaitso {
     private TTS tts;
 
     public void init(Object context) {
-        try {
-            Resources theme = Resources.openLayered("/theme");
-            UIManager.getInstance().setThemeProps(theme.getTheme(theme.getThemeResourceNames()[0]));
-            userPicture = theme.getImage("duke_iphone.png");
-            tts = (TTS)NativeLookup.create(TTS.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Display.getInstance().addEdtErrorHandler(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                evt.consume();
-                Log.p("Exception in AppName version " + Display.getInstance().getProperty("AppVersion", "Unknown"));
-                Log.p("OS " + Display.getInstance().getPlatformName());
-                Log.p("Error " + evt.getSource());
-                Log.p("Current Form " + Display.getInstance().getCurrent().getName());
-                Log.e((Throwable)evt.getSource());
-                Log.sendLog();
-            }
-        });
+        Resources theme = UIManager.initFirstTheme("/theme");
+        userPicture = theme.getImage("duke_iphone.png");
+        tts = (TTS)NativeLookup.create(TTS.class);        
+        // Pro only feature, uncomment if you have a pro subscription
+        //Log.bindCrashProtection(true);
     }
 
     public void start() {
