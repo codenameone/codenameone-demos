@@ -10,6 +10,7 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
@@ -20,6 +21,7 @@ import com.codename1.ui.util.Resources;
 import java.io.IOException;
 
 public class DBDemo {
+
     private Form currentForm;
     private Database db;
     private String[] users = new String[]{"Chen Fishbein", "Shai Almog",
@@ -27,24 +29,22 @@ public class DBDemo {
     private int[] ages = new int[]{36, 36, 56, 28, 39};
 
     public void init(Object context) {
-        try {
-            Resources theme = Resources.openLayered("/theme");
-            UIManager.getInstance().setThemeProps(theme.getTheme(theme.getThemeResourceNames()[0]));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        Resources theme = UIManager.initFirstTheme("/theme");
+        
+        Toolbar.setGlobalToolbar(true);
+        // Pro only feature, uncomment if you have a pro subscription
+        //Log.bindCrashProtection(true);
     }
 
     public void start() {
-        if(currentForm != null) {
+        if (currentForm != null) {
             currentForm.show();
             return;
         }
         try {
             boolean created = Database.exists("MyDB.db");
             db = Database.openOrCreate("MyDB.db");
-            if(db == null){
+            if (db == null) {
                 Form f = new Form("SQLite Not Supported");
                 SpanLabel label = new SpanLabel("SQLite is not supported on this platform");
                 f.addComponent(label);
@@ -52,7 +52,7 @@ public class DBDemo {
                 return;
             }
             if (!created) {
-            db.execute("create table temp (id INTEGER PRIMARY KEY,name text,num double);");
+                db.execute("create table temp (id INTEGER PRIMARY KEY,name text,num double);");
                 for (int i = 0; i < users.length; i++) {
                     db.execute("insert into temp (name,num) values (?,?);", new String[]{users[i], "" + ages[i]});
                 }
@@ -73,7 +73,7 @@ public class DBDemo {
                         c.addComponent(cb);
                     }
                     Command cmd = Dialog.show("Add Users", c, new Command[]{new Command("Ok"), new Command("Cancel")});
-                    if(cmd.getCommandName().equals("Ok")){
+                    if (cmd.getCommandName().equals("Ok")) {
                         int count = c.getComponentCount();
                         for (int i = 0; i < count; i++) {
                             CheckBox cb = (CheckBox) c.getComponentAt(i);
@@ -132,7 +132,6 @@ public class DBDemo {
 
     private Container getItems() throws IOException {
         Cursor c = db.executeQuery("select * from temp");
-
 
         final Container rows = new ComponentGroup();
         rows.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
