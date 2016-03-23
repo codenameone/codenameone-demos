@@ -1,5 +1,8 @@
 package com.codename1.nativedemo;
 
+import android.app.Activity;
+import com.codename1.impl.android.AndroidNativeUtil;
+
 public class NativeCallsImpl {
     public void testVoid() {
     }
@@ -8,7 +11,8 @@ public class NativeCallsImpl {
     }
 
     public android.view.View createNativeButton(String param) {
-        android.widget.Button b = new android.widget.Button((android.content.Context)NativeDemo.getContext());
+        Activity activity = AndroidNativeUtil.getActivity();
+        android.widget.Button b = new android.widget.Button(activity);
         b.setText(param);
         return b;
     }

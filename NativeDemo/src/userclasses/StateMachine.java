@@ -33,6 +33,9 @@ import com.codename1.ui.events.*;
  * @author Shai Almog
  */
 public class StateMachine extends StateMachineBase {
+    
+    private PeerComponent peer;
+    
     public StateMachine(String resFile) {
         super(resFile);
         // do not modify, write code in initVars and initialize class members there,
@@ -56,9 +59,14 @@ public class StateMachine extends StateMachineBase {
         // If the resource file changes the names of components this call will break notifying you that you should fix the code
         super.onGUI1_AddNativeButtonAction(c, event);
         try {
-            NativeCalls n = (NativeCalls)NativeLookup.create(NativeCalls.class);
+            NativeCalls n = (NativeCalls) NativeLookup.create(NativeCalls.class);
             if(n != null && n.isSupported()) {
+                if(peer != null){
+                    System.out.println("Native Button already added");
+                    return;
+                }
                 PeerComponent nativeButton = n.createNativeButton(findNameForNativeButton(c.getParent()).getText());
+                peer = nativeButton;
                 System.out.println("onGUI1_AddNativeButtonAction got native button peer: " + nativeButton);
                 if(nativeButton != null) {
                     c.getComponentForm().addComponent(nativeButton);
@@ -70,6 +78,7 @@ public class StateMachine extends StateMachineBase {
             }
             c.getComponentForm().revalidate();
         } catch(Throwable t) {
+            t.printStackTrace();
             Dialog.show("Error", "Exception during native access: " + t, "OK", null);
         }
     }
