@@ -26,22 +26,20 @@ import com.codename1.components.InfiniteProgress;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkManager;
-import com.codename1.io.Util;
 import com.codename1.location.Location;
 import com.codename1.location.LocationManager;
 import com.codename1.maps.Coord;
-import com.codename1.maps.Coord;
 import com.codename1.maps.MapComponent;
-import com.codename1.maps.MapComponent;
-import com.codename1.maps.layers.ArrowLinesLayer;
 import com.codename1.maps.layers.LinesLayer;
 import com.codename1.maps.layers.PointLayer;
 import com.codename1.maps.layers.PointsLayer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
@@ -55,15 +53,19 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Vector;
 
 /**
  * This is a simple demo that demonstrates how to use the MapComponent and how
- * to show POI on a map using google location API's
- * Make sure to get a key from https://developers.google.com/maps/documentation/places/
- * to run the 'Find Resturants' sub demo
- * 
+ * to show POI on a map using google location API's Make sure to get a key from
+ * https://developers.google.com/maps/documentation/places/ to run the 'Find
+ * Resturants' sub demo
+ *
+ * IMPORTANT - This demo uses the simple tiling map component to display a Map.
+ * In order to display a Native Map on the device please refer to this:
+ * http://www.codenameone.com/blog/mapping-natively.html
+ *
+ *
  * @author Chen
  */
 public class MapsDemo {
@@ -72,14 +74,11 @@ public class MapsDemo {
     private Coord lastLocation;
 
     public void init(Object context) {
-        System.out.println("init");
-        try {
-            Resources theme = Resources.openLayered("/theme");
-            UIManager.getInstance().setThemeProps(theme.getTheme(theme.getThemeResourceNames()[0]));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        Resources theme = UIManager.initFirstTheme("/theme");
+        //Enable Toolbar to all Forms by default
+        Toolbar.setGlobalToolbar(true);
+        // Pro only feature, uncomment if you have a pro subscription
+        //Log.bindCrashProtection(true);
     }
 
     public void start() {
@@ -118,7 +117,7 @@ public class MapsDemo {
         mc.zoomToLayers();
 
         map.addComponent(BorderLayout.CENTER, mc);
-        map.addCommand(new MapsDemo.BackCommand());
+        map.getToolbar().addCommandToLeftBar(new MapsDemo.BackCommand());
         map.setBackCommand(new MapsDemo.BackCommand());
         map.show();
 
@@ -133,7 +132,7 @@ public class MapsDemo {
             Location loc = LocationManager.getLocationManager().getCurrentLocation();
             putMeOnMap(mc);
             map.addComponent(BorderLayout.CENTER, mc);
-            map.addCommand(new MapsDemo.BackCommand());
+            map.getToolbar().addCommandToLeftBar(new MapsDemo.BackCommand());
             map.setBackCommand(new MapsDemo.BackCommand());
 
             ConnectionRequest req = new ConnectionRequest() {
@@ -143,17 +142,16 @@ public class MapsDemo {
                     JSONParser p = new JSONParser();
                     Hashtable h = p.parse(new InputStreamReader(input));
                     // "status" : "REQUEST_DENIED"
-                    String response = (String)h.get("status");
-                    if(response.equals("REQUEST_DENIED")){
+                    String response = (String) h.get("status");
+                    if (response.equals("REQUEST_DENIED")) {
                         System.out.println("make sure to obtain a key from "
                                 + "https://developers.google.com/maps/documentation/places/");
                         progress.dispose();
                         Dialog.show("Info", "make sure to obtain an application key from "
-                                + "google places api's"
-                                , "Ok", null);
+                                + "google places api's", "Ok", null);
                         return;
                     }
-                        
+
                     final Vector v = (Vector) h.get("results");
 
                     Image im = Image.createImage("/red_pin.png");
@@ -180,7 +178,7 @@ public class MapsDemo {
                         pl.addPoint(point);
                         if (i == 0) {
                             firstPlace = new Coord(lat.doubleValue(), lng.doubleValue());
-                            map.addComponent(BorderLayout.SOUTH, new Button(new Command("Go to " + point.getName() + " ?"){
+                            map.addComponent(BorderLayout.SOUTH, new Button(new Command("Go to " + point.getName() + " ?") {
 
                                 public void actionPerformed(ActionEvent evt) {
                                     try {
@@ -198,12 +196,12 @@ public class MapsDemo {
                                         System.out.println("Failed to get directions.");
                                     }
                                 }
-                                
+
                             }));
                         }
                     }
                     progress.dispose();
-                    
+
                     mc.addLayer(pl);
                     map.show();
                     mc.zoomToLayers();
@@ -216,16 +214,18 @@ public class MapsDemo {
             req.addArgument("radius", "500");
             req.addArgument("types", "food");
             req.addArgument("sensor", "false");
-            
+
             //get your own key from https://developers.google.com/maps/documentation/places/
-            //and replace it here.
+            //1)Create a google cloud project
+            //2)Enable the "Google Places API Web Service"
+            //3)Create a "Server Key" type
+            //4)Replace it here
             String key = "AddYourOwnKeyHere";
-                        
+
             req.addArgument("key", key);
 
             NetworkManager.getInstance().addToQueue(req);
-        } //https://maps.googleapis.com/maps/api/place/search/json?location=-33.8670522,151.1957362&radius=500&types=food&name=harbour&sensor=false&key=AIzaSyDdCsmiS9AT6MfFEWi_Vy87LJ0B2khZJME
-        catch (IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
@@ -268,20 +268,21 @@ public class MapsDemo {
     class BackCommand extends Command {
 
         public BackCommand() {
-            super("Back");
+            super("");
+            FontImage img = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, UIManager.getInstance().getComponentStyle("TitleCommand"));
+            setIcon(img);
         }
 
         public void actionPerformed(ActionEvent evt) {
             main.showBack();
         }
     }
-    
-    
-        private ArrayList decodePoly(String encoded) {
+
+    private ArrayList decodePoly(String encoded) {
         ArrayList poly = new ArrayList();
         int index = 0, len = encoded.length();
         int lat = 0, lng = 0;
- 
+
         while (index < len) {
             int b, shift = 0, result = 0;
             do {
@@ -291,7 +292,7 @@ public class MapsDemo {
             } while (b >= 0x20);
             int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
             lat += dlat;
- 
+
             shift = 0;
             result = 0;
             do {
@@ -301,14 +302,14 @@ public class MapsDemo {
             } while (b >= 0x20);
             int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
             lng += dlng;
- 
-            Coord p = new Coord(lat/1E5, lng/1E5);
+
+            Coord p = new Coord(lat / 1E5, lng / 1E5);
             poly.add(p);
         }
- 
+
         return poly;
     }
-        
+
     private String getDirections(Coord origin, Coord destination) throws IOException {
         ConnectionRequest req = new ConnectionRequest();
         req.setUrl("http://maps.googleapis.com/maps/api/directions/json");
@@ -322,7 +323,6 @@ public class MapsDemo {
         JSONParser p = new JSONParser();
         Hashtable h = p.parse(new InputStreamReader(new ByteArrayInputStream(req.getResponseData())));
         System.out.println(h.toString());
-        return ((Hashtable)((Hashtable)((Vector) h.get("routes")).firstElement()).get("overview_polyline")).get("points").toString();
+        return ((Hashtable) ((Hashtable) ((Vector) h.get("routes")).firstElement()).get("overview_polyline")).get("points").toString();
     }
 }
-
