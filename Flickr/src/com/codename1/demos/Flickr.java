@@ -1,35 +1,31 @@
 package com.codename1.demos;
 
 import com.codename1.components.InfiniteProgress;
-import com.codename1.io.ConnectionRequest;
-import com.codename1.io.JSONParser;
-import com.codename1.io.NetworkManager;
 import com.codename1.media.Media;
 import com.codename1.media.MediaManager;
+import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
-import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
+import com.codename1.ui.animations.BubbleTransition;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.events.ScrollListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
@@ -40,24 +36,9 @@ public class Flickr {
     private static Resources res;
 
     public void init(Object context) {
-        try {
-            res = Resources.openLayered("/theme");
-            UIManager.getInstance().setThemeProps(res.getTheme(res.getThemeResourceNames()[0]));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // Pro users - uncomment this code to get crash reports sent to you automatically
-        /*Display.getInstance().addEdtErrorHandler(new ActionListener() {
-         public void actionPerformed(ActionEvent evt) {
-         evt.consume();
-         Log.p("Exception in AppName version " + Display.getInstance().getProperty("AppVersion", "Unknown"));
-         Log.p("OS " + Display.getInstance().getPlatformName());
-         Log.p("Error " + evt.getSource());
-         Log.p("Current Form " + Display.getInstance().getCurrent().getName());
-         Log.e((Throwable)evt.getSource());
-         Log.sendLog();
-         }
-         });*/
+        res = UIManager.initFirstTheme("/theme");
+        // Pro only feature, uncomment if you have a pro subscription
+        //Log.bindCrashProtection(true);
     }
 
     public void start() {
@@ -99,7 +80,9 @@ public class Flickr {
                 cats.getContentPane().addScrollListener(bar);
                 cats.setToolBar(bar);
                 addCommandsToToolbar(bar);
-                bar.addCommandToRightBar(new Command("", res.getImage("synch.png")) {
+                
+                Image icon = FontImage.createMaterial(FontImage.MATERIAL_REFRESH, UIManager.getInstance().getComponentStyle("TitleCommand"));                
+                bar.addCommandToRightBar(new Command("", icon) {
 
                     @Override
                     public void actionPerformed(ActionEvent evt) {
@@ -116,8 +99,18 @@ public class Flickr {
 
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        Container cnt = (Container) cats.getContentPane().getComponentAt(0);
+                        Container cnt = (Container) cats.getContentPane();
                         cnt.removeAll();
+                        //add back the big angry cat image
+                        try {
+                            Image im = Image.createImage("/cat.jpg");
+                            im = im.scaledWidth(Display.getInstance().getDisplayWidth());
+                            Label bigCat = new Label(im);
+                            cats.addComponent(bigCat);
+
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
                         cnt.revalidate();
                     }
                 });
@@ -137,6 +130,7 @@ public class Flickr {
 
                 });
 
+                //add the big angry cat image
                 try {
                     Image im = Image.createImage("/cat.jpg");
                     im = im.scaledWidth(Display.getInstance().getDisplayWidth());
@@ -165,7 +159,8 @@ public class Flickr {
                 bar.setScrollOffUponContentPane(true);
                 dogs.setToolBar(bar);
                 addCommandsToToolbar(bar);
-                bar.addCommandToRightBar(new Command("", res.getImage("synch.png")) {
+                Image icon = FontImage.createMaterial(FontImage.MATERIAL_REFRESH, UIManager.getInstance().getComponentStyle("TitleCommand"));                
+                bar.addCommandToRightBar(new Command("", icon) {
 
                     @Override
                     public void actionPerformed(ActionEvent evt) {
@@ -183,7 +178,7 @@ public class Flickr {
 
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        Container cnt = (Container) dogs.getContentPane().getComponentAt(0);
+                        Container cnt = (Container) dogs.getContentPane();
                         cnt.removeAll();
                         cnt.revalidate();
                     }
@@ -209,6 +204,88 @@ public class Flickr {
             }
 
         });
+        
+        tool.addCommandToSideMenu(new Command("Birds") {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                final Form birds = new Form();
+                birds.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+                birds.setScrollableY(true);
+                final CustomToolbar2 bar = new CustomToolbar2(true);
+                birds.getContentPane().addScrollListener(bar);
+                birds.setToolbar(bar);
+                bar.setTitle("Birds");
+                addCommandsToToolbar(bar);
+                
+                Image icon = FontImage.createMaterial(FontImage.MATERIAL_REFRESH, UIManager.getInstance().getComponentStyle("TitleCommand"));                
+                bar.addCommandToRightBar(new Command("", icon) {
+
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        Display.getInstance().callSerially(new Runnable() {
+
+                            public void run() {
+                                updateScreenFromNetwork(birds, "bird");
+                                birds.revalidate();
+                            }
+                        });
+                    }
+                });
+                bar.addCommandToOverflowMenu(new Command("Clear ") {
+
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        Container cnt = (Container) birds.getContentPane();
+                        cnt.removeAll();
+                        try {
+                            Image im = Image.createImage("/bird.png");
+                            im = im.scaledWidth(Display.getInstance().getDisplayWidth());
+                            Label bird = new Label(im);
+                            birds.addComponent(bird);
+
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        cnt.revalidate();
+                    }
+                });
+                bar.addCommandToOverflowMenu(new Command("About Birds ") {
+
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (Dialog.show("Birds", "Birds are singing", "Ok", "Cancel")) {
+                            try {
+                                Media m = MediaManager.createMedia(Display.getInstance().getResourceAsStream(getClass(), "/Birds.mp3"), "audio/mp3");
+                                m.play();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    }
+
+                });
+
+                try {
+                    Image im = Image.createImage("/bird.png");
+                    im = im.scaledWidth(Display.getInstance().getDisplayWidth());
+                    Label bird = new Label(im);
+                    birds.addComponent(bird);
+                    bar.setPadding(bird.getPreferredH());
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                birds.show();
+
+                updateScreenFromNetwork(birds, "bird");
+
+            }
+
+        });
+        
+        
         tool.addCommandToSideMenu(new Command("Search") {
 
             @Override
@@ -266,16 +343,36 @@ public class Flickr {
     /**
      * This method builds a UI Entry dynamically from a data Map object.
      */
-    private static Component createEntry(Map data) {
+    private static Component createEntry(Map data, final int index) {
         final Container cnt = new Container(new BorderLayout());
         cnt.setUIID("MultiButton");
-        Label icon = new Label();
+        Button icon = new Button();
+        icon.setUIID("Label");
         //take the time and use it as the identifier of the image
         String time = (String) data.get("date_taken");
         String link = (String) ((Map) data.get("media")).get("m");
 
         EncodedImage im = (EncodedImage) res.getImage("flickr.png");
-        icon.setIcon(URLImage.createToStorage(im, time, link, null));
+        final URLImage image = URLImage.createToStorage(im, time, link, null);
+        icon.setIcon(image);
+        icon.setName("ImageButton" + index);
+        icon.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                
+                Dialog d = new Dialog();
+                //d.setDialogUIID("Container");                
+                d.setLayout(new BorderLayout());
+                Label l = new Label(image);
+                l.setUIID("ImagePop");
+                d.add(BorderLayout.CENTER, l);
+                d.setDisposeWhenPointerOutOfBounds(true);
+                d.setTransitionInAnimator(new BubbleTransition(300, "ImageButton" + index));
+                d.setTransitionOutAnimator(new BubbleTransition(300, "ImageButton" + index));
+                d.show();
+            }
+        });
+        
         cnt.addComponent(BorderLayout.WEST, icon);
 
         Container center = new Container(new BorderLayout());
@@ -341,7 +438,7 @@ public class Flickr {
                         Container cnt = f.getContentPane();
                         for (int i = 0; i < entries.size(); i++) {
                             Map data = (Map) entries.get(i);
-                            cnt.addComponent(createEntry(data));
+                            cnt.addComponent(createEntry(data, i));
                         }
                         f.revalidate();
                         //remove the waiting progress from the Form
